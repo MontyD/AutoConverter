@@ -22,7 +22,7 @@ var db = {};
 var sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 
-[].forEach(function(file) {
+['./Converters.js'].forEach(function(file) {
     var model = sequelize['import'](path.join(__dirname, file));
     db[model.name] = model;
 });
