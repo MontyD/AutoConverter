@@ -38,22 +38,5 @@ db.Sequelize = Sequelize;
 
 
 // Relationships
-db.tasks.belongsTo(db.todoLists);
-db.todoLists.hasMany(db.tasks, {
-    hooks: true
-});
-
-db.rooms.hasMany(db.tasks, {
-    onDelete: 'cascade',
-    hooks: true
-});
-db.tasks.belongsTo(db.rooms);
-
-db.todoLists.belongsTo(db.rooms);
-db.rooms.hasMany(db.todoLists, {
-    onDelete: 'cascade',
-    hooks: true
-});
-
 
 module.exports = db;
