@@ -22,7 +22,7 @@ var db = {};
 var sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 
-['./Converters.js'].forEach(function(file) {
+['./Converters.js', './Users.js', './Notifications.js'].forEach(function(file) {
     var model = sequelize['import'](path.join(__dirname, file));
     db[model.name] = model;
 });
@@ -38,5 +38,7 @@ db.Sequelize = Sequelize;
 
 
 // Relationships
+db.notifications.belongsTo(db.users);
+db.users.hasMany(db.notifications);
 
 module.exports = db;
