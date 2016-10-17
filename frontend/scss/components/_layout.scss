@@ -1,0 +1,474 @@
+$sans-serif: 'Droid Sans', sans-serif;
+$serif: 'butlerbold', serif;
+$containerWidth: 1100px;
+$largeBP: 1100px;
+$mediumBP: 900px;
+$smallBP: 630px;
+
+html {
+    height  : 100%;
+    width   : 100%;
+    position: relative;
+}
+
+body {
+    display               : block;
+    height                : 100%;
+    width                 : 100%;
+    font-family           : $sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+ui-view {
+    display: block;
+    width  : 100%;
+    height : 100%;
+}
+
+main.full-height {
+    position  : relative;
+    min-height: 100%;
+    min-height: calc(100% - 3.8rem);
+}
+
+.halfWidth {
+    display     : inline-block;
+    width       : 50%;
+    box-sizing  : border-box;
+    margin-left : 0;
+    margin-right: 0;
+}
+
+.fullWidth {
+    display     : block;
+    width       : 100%;
+    box-sizing  : border-box;
+    margin-left : 0;
+    margin-right: 0;
+}
+
+.button-group {
+    display  : inline-block;
+    margin   : 0 auto;
+    font-size: 0;
+
+    &.small {
+        button {
+            font-size: 0.8rem;
+            padding  : 0.4rem;
+            min-width: 0;
+        }
+    }
+
+    a,
+    button {
+        font-size    : 1rem;
+        margin       : 0.4rem -1px 0.4rem 0;
+        border-radius: 0;
+        min-width    : 75px;
+
+        &:first-child {
+            border-top-left-radius   : 0.3rem;
+            border-bottom-left-radius: 0.3rem;
+        }
+
+        &:last-child {
+            border-top-right-radius   : 0.3rem;
+            border-bottom-right-radius: 0.3rem;
+        }
+    }
+}
+
+.halves {
+    display       : inline-block;
+    width         : 49%;
+    padding       : 0 1rem;
+    box-sizing    : border-box;
+    margin-left   : 0;
+    margin-right  : 0;
+    vertical-align: top;
+
+    p {
+        padding       : 0;
+        margin        : 1rem auto;
+        vertical-align: top;
+        width         : 100%;
+    }
+
+    h3 {
+        margin-top: 0;
+        font-size : 2.2rem;
+    }
+    @media(max-width: $mediumBP) {
+        display: block;
+        width  : 90%;
+        margin : 1rem auto 3.5rem;
+    }
+    @media(max-width: $smallBP) {
+        width: 98%;
+
+        img.boxed {
+            width: 95%;
+        }
+
+        p {
+            text-align: center;
+        }
+    }
+
+    img.boxed {
+        width: 80%;
+    }
+}
+
+.thirds {
+    display       : inline-block;
+    width         : 32%;
+    padding       : 0 1rem;
+    box-sizing    : border-box;
+    margin-left   : 0;
+    margin-right  : 0;
+    text-align    : center;
+    vertical-align: top;
+
+    &.two {
+        width: 65%;
+    }
+
+    &.vertically-center {
+        vertical-align: middle;
+    }
+
+    h3 {
+        margin   : 0 auto;
+        font-size: 2.2rem;
+    }
+    @media(max-width: $mediumBP) {
+        &.two {
+            width: 90%;
+        }
+        display: block;
+        width  : 90%;
+        margin : 0.5rem auto 1rem;
+    }
+}
+
+.modal {
+    position  : relative;
+    display   : block;
+    margin    : 0 auto;
+    width     : 90%;
+    max-width : 600px;
+    padding   : 1.6rem 1rem;
+    box-sizing: border-box;
+    text-align: center;
+
+    &.main {
+        margin: 5% auto;
+    }
+
+    &.full-width {
+        max-width: none;
+    }
+    &.vertically-center {
+      top: 40%;
+    }
+
+    h1,
+    h2,
+    h3 {
+        margin-top: 0;
+    }
+}
+
+.stats-container {
+    display   : inline-block;
+    margin    : 0.6rem 0;
+    position  : relative;
+    width     : 49%;
+    box-sizing: border-box;
+    padding   : 1rem 0.4rem;
+    text-align: center;
+    font-size : 0.9rem;
+    @media(max-width: $smallBP) {
+        padding  : 0.2rem;
+        font-size: 0.7rem;
+    }
+
+    .large-number {
+        display    : block;
+        width      : 100%;
+        font-family: $serif;
+        font-size  : 5.5rem;
+        line-height: 90%;
+        @media(max-width: $mediumBP) {
+            font-size: 3.5rem;
+        }
+        @media(max-width: $smallBP) {
+            font-size: 2.5rem;
+        }
+    }
+
+    .button {
+        @media(max-width: $smallBP) {
+            font-size: 0.8rem;
+        }
+    }
+}
+
+.main-stats-container {
+    display       : block;
+    position      : absolute;
+    top           : 45%;
+    margin        : 0 auto;
+    left          : 0;
+    right         : 0;
+    transform     : translateY(-50%);
+    text-transform: center;
+    @extend .modal;
+    @media(max-width: $mediumBP) {
+        position               : relative;
+        transform              : translateY(0);
+        top                    : 0;
+        padding                : 1.5em 0.5em 0.5em;
+        max-width              : 450px;
+        border-top-left-radius : 0 !important;
+        border-top-right-radius: 0 !important;
+    }
+}
+
+.overview-percentage {
+    margin     : 0;
+    line-height: 90%;
+    font-size  : 7rem;
+    @media(max-width: $mediumBP) {
+        font-size: 4.5rem;
+    }
+    @media(max-width: $smallBP) {
+        font-size: 2.5rem;
+    }
+}
+
+.graphs {
+    position  : absolute;
+    top       : 0;
+    left      : 0;
+    width     : 100%;
+    height    : 100%;
+    text-align: center;
+
+    .graph {
+        height          : 100%;
+        transform-origin: left bottom;
+        transition      : transform 0.3s ease-in;
+        transform       : scaleY(0);
+    }
+
+    .main-graph {
+        position: absolute;
+        top     : 0;
+        left    : 0;
+        display : block;
+        width   : 100%;
+    }
+
+    .week-graph {
+        position: absolute;
+        height  : 100%;
+        width   : 14%;
+        top     : 0;
+
+        .label {
+            position      : absolute;
+            bottom        : 1rem;
+            width         : 100%;
+            left          : 0;
+            box-sizing    : border-box;
+            padding       : 0 0.5rem;
+            transition    : opacity 0.2s ease;
+            opacity       : 0;
+            font-size     : 0.8rem;
+            vertical-align: middle;
+            @media(max-width: $largeBP) {
+                bottom   : 1.4rem;
+                font-size: 0.7rem;
+            }
+            @media(max-width: $smallBP) {
+                bottom          : 0;
+                left            : 50%;
+                font-size       : 0.7rem;
+                text-align      : left;
+                width           : 300px;
+                transform       : rotate(-90deg);
+                transform-origin: 0;
+            }
+        }
+
+        .graph {
+            position: absolute;
+            top     : 0;
+            right   : 0;
+            margin  : 0 auto;
+            left    : 0;
+            width   : 94%;
+        }
+
+        &.zero {
+            right: 1%;
+        }
+
+        &.one {
+            right: 15%;
+        }
+
+        &.two {
+            right: 29%;
+        }
+
+        &.three {
+            right: 43%;
+        }
+
+        &.four {
+            right: 57%;
+        }
+
+        &.five {
+            right: 71%;
+        }
+
+        &.six {
+            right: 85%;
+        }
+    }
+
+    &.weekly {
+        .week-graph span {
+            opacity: 1;
+        }
+    }
+}
+
+.settings-article {
+    display: block;
+    padding: 1.5rem 0;
+
+    p {
+        padding   : 0 1rem;
+        box-sizing: border-box;
+    }
+}
+
+.pagination {
+    display      : inline-block;
+    padding-left : 0;
+    margin       : 2.5em auto;
+    border-radius: 0.25rem;
+
+    li {
+        display: inline;
+    }
+
+    li:first-child .page-link {
+        margin-left              : 0;
+        border-bottom-left-radius: 0.25rem;
+        border-top-left-radius   : 0.25rem;
+    }
+}
+.big-number {
+    display       : block;
+    margin        : 0 auto;
+    font-family   : $serif;
+    font-size     : 4rem;
+    line-height   : 90%;
+    vertical-align: middle;
+    @media(max-width: $smallBP) {
+        display      : inline-block;
+        font-size    : 2.2rem;
+        padding-right: 0.2em;
+    }
+    &.inline {
+      display: inline-block;
+      vertical-align: middle;
+      padding: 0.4rem 0.4rem 0;
+    }
+}
+
+.loading-view {
+    z-index: 100;
+}
+
+footer {
+    position  : relative;
+    display   : block;
+    margin-top: 4em;
+    padding   : 1em 0 2.5em;
+    box-sizing: border-box;
+    text-align: center;
+    z-index   : 10;
+    p {
+      font-size: 0.9em;
+    }
+    &.large-margin {
+      margin-top: 10%;
+    }
+    &.absolute {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 0.3em 0 1em;
+    }
+}
+
+.container {
+    display   : block;
+    position  : relative;
+    margin    : 0 auto;
+    box-sizing: border-box;
+    padding   : 1rem 0;
+    width     : 100%;
+    max-width : $containerWidth;
+}
+.small-text {
+  font-size: 0.9em;
+}
+
+.clear {
+  display: block;
+  clear: both;
+}
+
+.padded {
+  box-sizing: border-box;
+  padding: 0.8rem;
+}
+
+.nopad {
+    padding: 0;
+}
+
+.left-aligned {
+    text-align: left;
+}
+
+.right-aligned {
+    text-align: right;
+}
+
+.center {
+    text-align: center;
+}
+
+.vertical-middle {
+    vertical-align: middle;
+}
+
+.vertically-center {
+    position : absolute;
+    margin   : 0 auto;
+    top      : 48%;
+    left     : 0;
+    right    : 0;
+    transform: translateY(-50%);
+}

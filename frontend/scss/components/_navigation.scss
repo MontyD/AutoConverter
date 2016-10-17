@@ -1,0 +1,164 @@
+@import "_styling";
+
+body {
+    margin: 0 0 130px;
+}
+
+nav.top {
+    position  : relative;
+    margin    : 0 0 0.8em;
+    width     : 100%;
+    height    : 3.8rem;
+    box-sizing: border-box;
+    padding   : 0.6rem 0.2rem;
+    background: $colorDark;
+
+    &.absolute {
+        position  : absolute;
+        top       : 0;
+        left      : 0;
+        background: transparent;
+        z-index   : 10;
+    }
+
+    &.grey {
+        background: rgba(255,255,255,0.1);
+        @include shadow(1);
+    }
+
+    .container {
+        margin : 0 auto;
+        padding: 0;
+    }
+
+    .home-link {
+        display       : inline-block;
+        vertical-align: middle;
+        color         : $colorWhite;
+        font-size     : 2rem;
+        font-weight   : normal;
+        padding       : 0;
+
+        &:hover {
+            background: transparent;
+        }
+        @media(max-width: $mediumBP) {
+            font-size  : 1.6rem;
+            padding-top: 0.4rem;
+        }
+        @media(max-width: $smallBP) {
+            font-size  : 1.4rem;
+            padding-top: 0.5rem;
+        }
+    }
+
+    ul {
+        position: absolute;
+        right   : 0;
+        top     : 0;
+        padding : 0.6rem 0;
+        display : inline-block;
+        margin  : auto;
+        @media(max-width: $smallBP) {
+            position  : fixed;
+            width     : 200px;
+            height    : 100%;
+            top       : 0;
+            right     : -200px;
+            text-align: center;
+            transition: transform 0.2s ease;
+            background: $colorDark;
+            z-index   : 1000;
+            @include shadow(1);
+        }
+    }
+
+    li {
+        list-style: none;
+        display   : inline-block;
+        padding   : 0;
+        margin    : 0;
+        @media(max-width: $smallBP) {
+            display  : block;
+            font-size: 1.2em;
+            margin   : 1em auto;
+
+            &:first-child {
+                margin-top: 4em;
+            }
+        }
+    }
+
+    a {
+        color        : $colorWhite;
+        padding      : 0.6rem 0.8rem;
+        background   : rgba(0,0,0,0);
+        transition   : background-color 0.2s;
+        border-radius: 0.2rem;
+        margin       : 0 0.5rem;
+        @media(max-width: $smallBP) {
+            display: block;
+        }
+
+        &:hover {
+            background-color: rgba(0,0,0,0.3);
+            text-decoration : none;
+        }
+
+        &.current {
+            background-color: rgba(0,0,0,0.1);
+        }
+
+        &.menu-icon {
+            display         : none;
+            position        : absolute;
+            top             : 0;
+            right           : 0;
+            padding         : 0;
+            height          : 40px;
+            width           : 60px;
+            text-align      : center;
+            line-height     : 38px;
+            background-color: rgba(0,0,0,0.1);
+
+            &:hover {
+                background-color: rgba(0,0,0,0.3);
+            }
+            @media(max-width: $smallBP) {
+                display: inline-block;
+            }
+
+            img {
+                vertical-align: middle;
+            }
+        }
+
+        &.close {
+            display    : block;
+            height     : 38px;
+            width      : 42px;
+            padding    : 0;
+            margin     : 0 auto;
+            line-height: 36px;
+            display    : block;
+            position   : absolute;
+            top        : 0.5em;
+            right      : 0.5em;
+
+            img {
+                vertical-align: middle;
+            }
+            @media(min-width: $smallBP) {
+                display: none;
+            }
+        }
+    }
+}
+
+.menu-open {
+    ul {
+        @media(max-width: $smallBP) {
+            transform: translateX(-200px);
+        }
+    }
+}

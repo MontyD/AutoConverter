@@ -1,0 +1,79 @@
+.bounce {
+    animation-name           : bounce;
+    animation-iteration-count: infinite;
+    animation-duration       : 1.2s;
+    animation-timing-function: linear;
+}
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+
+    33% {
+        transform: translateY(-2px);
+    }
+
+    66% {
+        transform: translateY(2px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.slide-out.hidden {
+    opacity   : 0;
+    transform : translateX(100%);
+    transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+}
+
+.slide-out.active {
+    opacity  : 1;
+    transform: translateX(0);
+}
+
+main {
+    transition: opacity 0.3s ease-in;
+}
+ui-view.ng-enter,
+ui-view.ng-leave {
+    position  : absolute;
+    left      : 0;
+    right     : 0;
+    transition: opacity 0.7s ease-in;
+}
+
+
+ui-view.ng-enter {
+  main {
+    transition-delay: 0.3s;
+  }
+}
+
+ui-view.ng-enter {
+    main {
+        opacity: 0;
+    }
+}
+
+ui-view.ng-enter-active {
+    main {
+        opacity: 1;
+    }
+}
+
+ui-view.ng-leave {
+    main {
+        opacity: 1;
+    }
+}
+
+ui-view.ng-leave-active {
+    main {
+        opacity: 0;
+    }
+    nav.top.menu-open ul {
+      transform: translateX(0);
+    }
+}

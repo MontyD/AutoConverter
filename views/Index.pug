@@ -1,0 +1,38 @@
+extends layouts/base
+block content
+  body.slight-gradient
+    .circle.circle-1.no-transition
+    .circle.circle-2.no-transition
+    nav.top.grey
+      .container
+        include ./includes/_headerLinks
+    noscript
+      .modal.light.main
+        h1 USE JAVASCRIPT
+        p Just turn JavaScript on you numpty.
+        p I don't care enough about you to try and steal your data.
+    <!--[if !IE]>
+    <div class="modal light main">
+      <h1>GET A BETTER BROWSER</h1>
+      <a href="http://browsehappy.com/" title="GO ON!">Off you toddle!</a>
+    </div>
+    <!-->
+
+    section.modal.light.vertically-center
+      h1 Todoist
+      p A realtime todolist webapp
+      .button-group
+        a.fake-button.primary(href="/rooms/login", title="login") Login to a room
+        a.fake-button(href="/rooms/new", title="new") Start a new room
+    footer.grey.absolute
+        h2
+          a(href="/" title="Todoist") Todoist
+        p Created by&nbsp;
+          a(href="https://montydawson.co.uk", title="Monty Dawson") Monty Dawson
+        p
+          a(href="https://github.com/MontyD/workworkworkworkwork" title="Code") The code
+          | &nbsp;&#124;&nbsp;
+          a(href="https://www.fontsquirrel.com/fonts/list/foundry/fabian-de-smet", title="fabian de smet") Butler Bold By Fabian De Smet
+          | &nbsp;&#124;&nbsp;
+          a(href="https://linearicons.com/free#about", title="Linearicons by Prexis") Linearicons by Prexis
+    script(type="text/javascript", src="/bundles/justmenu.js")
