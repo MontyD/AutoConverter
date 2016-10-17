@@ -2,7 +2,7 @@
 
 
 function isAdmin(req, res, next) {
-    if (req.room.isAdmin) {
+    if (req.user && req.user.isAdmin) {
         next();
     } else {
         var err = new Error('You ain\'t no admin!');

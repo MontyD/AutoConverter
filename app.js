@@ -1,12 +1,11 @@
 'use strict';
 
-var express = require('express'),
+const express = require('express'),
     app = express(),
     server = require('http').Server(app),
     io = require('socket.io')(server),
     bodyParser = require('body-parser'),
     passport = require('passport'),
-    bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
     morgan = require('morgan'),
