@@ -1,24 +1,28 @@
 module.exports = function(sequelize, DataTypes) {
     'use strict';
-    let Completed = sequelize.define('completedConversions', {
+    let Converting = sequelize.define('convertingForm', {
         name: {
             type: DataTypes.STRING
         },
         path: {
             type: DataTypes.STRING
         },
-        status: {
-          type: DataTypes.ENUM('Converted', 'Errored')
-        },
         config: {
           type: DataTypes.JSON
         },
         error: {
           type: DataTypes.STRING
+        },
+        retry: {
+          type: DataTypes.INTEGER
+        },
+        abort: {
+          type: DataTypes.BOOLEAN,
+          default: false
         }
     }, {
         hooks: {},
         instanceMethods: {}
     });
-    return Completed;
+    return Converting;
 };
