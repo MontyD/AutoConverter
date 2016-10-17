@@ -14,7 +14,8 @@ const express = require('express'),
     socketsRouting = require(path.join(__dirname, 'sockets')),
     controllers = require(path.join(__dirname, 'controllers')),
     models = require(path.join(__dirname, 'models')),
-    authentication = require(path.join(__dirname, 'middlewares', 'authentication.js'));
+    authentication = require(path.join(__dirname, 'middlewares', 'authentication.js')),
+    checkSetup = require(path.join(__dirname, 'helpers', 'checkSetup'));
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'pug');
@@ -56,57 +57,59 @@ app.use(morgan('combined'));
 
 
 // Add io to res
-app.use(function(req, res, next){
-  res.io = io;
-  next();
+app.use(function(req, res, next) {
+    res.io = io;
+    next();
 });
 
 // socket routing
 io.on('connection', socketsRouting);
 
-// Routing - in controllers
-app.use(controllers);
 
+// Init - sync database, checkSetup and then apply routing
+models.sequelize.sync()
+    .then(checkSetup)
+    .then(function() {
 
-// Error handling
+        // Routing - in controllers
+        app.use(controllers);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
-
-// production error handler
-app.use(function(err, req, res, next) {
-    if (err.status === 401) {
-        res.status(401);
-        if (/json/gi.test(req.get('accept'))) {
-            return res.send('Unauthorised');
-        }
-        return res.render('security/login', {
-            originalURL: req.originalUrl
+        // catch 404 and forward to error handler
+        app.use(function(req, res, next) {
+            var err = new Error('Not Found');
+            err.status = 404;
+            next(err);
         });
-    }
-    console.error(err);
-    res.status(err.status || 500);
-    if (/json/gi.test(req.get('accept'))) {
-        res.json(err.message);
-    } else {
-        res.render('error', {
-            message: err.message,
-            error: {}
+
+        // production error handler
+        app.use(function(err, req, res, next) {
+            if (err.status === 401) {
+                res.status(401);
+                if (/json/gi.test(req.get('accept'))) {
+                    return res.send('Unauthorised');
+                }
+                return res.render('security/login', {
+                    originalURL: req.originalUrl
+                });
+            }
+            console.error(err);
+            res.status(err.status || 500);
+            if (/json/gi.test(req.get('accept'))) {
+                res.json(err.message);
+            } else {
+                res.render('error', {
+                    message: err.message,
+                    error: {}
+                });
+            }
         });
-    }
-});
 
-
-// Init - sync database
-models.sequelize.sync().then(function() {
-    server.listen(port, function() {
-        console.log('Listening on port ' + port);
+        server.listen(port, function() {
+            console.log('Listening on port ' + port);
+        });
+    })
+    .catch(function(err) {
+        console.error('failed to start:');
+        console.error(err);
+        process.exit(1);
     });
-}).catch(function(err) {
-    console.error(err);
-    process.exit(1);
-});
