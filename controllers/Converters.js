@@ -16,7 +16,7 @@ router.post('/', function(req, res, next) {
     let newConverter = req.body;
     newConverter.primary = !!req.body.primary;
 
-    converter.testOpenable().then(function() {
+    converter.testOpenable(req.body.path).then(function() {
         models.converters.create(req.body).then(function(newConverter) {
             res.json({
                 name: newConverter.name
