@@ -71,12 +71,13 @@ models.sequelize.sync()
     .then(checkModelsSetup)
     .then(function() {
       console.log('Setup complete - booting to live mode');
-        // Routing - in controllers
+        // Routing - use live routing
         app.use(controllers.live);
 
     })
     .catch(function(err) {
         console.error('Setup failed - booting to setup mode');
+        // use setup routing
         app.use(controllers.setup);
     }).finally(function() {
 
