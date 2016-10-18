@@ -15,6 +15,8 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         hooks: {
             beforeCreate: function(converter, options, cb) {
+              console.log(converter);
+              console.log(options);
                 // TODO - ensure that if primary is set - it is untrue on all other converters.
             },
         },

@@ -5,12 +5,17 @@ const express = require('express'),
     setupRouter = express.Router(),
     path = require('path'),
     respondsToJSON = require(path.join(__dirname, '..', 'middlewares', 'respondsJSON')),
+    checkUser = require(path.join(__dirname, '..', 'middlewares', 'checkUser')),
     isAdmin = require(path.join(__dirname, '..', 'middlewares', 'isAdmin')),
     passUser = require(path.join(__dirname, '..', 'middlewares', 'passUser'));
 
 router.get('/', function(req, res, next) {
     res.render('index');
 });
+
+router.use('/users', require('./Users.js'));
+
+router.use('/converters', respondsToJSON, checkUser, require('./Converters.js'));
 
 
 
@@ -20,6 +25,8 @@ router.get('/', function(req, res, next) {
 //** allow certain APIs, but redirect all others
 //** to setup view.
 setupRouter.use('/users', require('./Users.js'));
+
+setupRouter.use('/converters', require('./Converters.js'));
 
 setupRouter.get('*', function(req, res, next) {
   res.render('setup/index');
