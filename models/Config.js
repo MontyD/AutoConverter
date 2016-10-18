@@ -2,7 +2,10 @@ module.exports = function(sequelize, DataTypes) {
     'use strict';
     let Config = sequelize.define('config', {
         url: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            validate: {
+              isUrl: true
+            }
         },
         smtpHost: {
             type: DataTypes.STRING

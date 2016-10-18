@@ -17,6 +17,8 @@ router.get('/', function(req, res, next) {
 
 
 //** Setup routing, if database not complete
+//** allow certain APIs, but redirect all others
+//** to setup view.
 setupRouter.use('/users', require('./Users.js'));
 
 setupRouter.get('*', function(req, res, next) {

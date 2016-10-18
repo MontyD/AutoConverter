@@ -3,7 +3,7 @@ block content
   body.slight-gradient
     h1.center.white Setup
 
-    form(method="POST", action="/users/new").modal.light
+    form(method="POST", action="/users/").modal.light
       fieldset
         h2 Admin User
         label(for="name") Username
@@ -14,6 +14,6 @@ block content
         input(type="password", name="password", id="password")
         label(for="passwordconfirm") Confirm Password
         input(type="password", name="passwordconfirm", id="passwordconfirm")
-        input(type="checkbox", name="isAdmin", id="isAdmin", value="isAdmin", checked="checked").hidden
+        input(type="checkbox", name="isAdmin", id="isAdmin", checked).hidden
 
         input(type="submit", value="Create admin user").button.primary

@@ -42,37 +42,30 @@ router.post('/login', authenticateUser);
 
 
 // Post register
-router.post('/new', function(req, res, next) {
-    console.log(req.body);
-    res.send('new');
-});
-
-// PUT update passcode
-router.put('/update-password', respondsToJSON, checkUser, isAdmin, function(req, res, next) {
-    models.users.findById(req.user.id, {
-        attributes: ['id']
-    }).then(function(user) {
-        // hash and salting done at model level
-        user.update({
-            password: req.body.password
-        }).then(function() {
-            res.sendStatus(200);
+router.post('/', function(req, res, next) {
+    // Ensure the admin boolean is an actual boolean.
+    let newUser = req.body;
+    newUser.isAdmin = !!req.body.isAdmin;
+    models.users.create(req.body).then(function(newUser) {
+        res.json({
+            name: newUser.name
         });
     }).catch(function(err) {
         handleError(err, next);
     });
 });
 
-// PUT update admin password
-router.put('/update-admin-password', respondsToJSON, checkUser, isAdmin, function(req, res, next) {
+// PUT update
+router.put('/', respondsToJSON, checkUser, isAdmin, function(req, res, next) {
     models.users.findById(req.user.id, {
-        attributes: ['id', 'adminSalt', 'adminPassword', 'passcode', 'passcodeSalt']
+        attributes: ['id']
     }).then(function(user) {
-        user.updateAdminPassword(req.body, function(err, confirm) {
-            if (err) {
-                return handleError(err, next);
-            }
-            return res.sendStatus(200);
+        // Ensure the admin boolean is an actual boolean.
+        let updatedUser = req.body;
+        updatedUser.isAdmin = !!req.body.isAdmin;
+        // hash and salting done at model level
+        user.update(req.body).then(function() {
+            res.sendStatus(200);
         });
     }).catch(function(err) {
         handleError(err, next);

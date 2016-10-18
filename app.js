@@ -53,7 +53,7 @@ passport.deserializeUser(function(room, done) {
 
 passport.use(authentication);
 
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 
 
 // Add io to res
