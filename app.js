@@ -15,7 +15,7 @@ const express = require('express'),
     controllers = require(path.join(__dirname, 'controllers')),
     models = require(path.join(__dirname, 'models')),
     authentication = require(path.join(__dirname, 'middlewares', 'authentication.js')),
-    checkSetup = require(path.join(__dirname, 'helpers', 'checkSetup'));
+    checkModelsSetup = require(path.join(__dirname, 'models', 'checkSetup'));
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'pug');
@@ -68,12 +68,19 @@ io.on('connection', socketsRouting);
 
 // Init - sync database, checkSetup and then apply routing
 models.sequelize.sync()
-    .then(checkSetup)
+    .then(checkModelsSetup)
     .then(function() {
-
+      console.log('Setup complete - booting to live mode');
         // Routing - in controllers
-        app.use(controllers);
+        app.use(controllers.live);
 
+    })
+    .catch(function(err) {
+        console.error('Setup failed - booting to setup mode');
+        app.use(controllers.setup);
+    }).finally(function() {
+
+        // Server error handling
         // catch 404 and forward to error handler
         app.use(function(req, res, next) {
             var err = new Error('Not Found');
@@ -107,9 +114,4 @@ models.sequelize.sync()
         server.listen(port, function() {
             console.log('Listening on port ' + port);
         });
-    })
-    .catch(function(err) {
-        console.error('failed to start:');
-        console.error(err);
-        process.exit(1);
     });

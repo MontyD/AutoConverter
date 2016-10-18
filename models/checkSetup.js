@@ -14,7 +14,7 @@ function CheckSetup() {
         function(resolve, reject) {
 
             function done() {
-                if (completed === modelsToTest.length) {
+                if (completed === modelsToTest.length - 1) {
                     if (incompleteModels.length) {
                       reject({
                           models: incompleteModels
