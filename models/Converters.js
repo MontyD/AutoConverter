@@ -20,10 +20,10 @@
           },
       }, {
           hooks: {
-
+            // TODO - ensure only one converter can be primary at any time
           },
           instanceMethods: {
-              
+
           }
       });
       return Converter;
