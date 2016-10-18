@@ -13,7 +13,7 @@ const express = require('express'),
 
 
 // Passport auth
-function authenticateRoom(req, res, next) {
+function authenticateUser(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
         if (err) {
             return next(err);
@@ -38,7 +38,7 @@ router.get('/login', function(req, res, next) {
 });
 
 // Post login - authenticate
-router.post('/login', authenticateRoom);
+router.post('/login', authenticateUser);
 
 
 // Post register
@@ -55,7 +55,7 @@ router.put('/update-password', respondsToJSON, checkUser, isAdmin, function(req,
         // hash and salting done at model level
         user.update({
             password: req.body.password
-        }).then(function(updatedRoom) {
+        }).then(function() {
             res.sendStatus(200);
         });
     }).catch(function(err) {
@@ -65,10 +65,10 @@ router.put('/update-password', respondsToJSON, checkUser, isAdmin, function(req,
 
 // PUT update admin password
 router.put('/update-admin-password', respondsToJSON, checkUser, isAdmin, function(req, res, next) {
-    models.rooms.findById(req.room.id, {
+    models.users.findById(req.user.id, {
         attributes: ['id', 'adminSalt', 'adminPassword', 'passcode', 'passcodeSalt']
-    }).then(function(room) {
-        room.updateAdminPassword(req.body, function(err, confirm) {
+    }).then(function(user) {
+        user.updateAdminPassword(req.body, function(err, confirm) {
             if (err) {
                 return handleError(err, next);
             }
@@ -85,13 +85,13 @@ router.get('/is-unique', respondsToJSON, function(req, res, next) {
         error.status = 400;
         return next(error);
     }
-    models.rooms.find({
+    models.users.find({
         where: {
             name: req.query.name
         },
         attributes: ['name']
-    }).then(function(room) {
-        if (room) {
+    }).then(function(user) {
+        if (user) {
             res.json(false);
         } else {
             res.json(true);
@@ -103,10 +103,10 @@ router.get('/is-unique', respondsToJSON, function(req, res, next) {
 
 
 router.delete('/', respondsToJSON, checkUser, isAdmin, function(req, res, next) {
-    models.rooms.findById(req.room.id, {
+    models.users.findById(req.user.id, {
         attributes: ['id']
-    }).then(function(room) {
-        room.destroy().then(function() {
+    }).then(function(user) {
+        user.destroy().then(function() {
             res.sendStatus(200);
         });
     }).catch(function(err) {
@@ -114,9 +114,9 @@ router.delete('/', respondsToJSON, checkUser, isAdmin, function(req, res, next) 
     });
 });
 
-// DELETE session - echo log out across room session.
+// DELETE session - echo log out
 router.delete('/log-all-out', respondsToJSON, checkUser, isAdmin, function(req, res, next) {
-    res.io.to(req.room.name).emit('logAllOut', 'true');
+    res.io.emit('logAllOut', 'true');
     res.sendStatus(200);
 });
 

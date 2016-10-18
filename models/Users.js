@@ -26,6 +26,7 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
         salt: DataTypes.STRING,
+        email: DataTypes.STRING,
         isAdmin: DataTypes.BOOLEAN
     }, {
         hooks: {

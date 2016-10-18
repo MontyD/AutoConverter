@@ -1,4 +1,19 @@
 extends ../layouts/base
 block content
   body.slight-gradient
-    h1 Setup
+    h1.center.white Setup
+
+    form(method="POST", action="/users/new").modal.light
+      fieldset
+        h2 Admin User
+        label(for="name") Username
+        input(type="text", name="name", id="name")
+        label(for="email") Email Address
+        input(type="email", name="email", id="email")
+        label(for="password") Password
+        input(type="password", name="password", id="password")
+        label(for="passwordconfirm") Confirm Password
+        input(type="password", name="passwordconfirm", id="passwordconfirm")
+        input(type="checkbox", name="isAdmin", id="isAdmin", value="isAdmin", checked="checked").hidden
+
+        input(type="submit", value="Create admin user").button.primary
