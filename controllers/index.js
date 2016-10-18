@@ -17,7 +17,9 @@ router.get('/', function(req, res, next) {
 
 
 //** Setup routing, if database not complete
-setupRouter.get('/', function(req, res, next) {
+setupRouter.use('/users', require('./Users.js'));
+
+setupRouter.get('*', function(req, res, next) {
   res.render('setup/index');
 });
 

@@ -2,7 +2,7 @@ var bcrypt = require('bcrypt'),
     crypto = require('crypto');
 
 module.exports = function(sequelize, DataTypes) {
-  'use strict';
+    'use strict';
     let User = sequelize.define('users', {
         name: {
             type: DataTypes.STRING,
@@ -26,6 +26,7 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
         salt: DataTypes.STRING,
+        isAdmin: DataTypes.BOOLEAN
     }, {
         hooks: {
             beforeCreate: function(user, options, cb) {
