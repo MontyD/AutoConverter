@@ -28,6 +28,7 @@ router.post('/', function (req, res, next) {
 		}
 		let newConfig = req.body;
 		newConfig.smtpPort = Number(req.body.smtpPort) || undefined;
+		newConfig.secureConnection = !!req.body.secureConnection;
 		converter.tests.accessDirectory(req.body.deployFolder)
 			.then(converter.tests.accessDirectory(req.body.convertedFoldersPath))
 			.then(converter.tests.accessDirectory(req.body.fallBackFoldersPath))
@@ -51,6 +52,7 @@ router.post('/', function (req, res, next) {
 router.put('/', isAdmin, function (req, res, next) {
 	let newConfig = req.body;
 	newConfig.smtpPort = Number(req.body.smtpPort) || undefined;
+	newConfig.secureConnection = !!req.body.secureConnection;
 	models.config.update(newConfig, {
 		where: {}
 	}).then(function (updatedConfig) {

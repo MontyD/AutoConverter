@@ -19,6 +19,15 @@ module.exports = function(sequelize, DataTypes) {
         smtpPort: {
           type: DataTypes.INTEGER
         },
+        secureConnection: {
+          type: DataTypes.BOOLEAN
+        },
+        fromAddress: {
+          type: DataTypes.STRING,
+          validate: {
+            isEmail: true
+          }
+        },
         deployFolder: {
           type: DataTypes.STRING
         },

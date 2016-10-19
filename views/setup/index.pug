@@ -43,6 +43,10 @@ block content
           input(type="text", name="smtpUsername", id="smtpUsername")
           label(for="smtpPassword") SMTP Password
           input(type="password", name="smtpPassword", id="smtpPassword")
+          input(type="checkbox", name="secureConnection", id="secureConnection").checkbox
+          label(for="secureConnection").checkbox Secure Connection
+          hr
+          input(type="email", name="fromAddress", id="fromAddress")
           label(for="deployFolder") Deploy folder location
           input(type="text", name="deployFolder", id="deployFolder")
           label(for="convertedFoldersPath") Networked folder for converted forms
