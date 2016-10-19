@@ -31,7 +31,7 @@ router.post('/', function (req, res, next) {
 		converter.tests.accessDirectory(req.body.deployFolder)
 			.then(converter.tests.accessDirectory(req.body.convertedFoldersPath))
 			.then(converter.tests.accessDirectory(req.body.fallBackFoldersPath))
-			.then(email.setSMTPSettings(req.body))
+			.then(email.testSMTPSettings(req.body))
 			.then(function () {
 				models.config.create(req.body).then(function () {
 					res.sendStatus(200);

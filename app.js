@@ -70,15 +70,13 @@ io.on('connection', socketsRouting);
 // Init - sync database, checkSetup and then apply routing
 models.sequelize.sync()
 	.then(checkModelsSetup)
+	.then(email.setSMTPSettings)
 	.then(function () {
-		models.config.findOne().then(function (config) {
-			email.setSMTPSettings(config);
-		}).then(function () {
-  		console.log('Setup complete - booting to live mode');
-  		// Routing - use live routing
-  		app.use(controllers.live);
-  	});
+		console.log('Setup complete - booting to live mode');
+		// Routing - use live routing
+		app.use(controllers.live);
 	}).catch(function (err) {
+    console.log(err);
 		console.error('Setup failed - booting to setup mode');
 		// use setup routing
 		app.use(controllers.setup);

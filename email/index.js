@@ -11,8 +11,7 @@ app.set('view engine', 'ejs');
 
 const email = {};
 
-email.setSMTPSettings = function (config) {
-
+email.testSMTPSettings = function (config) {
 	return new Promise(function (resolve, reject) {
 		console.log('in promise');
 		mailer.extend(app, {
@@ -34,10 +33,21 @@ email.setSMTPSettings = function (config) {
 					message: 'Admin user must be signed up to test email settings'
 				});
 			}
-			email.sendSetupEmail(admin.email).then(resolve).catch(reject);
+			email.sendSetupEmail(admin.email).then(function () {}).catch(function (err) {
+				console.log(err);
+				reject(err);
+			});
 		}).catch(function (err) {
 			reject(err);
 		});
+	});
+};
+
+email.setSMTPSettings = function (config) {
+	return new Promise(function (resolve, reject) {
+		models.config.findAll().then(function (configs) {
+			email.testSMTPSettings(configs[0]).then(resolve).catch(reject);
+		}).catch(reject);
 	});
 };
 
@@ -47,13 +57,10 @@ email.sendSetupEmail = function (email) {
 			to: email,
 			subject: 'AutoConverter Setup!'
 		}, function (err) {
-			reject();
 			if(err) {
 				reject(err);
 			}
-			console.log('sent');
 			resolve();
-
 		});
 	});
 };
