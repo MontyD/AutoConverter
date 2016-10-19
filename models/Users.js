@@ -1,5 +1,4 @@
-var bcrypt = require('bcrypt'),
-    crypto = require('crypto');
+const bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(sequelize, DataTypes) {
     'use strict';
@@ -48,7 +47,7 @@ module.exports = function(sequelize, DataTypes) {
                     if (err) {
                         return cb(err, options);
                     }
-                    bcrypt.hash(user.password, salt, function(err, hash) {
+                    bcrypt.hash(user.password, salt, undefined, function(err, hash) {
                         if (err) {
                             return cb(err, options);
                         }

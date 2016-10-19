@@ -2,7 +2,7 @@
 var path = require('path'),
     models = require(path.join(__dirname, '..', 'models')),
     LocalStrategy = require('passport-local').Strategy,
-    bcrypt = require('bcrypt');
+    bcrypt = require('bcrypt-nodejs');
 
 var authentication = new LocalStrategy(
     function(name, password, done) {

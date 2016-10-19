@@ -15,7 +15,7 @@ if (process.env.DATABASENAME) {
         dialect: process.env.DBDIALECT
     };
 } else {
-    config = require(__dirname + '/../config/config.json')[env];
+    config = require(path.resolve(__dirname, '../config/config.json'))[env];
 }
 var db = {};
 
