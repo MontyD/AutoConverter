@@ -21,6 +21,8 @@ router.post('/', function(req, res, next) {
             res.json({
                 name: newConverter.name
             });
+        }).catch(function(err) {
+            handleError(err, next);
         });
     }).catch(function(err) {
         handleError(err, next);
