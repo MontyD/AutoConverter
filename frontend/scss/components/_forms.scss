@@ -3,6 +3,10 @@
 form {
     padding: 0 0 1rem;
 
+    fieldset {
+      border: none;
+    }
+
     h3 {
         margin     : 1rem 0;
         padding    : 0.6rem 0;

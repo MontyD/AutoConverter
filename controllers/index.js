@@ -17,7 +17,7 @@ router.use('/users', require('./Users.js'));
 
 router.use('/converters', respondsToJSON, checkUser, require('./Converters.js'));
 
-
+router.use('/configuration', respondsToJSON, isAdmin, require('./Config.js'));
 
 
 
@@ -27,6 +27,8 @@ router.use('/converters', respondsToJSON, checkUser, require('./Converters.js'))
 setupRouter.use('/users', require('./Users.js'));
 
 setupRouter.use('/converters', require('./Converters.js'));
+
+setupRouter.use('/config', require('./Config.js'));
 
 setupRouter.get('*', function(req, res, next) {
   res.render('setup/index');

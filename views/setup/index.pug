@@ -1,9 +1,11 @@
 extends ../layouts/base
 block content
   body.slight-gradient
-    h1.center.white Setup
-
+    .circle.circle-1.no-transition
+    .circle.circle-2.no-transition
     section.modal.light.main
+      h1.center Setup
+
       form(method="POST", action="/users/")
         fieldset
           h2 Admin User
@@ -27,3 +29,25 @@ block content
           input(type="checkbox", name="primary", id="primary", checked).hidden
 
           input(type="submit", value="Create primary converter").button.primary
+
+      form(method="POST", action="/config/")
+        fieldset
+          h2 Configuration
+          label(for="url") Base url (or IP address - start with http://)
+          input(type="text", name="url", id="url")
+          label(for="smtpHost") SMTP Host
+          input(type="text", name="smtpHost", id="smtpHost")
+          label(for="smtpPort") SMTP Port
+          input(type="number", name="smtpPort", id="smtpPort")
+          label(for="smtpUsername") SMTP Username
+          input(type="text", name="smtpUsername", id="smtpUsername")
+          label(for="smtpPassword") SMTP Password
+          input(type="password", name="smtpPassword", id="smtpPassword")
+          label(for="deployFolder") Deploy folder location
+          input(type="text", name="deployFolder", id="deployFolder")
+          label(for="convertedFoldersPath") Networked folder for converted forms
+          input(type="text", name="convertedFoldersPath", id="convertedFoldersPath")
+          label(for="fallBackFoldersPath") Local fallback location for completed forms
+          input(type="text", name="fallBackFoldersPath", id="fallBackFoldersPath")
+
+          input(type="submit", value="Create config").button.primary

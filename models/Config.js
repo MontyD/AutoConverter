@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
         smtpPort: {
           type: DataTypes.INTEGER
         },
-        convertersPath: {
+        deployFolder: {
           type: DataTypes.STRING
         },
         convertedFoldersPath: {

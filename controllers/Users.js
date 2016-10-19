@@ -101,6 +101,8 @@ router.delete('/', respondsToJSON, checkUser, isAdmin, function(req, res, next) 
     }).then(function(user) {
         user.destroy().then(function() {
             res.sendStatus(200);
+        }).catch(function(err) {
+            handleError(err, next);
         });
     }).catch(function(err) {
         handleError(err, next);

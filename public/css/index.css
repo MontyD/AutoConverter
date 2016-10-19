@@ -1094,6 +1094,8 @@ footer {
 
 form {
   padding: 0 0 1rem; }
+  form fieldset {
+    border: none; }
   form h3 {
     margin: 1rem 0;
     padding: 0.6rem 0;
