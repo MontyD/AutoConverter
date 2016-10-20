@@ -11,9 +11,9 @@ const express = require('express'),
 
 // Get configuration
 router.get('/', (req, res, next) => {
-	models.config.findAll().then(configuration => {
-		res.json(configuration);
-	}).catch(err => handleError(err, next));
+	models.config.findAll()
+		.then(configuration => res.json(configuration))
+		.catch(err => handleError(err, next));
 });
 
 // Post new config - should only be called on startup.
@@ -25,7 +25,7 @@ router.post('/', (req, res, next) => {
 			return next(err);
 		}
 		let newConfig = req.body;
-		newConfig.smtpPort = Number(req.body.smtpPort) || undefined;
+		newConfig.smtpPort = Number(req.body.smtpPort) || null;
 		newConfig.secureConnection = !!req.body.secureConnection;
 		converter.tests.accessDirectory(req.body.deployFolder)
 			.then(converter.tests.accessDirectory(req.body.convertedFoldersPath))
@@ -35,15 +35,14 @@ router.post('/', (req, res, next) => {
 				models.config.create(req.body).then(() => {
 					res.sendStatus(200);
 				}).catch(err => handleError(err, next));
-			})
-			.catch(err => handleError(err, next));
+			}).catch(err => handleError(err, next));
 	}).catch(err => handleError(err, next));
 });
 
 // PUT update
 router.put('/', isAdmin, (req, res, next) => {
 	let newConfig = req.body;
-	newConfig.smtpPort = Number(req.body.smtpPort) || undefined;
+	newConfig.smtpPort = Number(req.body.smtpPort) || null;
 	newConfig.secureConnection = !!req.body.secureConnection;
 	models.config.update(newConfig, {
 		where: {}

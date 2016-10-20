@@ -7,6 +7,7 @@ var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var bundlesPath = path.resolve(__dirname, 'public', 'bundles');
 
 var entryPoints = {
+  setup: path.resolve(__dirname, 'frontend', 'js', 'Setup.es6.js')
 };
 
 module.exports = function(grunt) {

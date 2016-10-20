@@ -3,6 +3,7 @@ block content
   body.slight-gradient
     .circle.circle-1.no-transition
     .circle.circle-2.no-transition
+    main(ng-app="setup", ng-controller="SetupController as Setup")
     section.modal.light.main
       h1.center Setup
 
@@ -55,3 +56,4 @@ block content
           input(type="text", name="fallBackFoldersPath", id="fallBackFoldersPath")
 
           input(type="submit", value="Create config").button.primary
+    script(src="/bundles/setup.js", type="text/javascript")

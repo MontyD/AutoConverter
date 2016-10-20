@@ -40,7 +40,6 @@ router.get('/login', (req, res, next) => {
 // Post login - authenticate
 router.post('/login', authenticateUser);
 
-
 // Post register
 router.post('/', (req, res, next) => {
     // Ensure the admin boolean is an actual boolean.
