@@ -170,8 +170,9 @@ main.full-height {
     &.full-width {
         max-width: none;
     }
+
     &.vertically-center {
-      top: 40%;
+        top: 40%;
     }
 
     h1,
@@ -359,6 +360,25 @@ main.full-height {
     }
 }
 
+.setup-form {
+    position: absolute;
+    margin  : 1em auto 1.5em;
+    left    : 0;
+    right   : 0;
+    transform: translateX(-200%);
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.2s ease-out;
+
+    &.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    &.complete {
+      opacity: 0;
+      transform: translateX(200%);  
+    }
+}
+
 .pagination {
     display      : inline-block;
     padding-left : 0;
@@ -375,6 +395,7 @@ main.full-height {
         border-top-left-radius   : 0.25rem;
     }
 }
+
 .big-number {
     display       : block;
     margin        : 0 auto;
@@ -387,10 +408,11 @@ main.full-height {
         font-size    : 2.2rem;
         padding-right: 0.2em;
     }
+
     &.inline {
-      display: inline-block;
-      vertical-align: middle;
-      padding: 0.4rem 0.4rem 0;
+        display       : inline-block;
+        vertical-align: middle;
+        padding       : 0.4rem 0.4rem 0;
     }
 }
 
@@ -406,18 +428,21 @@ footer {
     box-sizing: border-box;
     text-align: center;
     z-index   : 10;
+
     p {
-      font-size: 0.9em;
+        font-size: 0.9em;
     }
+
     &.large-margin {
-      margin-top: 10%;
+        margin-top: 10%;
     }
+
     &.absolute {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      padding: 0.3em 0 1em;
+        position: absolute;
+        bottom  : 0;
+        left    : 0;
+        width   : 100%;
+        padding : 0.3em 0 1em;
     }
 }
 
@@ -430,18 +455,19 @@ footer {
     width     : 100%;
     max-width : $containerWidth;
 }
+
 .small-text {
-  font-size: 0.9em;
+    font-size: 0.9em;
 }
 
 .clear {
-  display: block;
-  clear: both;
+    display: block;
+    clear  : both;
 }
 
 .padded {
-  box-sizing: border-box;
-  padding: 0.8rem;
+    box-sizing: border-box;
+    padding   : 0.8rem;
 }
 
 .nopad {

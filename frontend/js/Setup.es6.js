@@ -2,7 +2,7 @@ import angular from 'angular';
 
 import SetupController from './Controllers/SetupController.es6.js';
 
-import EmailService from './Services/EmailService.es6.js';
+import UsersService from './Services/UsersService.es6.js';
 import ConvertersService from './Services/ConvertersService.es6.js';
 import ConfigService from './Services/ConfigService.es6.js';
 
@@ -15,7 +15,7 @@ import uiNotification from 'angular-ui-notification';
 
 angular.module('setup', ['ui-notification'])
   .controller('SetupController', SetupController)
-  .service('EmailService', EmailService)
+  .service('UsersService', UsersService)
   .service('ConvertersService', ConvertersService)
   .service('ConfigService', ConfigService)
   .directive('onSubmitAndDisable', onSubmitAndDisable)

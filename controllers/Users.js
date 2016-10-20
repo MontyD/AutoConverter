@@ -31,6 +31,13 @@ function authenticateUser(req, res, next) {
     })(req, res, next);
 }
 
+// Get - display list of users
+router.get('/', (req, res, next) => {
+  models.users.findAll({attributes: ['name']})
+    .then(users => res.json(users))
+    .catch(err => handleError(err, next));
+});
+
 // Get - register page
 router.get('/login', (req, res, next) => {
     req.logout();

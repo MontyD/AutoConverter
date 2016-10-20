@@ -651,6 +651,29 @@ main.full-height {
     padding: 0 1rem;
     box-sizing: border-box; }
 
+.setup-form {
+  position: absolute;
+  margin: 1em auto 1.5em;
+  left: 0;
+  right: 0;
+  -webkit-transform: translateX(-200%);
+      -ms-transform: translateX(-200%);
+          transform: translateX(-200%);
+  opacity: 0;
+  transition: opacity 0.2s ease-out, -webkit-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out, opacity 0.2s ease-out;
+  transition: transform 0.3s ease-out, opacity 0.2s ease-out, -webkit-transform 0.3s ease-out; }
+  .setup-form.active {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+        -ms-transform: translateX(0);
+            transform: translateX(0); }
+  .setup-form.complete {
+    opacity: 0;
+    -webkit-transform: translateX(200%);
+        -ms-transform: translateX(200%);
+            transform: translateX(200%); }
+
 .pagination {
   display: inline-block;
   padding-left: 0;
@@ -954,6 +977,9 @@ button.icon {
   background: rgba(68, 138, 255, 0.5); }
 .week-graph span {
   color: #3c4e6d; }
+
+.setup-form {
+  background: #FAFAFA; }
 
 .pagination li:last-child a {
   border-bottom-right-radius: 0.25rem;
@@ -2019,6 +2045,29 @@ main.full-height {
     padding: 0 1rem;
     box-sizing: border-box; }
 
+.setup-form {
+  position: absolute;
+  margin: 1em auto 1.5em;
+  left: 0;
+  right: 0;
+  -webkit-transform: translateX(-200%);
+      -ms-transform: translateX(-200%);
+          transform: translateX(-200%);
+  opacity: 0;
+  transition: opacity 0.2s ease-out, -webkit-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out, opacity 0.2s ease-out;
+  transition: transform 0.3s ease-out, opacity 0.2s ease-out, -webkit-transform 0.3s ease-out; }
+  .setup-form.active {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+        -ms-transform: translateX(0);
+            transform: translateX(0); }
+  .setup-form.complete {
+    opacity: 0;
+    -webkit-transform: translateX(200%);
+        -ms-transform: translateX(200%);
+            transform: translateX(200%); }
+
 .pagination {
   display: inline-block;
   padding-left: 0;
@@ -2322,6 +2371,9 @@ button.icon {
   background: rgba(68, 138, 255, 0.5); }
 .week-graph span {
   color: #3c4e6d; }
+
+.setup-form {
+  background: #FAFAFA; }
 
 .pagination li:last-child a {
   border-bottom-right-radius: 0.25rem;

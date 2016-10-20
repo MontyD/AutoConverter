@@ -1,62 +1,24 @@
 extends ../layouts/base
 block content
   body.slight-gradient
-    .circle.circle-1.no-transition
-    .circle.circle-2.no-transition
-    main(ng-app="setup", ng-controller="SetupController as Setup").app-base
+    .loading-view
+      .circle.circle-1.no-transition
+      .circle.circle-2.no-transition
+      .text-container.white
+        span Setup loading
+    main(ng-app="setup", ng-controller="SetupController as setup").container.app-base
       h1.center.white Setup
-      
 
-    section.modal.light.main
+      section.setup-form(ng-class="{'active': setup.sections.user.active, 'complete': setup.sections.user.complete}").modal
+        h2 Create default admin user
+        users-form
 
+      section.setup-form(ng-class="{'active': setup.sections.converter.active, 'complete': setup.sections.converter.complete}").modal
+        h2 Create default converter
+        converters-form
 
-      form(method="POST", action="/users/")
-        fieldset
-          h2 Admin User
-          label(for="name") Username
-          input(type="text", name="name", id="name")
-          label(for="email") Email Address
-          input(type="email", name="email", id="email")
-          label(for="password") Password
-          input(type="password", name="password", id="password")
-          input(type="checkbox", name="isAdmin", id="isAdmin", checked).hidden
+      section.setup-form(ng-class="{'active': setup.sections.config.active, 'complete': setup.sections.config.complete}").modal
+        h2 Set config
+        config-form
 
-          input(type="submit", value="Create admin user").button.primary
-
-      form(method="POST", action="/converters/")
-        fieldset
-          h2 Add a primary converter
-          label(for="name") Converter name
-          input(type="text", name="name", id="name")
-          label(for="path") Converter Path
-          input(type="text", name="path", id="path")
-          input(type="checkbox", name="primary", id="primary", checked).hidden
-
-          input(type="submit", value="Create primary converter").button.primary
-
-      form(method="POST", action="/config/")
-        fieldset
-          h2 Configuration
-          label(for="url") Base url (or IP address - start with http://)
-          input(type="text", name="url", id="url")
-          label(for="smtpHost") SMTP Host
-          input(type="text", name="smtpHost", id="smtpHost")
-          label(for="smtpPort") SMTP Port
-          input(type="number", name="smtpPort", id="smtpPort")
-          label(for="smtpUsername") SMTP Username
-          input(type="text", name="smtpUsername", id="smtpUsername")
-          label(for="smtpPassword") SMTP Password
-          input(type="password", name="smtpPassword", id="smtpPassword")
-          input(type="checkbox", name="secureConnection", id="secureConnection").checkbox
-          label(for="secureConnection").checkbox Secure Connection
-          hr
-          input(type="email", name="fromAddress", id="fromAddress")
-          label(for="deployFolder") Deploy folder location
-          input(type="text", name="deployFolder", id="deployFolder")
-          label(for="convertedFoldersPath") Networked folder for converted forms
-          input(type="text", name="convertedFoldersPath", id="convertedFoldersPath")
-          label(for="fallBackFoldersPath") Local fallback location for completed forms
-          input(type="text", name="fallBackFoldersPath", id="fallBackFoldersPath")
-
-          input(type="submit", value="Create config").button.primary
     script(src="/bundles/setup.js", type="text/javascript")

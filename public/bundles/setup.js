@@ -56,9 +56,9 @@
 
 	var _ControllersSetupControllerEs6Js2 = _interopRequireDefault(_ControllersSetupControllerEs6Js);
 
-	var _ServicesEmailServiceEs6Js = __webpack_require__(4);
+	var _ServicesUsersServiceEs6Js = __webpack_require__(4);
 
-	var _ServicesEmailServiceEs6Js2 = _interopRequireDefault(_ServicesEmailServiceEs6Js);
+	var _ServicesUsersServiceEs6Js2 = _interopRequireDefault(_ServicesUsersServiceEs6Js);
 
 	var _ServicesConvertersServiceEs6Js = __webpack_require__(5);
 
@@ -88,7 +88,7 @@
 
 	var _angularUiNotification2 = _interopRequireDefault(_angularUiNotification);
 
-	_angular2['default'].module('setup', ['ui-notification']).controller('SetupController', _ControllersSetupControllerEs6Js2['default']).service('EmailService', _ServicesEmailServiceEs6Js2['default']).service('ConvertersService', _ServicesConvertersServiceEs6Js2['default']).service('ConfigService', _ServicesConfigServiceEs6Js2['default']).directive('onSubmitAndDisable', _DirectivesOnSubmitAndDisableEs6Js2['default']).directive('userForm', _DirectivesUsersFormEs6Js2['default']).directive('converterForm', _DirectivesConvertersFormEs6Js2['default']).directive('configForm', _DirectivesConfigFormEs6Js2['default']);
+	_angular2['default'].module('setup', ['ui-notification']).controller('SetupController', _ControllersSetupControllerEs6Js2['default']).service('UsersService', _ServicesUsersServiceEs6Js2['default']).service('ConvertersService', _ServicesConvertersServiceEs6Js2['default']).service('ConfigService', _ServicesConfigServiceEs6Js2['default']).directive('onSubmitAndDisable', _DirectivesOnSubmitAndDisableEs6Js2['default']).directive('userForm', _DirectivesUsersFormEs6Js2['default']).directive('converterForm', _DirectivesConvertersFormEs6Js2['default']).directive('configForm', _DirectivesConfigFormEs6Js2['default']);
 
 /***/ },
 /* 1 */
@@ -31878,20 +31878,79 @@
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	  value: true
+	    value: true
 	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var SetupController = function SetupController(EmailService, ConfigService, ConvertersService) {
-	  _classCallCheck(this, SetupController);
+	var SetupController = (function () {
+	    function SetupController(UsersService, ConfigService, ConvertersService, Notification) {
+	        _classCallCheck(this, SetupController);
 
-	  this.EmailService = EmailService;
-	  this.ConfigService = ConfigService;
-	  this.ConvertersService = ConvertersService;
-	};
+	        this.UsersService = UsersService;
+	        this.ConfigService = ConfigService;
+	        this.ConvertersService = ConvertersService;
+	        this.Notification = this.Notification;
 
-	SetupController.$inject = ['EmailService', 'ConfigService', 'ConvertersService'];
+	        this.sections = {
+
+	            user: {
+	                active: false,
+	                data: {
+	                    name: '',
+	                    email: '',
+	                    password: '',
+	                    confirm: ''
+	                },
+	                conplete: false
+	            },
+
+	            converter: {
+	                active: false,
+	                data: {
+	                    name: '',
+	                    path: ''
+	                },
+	                complete: false
+	            },
+
+	            config: {
+	                active: false,
+	                data: {
+	                    url: location.origin || '',
+	                    smtpHost: '',
+	                    smtpUsername: '',
+	                    smtpPassword: '',
+	                    smtpPort: null,
+	                    secureConnection: false,
+	                    fromAddress: '',
+	                    deployFolder: '',
+	                    convertedFoldersPath: '',
+	                    fallBackFoldersPath: ''
+	                },
+	                complete: false
+	            }
+	        };
+
+	        this.UsersService.get().then(function () {})['catch'](this.handleErrors.bind(this));
+
+	        document.body.classList.add('loaded');
+	    }
+
+	    _createClass(SetupController, [{
+	        key: 'handleErrors',
+	        value: function handleErrors(error) {
+	            console.error(error);
+	            this.Notification.error('Error communicating with server');
+	        }
+	    }]);
+
+	    return SetupController;
+	})();
+
+	SetupController.$inject = ['UsersService', 'ConfigService', 'ConvertersService', 'Notification'];
 
 	exports['default'] = SetupController;
 	module.exports = exports['default'];
@@ -31906,18 +31965,31 @@
 	  value: true
 	});
 
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var EmailService = function EmailService($http) {
-	  _classCallCheck(this, EmailService);
+	var UsersService = (function () {
+	  function UsersService($http) {
+	    _classCallCheck(this, UsersService);
 
-	  this.$http = $http;
-	  this.urlBase = '/Config/Emails';
-	};
+	    this.$http = $http;
+	    this.urlBase = '/Users';
+	  }
 
-	EmailService.$inject = ['$http'];
+	  _createClass(UsersService, [{
+	    key: 'get',
+	    value: function get() {
+	      return this.$http.get(this.urlBase);
+	    }
+	  }]);
 
-	exports['default'] = EmailService;
+	  return UsersService;
+	})();
+
+	UsersService.$inject = ['$http'];
+
+	exports['default'] = UsersService;
 	module.exports = exports['default'];
 
 /***/ },
