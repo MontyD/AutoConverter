@@ -3,9 +3,12 @@ block content
   body.slight-gradient
     .circle.circle-1.no-transition
     .circle.circle-2.no-transition
-    main(ng-app="setup", ng-controller="SetupController as Setup")
+    main(ng-app="setup", ng-controller="SetupController as Setup").app-base
+      h1.center.white Setup
+      
+
     section.modal.light.main
-      h1.center Setup
+
 
       form(method="POST", action="/users/")
         fieldset
