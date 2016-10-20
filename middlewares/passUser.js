@@ -2,7 +2,6 @@
 
 function passRoomAndUser(req, res, next) {
 
-  //room is passed as req.room
     if (!req.user) {
         return next();
     }
