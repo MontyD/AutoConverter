@@ -1,4 +1,4 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
     'use strict';
     let Converting = sequelize.define('convertingForm', {
         name: {

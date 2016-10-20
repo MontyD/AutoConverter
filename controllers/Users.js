@@ -14,14 +14,14 @@ const express = require('express'),
 
 // Passport auth
 function authenticateUser(req, res, next) {
-    passport.authenticate('local', function(err, user, info) {
+    passport.authenticate('local', (err, user, info) => {
         if (err) {
             return next(err);
         }
         if (!user) {
             return res.redirect('/login');
         }
-        req.logIn(user, function(err) {
+        req.logIn(user, err => {
             if (err) {
                 return next(err);
             }
@@ -32,7 +32,7 @@ function authenticateUser(req, res, next) {
 }
 
 // Get - register page
-router.get('/login', function(req, res, next) {
+router.get('/login', (req, res, next) => {
     req.logout();
     res.render('security/login');
 });
@@ -42,37 +42,31 @@ router.post('/login', authenticateUser);
 
 
 // Post register
-router.post('/', function(req, res, next) {
+router.post('/', (req, res, next) => {
     // Ensure the admin boolean is an actual boolean.
     let newUser = req.body;
     newUser.isAdmin = !!req.body.isAdmin;
-    models.users.create(req.body).then(function(newUser) {
+    models.users.create(req.body).then(newUser => {
         res.json({
             name: newUser.name
         });
-    }).catch(function(err) {
-        handleError(err, next);
-    });
+    }).catch(err => handleError(err, next));
 });
 
 // PUT update
-router.put('/', respondsToJSON, checkUser, isAdmin, function(req, res, next) {
+router.put('/', respondsToJSON, checkUser, isAdmin, (req, res, next) => {
     models.users.findById(req.user.id, {
         attributes: ['id']
-    }).then(function(user) {
+    }).then(user => {
         // Ensure the admin boolean is an actual boolean.
         let updatedUser = req.body;
         updatedUser.isAdmin = !!req.body.isAdmin;
         // hash and salting done at model level
-        user.update(req.body).then(function() {
-            res.sendStatus(200);
-        });
-    }).catch(function(err) {
-        handleError(err, next);
-    });
+        user.update(req.body).then(res.sendStatus(200)).catch(err => handleError(err, next));
+    }).catch(err => handleError(err, next));
 });
 
-router.get('/is-unique', respondsToJSON, function(req, res, next) {
+router.get('/is-unique', respondsToJSON, (req, res, next) => {
     if (!req.query.name) {
         var error = new Error('Bad get request');
         error.status = 400;
@@ -83,34 +77,26 @@ router.get('/is-unique', respondsToJSON, function(req, res, next) {
             name: req.query.name
         },
         attributes: ['name']
-    }).then(function(user) {
+    }).then(user => {
         if (user) {
             res.json(false);
         } else {
             res.json(true);
         }
-    }).catch(function(err) {
-        return handleError(err, next);
-    });
+    }).catch(err => handleError(err, next));
 });
 
 
-router.delete('/', respondsToJSON, checkUser, isAdmin, function(req, res, next) {
+router.delete('/', respondsToJSON, checkUser, isAdmin, (req, res, next) => {
     models.users.findById(req.user.id, {
         attributes: ['id']
-    }).then(function(user) {
-        user.destroy().then(function() {
-            res.sendStatus(200);
-        }).catch(function(err) {
-            handleError(err, next);
-        });
-    }).catch(function(err) {
-        handleError(err, next);
-    });
+    }).then(user => {
+        user.destroy().then(res.sendStatus(200)).catch(err => handleError(err, next));
+    }).catch(err => handleError(err, next));
 });
 
 // DELETE session - echo log out
-router.delete('/log-all-out', respondsToJSON, checkUser, isAdmin, function(req, res, next) {
+router.delete('/log-all-out', respondsToJSON, checkUser, isAdmin, (req, res, next) => {
     res.io.emit('logAllOut', 'true');
     res.sendStatus(200);
 });

@@ -10,17 +10,15 @@ const express = require('express'),
 	email = require(path.join(__dirname, '..', 'email'));
 
 // Get configuration
-router.get('/', function (req, res, next) {
-	models.config.findAll().then(function (configuration) {
+router.get('/', (req, res, next) => {
+	models.config.findAll().then(configuration => {
 		res.json(configuration);
-	}).catch(function (err) {
-		handleError(err, next);
-	});
+	}).catch(err => handleError(err, next));
 });
 
 // Post new config - should only be called on startup.
-router.post('/', function (req, res, next) {
-	models.config.count().then(function (count) {
+router.post('/', (req, res, next) => {
+	models.config.count().then((count) => {
 		if(count > 0) {
 			var err = new Error('Unable to create config - config already generated');
 			err.status = 400;
@@ -33,34 +31,25 @@ router.post('/', function (req, res, next) {
 			.then(converter.tests.accessDirectory(req.body.convertedFoldersPath))
 			.then(converter.tests.accessDirectory(req.body.fallBackFoldersPath))
 			.then(email.testSMTPSettings(req.body))
-			.then(function () {
-				console.log(req.body);
-				models.config.create(req.body).then(function () {
+			.then(() => {
+				models.config.create(req.body).then(() => {
 					res.sendStatus(200);
-				}).catch(function (err) {
-					handleError(err, next);
-				});
+				}).catch(err => handleError(err, next));
 			})
-			.catch(function (err) {
-				handleError(err, next);
-			});
-	}).catch(function (err) {
-		handleError(err, next);
-	});
+			.catch(err => handleError(err, next));
+	}).catch(err => handleError(err, next));
 });
 
 // PUT update
-router.put('/', isAdmin, function (req, res, next) {
+router.put('/', isAdmin, (req, res, next) => {
 	let newConfig = req.body;
 	newConfig.smtpPort = Number(req.body.smtpPort) || undefined;
 	newConfig.secureConnection = !!req.body.secureConnection;
 	models.config.update(newConfig, {
 		where: {}
-	}).then(function (updatedConfig) {
+	}).then(updatedConfig => {
 		res.sendStatus(200);
-	}).catch(function (err) {
-		handleError(err, next);
-	});
+	}).catch(err => handleError(err, next));
 });
 
 

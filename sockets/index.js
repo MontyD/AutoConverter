@@ -1,7 +1,7 @@
-var socketsRouting = function(socket) {
+var socketsRouting = socket => {
     'use strict';
 
-    socket.on('admin', function(room) {
+    socket.on('admin', adminArea => {
 
     });
 };

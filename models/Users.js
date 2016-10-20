@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt-nodejs');
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
     'use strict';
     let User = sequelize.define('users', {
         name: {
@@ -34,20 +34,16 @@ module.exports = function(sequelize, DataTypes) {
         isAdmin: DataTypes.BOOLEAN
     }, {
         hooks: {
-            beforeCreate: function(user, options, cb) {
-                user.hashPassword(user, options, cb);
-            },
-            beforeUpdate: function(user, options, cb) {
-                user.hashPassword(user, options, cb);
-            }
+            beforeCreate: (user, options, cb) => user.hashPassword(user, options, cb),
+            beforeUpdate: (user, options, cb) => user.hashPassword(user, options, cb)
         },
         instanceMethods: {
-            hashPassword: function(user, options, cb) {
-                bcrypt.genSalt(12, function(err, salt) {
+            hashPassword: (user, options, cb) => {
+                bcrypt.genSalt(12, (err, salt) => {
                     if (err) {
                         return cb(err, options);
                     }
-                    bcrypt.hash(user.password, salt, undefined, function(err, hash) {
+                    bcrypt.hash(user.password, salt, undefined, (err, hash) => {
                         if (err) {
                             return cb(err, options);
                         }

@@ -11,7 +11,7 @@ function CheckSetup() {
     console.log('checking setup...');
 
     return new Promise(
-        function(resolve, reject) {
+        (resolve, reject) => {
 
             function done() {
                 if (completed === modelsToTest.length - 1) {
@@ -30,12 +30,12 @@ function CheckSetup() {
                 if (!tableToCount) {
                     return;
                 }
-                models[tableToCount].count().then(function(count) {
+                models[tableToCount].count().then(count => {
                     if (!count) {
                       incompleteModels.push(tableToCount);
                     }
                     done();
-                }).catch(function(err) {
+                }).catch(err => {
                     reject({
                         error: err
                     });

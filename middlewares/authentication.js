@@ -5,26 +5,26 @@ var path = require('path'),
     bcrypt = require('bcrypt-nodejs');
 
 var authentication = new LocalStrategy(
-    function(name, password, done) {
+    (name, password, done) => {
         models.users.findOne({
             where: {
                 'name': name
             },
             attributes: ['salt', 'passcode', 'id', 'name']
-        }).then(function(user) {
+        }).then(user => {
             if (user === null) {
                 return done(null, false, {
                     noroom: true
                 });
             }
-            bcrypt.hash(password, user.passcodeSalt, function(err, hash) {
+            bcrypt.hash(password, user.passcodeSalt, (err, hash) => {
                 if (err) {
                     return done(null, false, err);
                 }
                 if (hash === user.passcode) {
                     return done(null, {
                         id: user.id,
-                        name: ruseroom.name,
+                        name: user.name,
                         isAdmin: false
                     });
                 } else {
@@ -33,9 +33,7 @@ var authentication = new LocalStrategy(
                     });
                 }
             });
-        }).catch(function(err) {
-            return done(null, false, err);
-        });
+        }).catch(err => done(null, false, err));
     }
 );
 

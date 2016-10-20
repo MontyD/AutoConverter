@@ -9,10 +9,10 @@ const converter = {};
 
 converter.tests = {
 
-	openConverter: function (converterPath) {
+	openConverter: converterPath => {
 
-		return new Promise(function (resolve, reject) {
-			fs.access(path.resolve(converterPath), function (err) {
+		return new Promise((resolve, reject) => {
+			fs.access(path.resolve(converterPath), err => {
 				if(!err && converterPath.indexOf('.exe') > -1) {
 					resolve();
 				} else {
@@ -25,9 +25,9 @@ converter.tests = {
 
 	},
 
-	accessDirectory: function (directory) {
-		return new Promise(function (resolve, reject) {
-			fs.access(directory, fs.F_OK, function (err) {
+	accessDirectory: directory => {
+		return new Promise((resolve, reject) => {
+			fs.access(directory, fs.F_OK, err => {
 				if(!err) {
 					resolve();
 				} else {

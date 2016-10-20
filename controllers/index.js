@@ -9,9 +9,7 @@ const express = require('express'),
     isAdmin = require(path.join(__dirname, '..', 'middlewares', 'isAdmin')),
     passUser = require(path.join(__dirname, '..', 'middlewares', 'passUser'));
 
-router.get('/', function(req, res, next) {
-    res.render('index');
-});
+router.get('/', (req, res, next) => res.render('index'));
 
 router.use('/users', require('./Users.js'));
 
@@ -30,9 +28,7 @@ setupRouter.use('/converters', require('./Converters.js'));
 
 setupRouter.use('/config', require('./Config.js'));
 
-setupRouter.get('*', function(req, res, next) {
-  res.render('setup/index');
-});
+setupRouter.get('*', (req, res, next) => res.render('setup/index'));
 
 module.exports = {
     live: router,

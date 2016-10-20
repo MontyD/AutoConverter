@@ -9,7 +9,7 @@ EMAIL.connectionTimeout = 5000;
 EMAIL.smtpSettings = {};
 EMAIL.transporter = undefined;
 
-EMAIL.setSMTPSettings = function (settings) {
+EMAIL.setSMTPSettings = settings => {
 	let smtpSettings = {
 		from: settings.fromAddress,
 		host: settings.smtpHost,
@@ -28,15 +28,15 @@ EMAIL.setSMTPSettings = function (settings) {
 	EMAIL.transporter = nodemailer.createTransport(smtpSettings);
 };
 
-EMAIL.testSMTPSettings = function (settings) {
+EMAIL.testSMTPSettings = settings => {
 
 	EMAIL.setSMTPSettings(settings);
-	return new Promise(function (resolve, reject) {
+	return new Promise((resolve, reject) => {
 		models.users.findOne({
 			where: {
 				isAdmin: true
 			}
-		}).then(function (admin) {
+		}).then((admin) => {
 			if(!admin) {
 				reject({
 					message: 'Admin user must be signed up to test email settings'
@@ -50,20 +50,20 @@ EMAIL.testSMTPSettings = function (settings) {
 
 EMAIL.checkExistingSMTPSettings = function () {
 	return new Promise(function (resolve, reject) {
-		models.config.findAll().then(function (configs) {
-			return EMAIL.testSMTPSettings(configs[0]).then(resolve).catch(reject);
-		}).catch(reject);
+		models.config.findAll().then(
+			configs => EMAIL.testSMTPSettings(configs[0]).then(resolve).catch(reject)
+		).catch(reject);
 	});
 };
 
-EMAIL.sendSetupEmail = function (emailAddress) {
-	return new Promise(function (resolve, reject) {
+EMAIL.sendSetupEmail = (emailAddress) => {
+	return new Promise((resolve, reject) => {
 		EMAIL.transporter.sendMail({
 			from: EMAIL.smtpSettings.from,
 			to: emailAddress,
 			subject: 'AutoConverter Setup',
 			text: 'AutoConverter Setup',
-		}, function (err, info) {
+		}, (err, info) => {
 			if(err) {
 				return reject(err);
 			}

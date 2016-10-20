@@ -44,13 +44,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser(function (room, done) {
-	done(null, room);
-});
+passport.serializeUser((room, done) => done(null, room));
 
-passport.deserializeUser(function (room, done) {
-	done(null, room);
-});
+passport.deserializeUser((room, done) => done(null, room));
 
 passport.use(authentication);
 
@@ -58,7 +54,7 @@ app.use(morgan('dev'));
 
 
 // Add io to res
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
 	res.io = io;
 	next();
 });
@@ -70,27 +66,27 @@ io.on('connection', socketsRouting);
 models.sequelize.sync()
 	.then(checkModelsSetup)
 	.then(email.checkExistingSMTPSettings)
-	.then(function () {
+	.then(() => {
 		console.log('Setup complete - booting to live mode');
 		// Routing - use live routing
 		app.use(controllers.live);
-	}).catch(function (err) {
+	}).catch(err => {
     console.error(err);
 		console.error('Setup failed - booting to setup mode');
 		// use setup routing
 		app.use(controllers.setup);
-	}).finally(function () {
+	}).finally(() => {
 
 		// Server error handling
 		// catch 404 and forward to error handler
-		app.use(function (req, res, next) {
+		app.use((req, res, next) => {
 			var err = new Error('Not Found');
 			err.status = 404;
 			next(err);
 		});
 
 		// production error handler
-		app.use(function (err, req, res, next) {
+		app.use((err, req, res, next) => {
 			if(err.status === 401) {
 				res.status(401);
 				if(/json/gi.test(req.get('accept'))) {
@@ -112,7 +108,5 @@ models.sequelize.sync()
 			}
 		});
 
-		server.listen(port, function () {
-			console.log('Listening on port ' + port);
-		});
+		server.listen(port, () => console.log('Listening on port ' + port));
 	});
