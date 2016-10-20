@@ -66,7 +66,6 @@ app.use(function (req, res, next) {
 // socket routing
 io.on('connection', socketsRouting);
 
-
 // Init - sync database, checkSetup and then apply routing
 models.sequelize.sync()
 	.then(checkModelsSetup)
