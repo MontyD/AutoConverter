@@ -4,10 +4,12 @@ class ConfigService {
 
   constructor($http) {
     this.$http = $http;
-    this.urlBase = '/Config';
+    this.urlBase = '/Config/';
   }
 
-
+  runTests() {
+    return this.$http.get(this.urlBase + 'test');
+  }
 
 }
 

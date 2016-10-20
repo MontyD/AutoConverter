@@ -4,7 +4,11 @@ class ConvertersService {
 
   constructor($http) {
     this.$http = $http;
-    this.urlBase = '/Converters';
+    this.urlBase = '/Converters/';
+  }
+
+  get() {
+    return this.$http.get(this.urlBase);
   }
 
 

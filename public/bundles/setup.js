@@ -31904,7 +31904,7 @@
 	                    password: '',
 	                    confirm: ''
 	                },
-	                conplete: false
+	                complete: false
 	            },
 
 	            converter: {
@@ -31934,12 +31934,50 @@
 	            }
 	        };
 
-	        this.UsersService.get().then(function () {})['catch'](this.handleErrors.bind(this));
+	        this.checkUsers();
+	        this.checkConverters();
+	        this.checkConfig();
 
 	        document.body.classList.add('loaded');
 	    }
 
 	    _createClass(SetupController, [{
+	        key: 'gotToActive',
+	        value: function gotToActive() {}
+	    }, {
+	        key: 'checkUsers',
+	        value: function checkUsers() {
+	            var _this = this;
+
+	            this.UsersService.get().then(function (data) {
+	                if (data.length) {
+	                    _this.section.users.complete = true;
+	                }
+	            })['catch'](this.handleErrors.bind(this))['finally'](this.gotToActive.bind(this));
+	        }
+	    }, {
+	        key: 'checkConverters',
+	        value: function checkConverters() {
+	            var _this2 = this;
+
+	            this.ConvertersService.get().then(function (data) {
+	                if (data.length) {
+	                    _this2.section.converters.complete = true;
+	                }
+	            })['catch'](this.handleErrors.bind(this))['finally'](this.gotToActive.bind(this));
+	        }
+	    }, {
+	        key: 'checkConfig',
+	        value: function checkConfig() {
+	            var _this3 = this;
+
+	            this.ConfigService.runTests().then(function (data) {
+	                if (data.success) {
+	                    _this3.section.config.complete = true;
+	                }
+	            })['catch'](this.handleErrors.bind(this))['finally'](this.gotToActive.bind(this));
+	        }
+	    }, {
 	        key: 'handleErrors',
 	        value: function handleErrors(error) {
 	            console.error(error);
@@ -31974,7 +32012,7 @@
 	    _classCallCheck(this, UsersService);
 
 	    this.$http = $http;
-	    this.urlBase = '/Users';
+	    this.urlBase = '/Users/';
 	  }
 
 	  _createClass(UsersService, [{
@@ -32002,14 +32040,27 @@
 	  value: true
 	});
 
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var ConvertersService = function ConvertersService($http) {
-	  _classCallCheck(this, ConvertersService);
+	var ConvertersService = (function () {
+	  function ConvertersService($http) {
+	    _classCallCheck(this, ConvertersService);
 
-	  this.$http = $http;
-	  this.urlBase = '/Converters';
-	};
+	    this.$http = $http;
+	    this.urlBase = '/Converters/';
+	  }
+
+	  _createClass(ConvertersService, [{
+	    key: 'get',
+	    value: function get() {
+	      return this.$http.get(this.urlBase);
+	    }
+	  }]);
+
+	  return ConvertersService;
+	})();
 
 	ConvertersService.$inject = ['$http'];
 
@@ -32026,14 +32077,27 @@
 	  value: true
 	});
 
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var ConfigService = function ConfigService($http) {
-	  _classCallCheck(this, ConfigService);
+	var ConfigService = (function () {
+	  function ConfigService($http) {
+	    _classCallCheck(this, ConfigService);
 
-	  this.$http = $http;
-	  this.urlBase = '/Config';
-	};
+	    this.$http = $http;
+	    this.urlBase = '/Config/';
+	  }
+
+	  _createClass(ConfigService, [{
+	    key: 'runTests',
+	    value: function runTests() {
+	      return this.$http.get(this.urlBase + 'test');
+	    }
+	  }]);
+
+	  return ConfigService;
+	})();
 
 	ConfigService.$inject = ['$http'];
 

@@ -4,7 +4,7 @@ class UsersService {
 
   constructor($http) {
     this.$http = $http;
-    this.urlBase = '/Users';
+    this.urlBase = '/Users/';
   }
 
   get() {
