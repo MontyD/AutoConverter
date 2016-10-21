@@ -17,6 +17,8 @@ body {
     width                 : 100%;
     font-family           : $sans-serif;
     -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
 }
 
 ui-view {
@@ -375,7 +377,7 @@ main.full-height {
     }
     &.complete {
       opacity: 0;
-      transform: translateX(200%);  
+      transform: translateX(200%);
     }
 }
 

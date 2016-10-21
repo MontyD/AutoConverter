@@ -374,7 +374,9 @@ body {
   height: 100%;
   width: 100%;
   font-family: "Droid Sans", sans-serif;
-  -webkit-font-smoothing: antialiased; }
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0; }
 
 ui-view {
   display: block;
@@ -1768,7 +1770,9 @@ body {
   height: 100%;
   width: 100%;
   font-family: "Droid Sans", sans-serif;
-  -webkit-font-smoothing: antialiased; }
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0; }
 
 ui-view {
   display: block;
@@ -2511,9 +2515,6 @@ footer {
     font-style: italic; }
     footer p a:hover {
       text-decoration: underline; }
-
-body {
-  margin: 0 0 130px; }
 
 nav.top {
   position: relative;

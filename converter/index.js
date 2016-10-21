@@ -11,8 +11,14 @@ converter.tests = {
 
 	openConverter: converterPath => {
 
-		return new Promise((resolve, reject) => {
-			fs.access(path.resolve(converterPath), err => {
+			return new Promise((resolve, reject) => {
+			let testPath;
+			try {
+				testPath = path.resolve(converterPath);
+			} catch(err) {
+				reject({message: `${converterPath} cannot be resolved to a valid path`});
+			}
+			fs.access(testPath, err => {
 				if(!err && converterPath.indexOf('.exe') > -1) {
 					resolve();
 				} else {
@@ -27,7 +33,14 @@ converter.tests = {
 
 	accessDirectory: directory => {
 		return new Promise((resolve, reject) => {
-			fs.access(directory, fs.F_OK, err => {
+			let testPath;
+			try {
+				testPath = path.resolve(directory);
+			} catch(err) {
+				console.error(err);
+				reject(`${directory} cannot be resolved to a valid path`);
+			}
+			fs.access(testPath, fs.F_OK, err => {
 				if(!err) {
 					resolve();
 				} else {
