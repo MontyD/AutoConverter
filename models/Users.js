@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             unique: true,
             validate: {
-                is: ['^[a-z0-9]|.+$', 'i'],
+                is: ['^[a-z0-9]|\.+$', 'i'],
                 len: {
                     args: [4, 20],
                     msg: 'Please enter a username consisting of only letters and numbers between five and twenty characters long'

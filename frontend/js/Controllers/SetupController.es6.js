@@ -70,8 +70,6 @@ class SetupController {
     runTest(test, dataAttribute, elementToSetComplete) {
       test()
         .then(response => {
-          console.log(dataAttribute);
-          console.log(elementToSetComplete);
           if (response.data[dataAttribute]) {
             elementToSetComplete.complete = true;
           }

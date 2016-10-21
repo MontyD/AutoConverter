@@ -1,6 +1,13 @@
-<form>
-  <p>this is the directive</p>
-
-
-
+<form on-submit-and-disable="validateAndSubmit()">
+  <fieldset>
+    <label for="name" class="required">Username</label>
+    <input type="text" required="required" pattern="[A-Z|a-z|0-9|\.]{4,20}" title="Only include numbers, letters and dots. Keep it between 4 and 20 characters." name="name" id="name" ng-model="user.name" />
+    <label for="email" class="required">Email</label>
+    <input type="email" required="required" name="email" id="email" ng-model="user.email" />
+    <label for="password" class="required">Password</label>
+    <input type="password" required="required" name="password" id="password" pattern=".{4,70}" title="Between 4 and 70 characters" ng-model="user.password" />
+    <label for="confirm" class="required">Confirm password</label>
+    <input type="password" required="required" name="confirm" id="confirm" pattern=".{4,70}" title="Between 4 and 70 characters" ng-model="user.confirm" />
+    <input type="submit" class="button" value="Create admin user" />
+  </fieldset>
 </form>
