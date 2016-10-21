@@ -19,6 +19,9 @@ router.get('/', (req, res, next) => {
 router.get('/test', (req, res, next) => {
 	models.config.findOne()
 		.then(config => {
+			if (!config) {
+				return res.sendStatus(400);
+			}
 			Promise.all([
 				converter.tests.accessDirectory(config.deployFolder),
 				converter.tests.accessDirectory(config.convertedFoldersPath),

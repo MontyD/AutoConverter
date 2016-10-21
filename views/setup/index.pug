@@ -9,15 +9,15 @@ block content
     main(ng-app="setup", ng-controller="SetupController as setup").container.app-base
       h1.center.white Setup
 
-      section.setup-form(ng-class="{'active': setup.sections.user.active, 'complete': setup.sections.user.complete}").modal
+      section.setup-form(ng-class="setup.getClassName('user')").modal
         h2 Create default admin user
         users-form
 
-      section.setup-form(ng-class="{'active': setup.sections.converter.active, 'complete': setup.sections.converter.complete}").modal
+      section.setup-form(ng-class="setup.getClassName('converter')").modal
         h2 Create default converter
         converters-form
 
-      section.setup-form(ng-class="{'active': setup.sections.config.active, 'complete': setup.sections.config.complete}").modal
+      section.setup-form(ng-class="setup.getClassName('config')").modal
         h2 Set config
         config-form
 

@@ -6,12 +6,11 @@ class SetupController {
         this.UsersService = UsersService;
         this.ConfigService = ConfigService;
         this.ConvertersService = ConvertersService;
-        this.Notification = this.Notification;
+        this.Notification = Notification;
 
         this.sections = {
 
             user: {
-                active: false,
                 data: {
                     name: '',
                     email: '',
@@ -22,7 +21,6 @@ class SetupController {
             },
 
             converter: {
-                active: false,
                 data: {
                     name: '',
                     path: ''
@@ -31,7 +29,6 @@ class SetupController {
             },
 
             config: {
-                active: false,
                 data: {
                     url: location.origin || '',
                     smtpHost: '',
@@ -48,53 +45,43 @@ class SetupController {
             }
         };
 
-        this.checkUsers();
-        this.checkConverters();
-        this.checkConfig();
+        this.runTest(this.UsersService.get.bind(this.UsersService), 'length', this.sections.user);
+        this.runTest(this.ConvertersService.get.bind(this.ConvertersService), 'length', this.sections.converter);
+        this.runTest(this.ConfigService.runTests.bind(this.ConfigService), 'success', this.sections.config);
 
         document.body.classList.add('loaded');
     }
 
-    gotToActive() {
-
+    getClassName(attribute) {
+      if (this.sections[attribute].complete) {
+        return 'complete';
+      }
+      for (let key in this.sections) {
+        if (this.sections.hasOwnProperty(key)) {
+          if (key === attribute && !this.sections[key].complete) {
+            return 'active';
+          } else if (!this.sections[key].complete) {
+            return '';
+          }
+         }
+      }
     }
 
-    checkUsers() {
-        this.UsersService.get()
-            .then(data => {
-                if (data.length) {
-                    this.section.users.complete = true;
-                }
-            })
-            .catch(this.handleErrors.bind(this))
-            .finally(this.gotToActive.bind(this));
-    }
-
-    checkConverters() {
-        this.ConvertersService.get()
-            .then(data => {
-                if (data.length) {
-                    this.section.converters.complete = true;
-                }
-            })
-            .catch(this.handleErrors.bind(this))
-            .finally(this.gotToActive.bind(this));
-    }
-
-    checkConfig() {
-        this.ConfigService.runTests()
-            .then(data => {
-                if (data.success) {
-                    this.section.config.complete = true;
-                }
-            })
-            .catch(this.handleErrors.bind(this))
-            .finally(this.gotToActive.bind(this));
+    runTest(test, dataAttribute, elementToSetComplete) {
+      test()
+        .then(response => {
+          console.log(dataAttribute);
+          console.log(elementToSetComplete);
+          if (response.data[dataAttribute]) {
+            elementToSetComplete.complete = true;
+          }
+        })
+        .catch(this.handleErrors.bind(this));
     }
 
     handleErrors(error) {
-        console.error(error);
-        this.Notification.error('Error communicating with server');
+      this.Notification('Setup incomplete');
+      return false;
     }
 
 }
