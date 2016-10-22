@@ -11,36 +11,14 @@ class SetupController {
         this.sections = {
 
             user: {
-                data: {
-                    name: '',
-                    email: '',
-                    password: '',
-                    confirm: '',
-                },
                 complete: false,
             },
 
             converter: {
-                data: {
-                    name: '',
-                    path: ''
-                },
                 complete: false
             },
 
             config: {
-                data: {
-                    url: location.origin || '',
-                    smtpHost: '',
-                    smtpUsername: '',
-                    smtpPassword: '',
-                    smtpPort: null,
-                    secureConnection: false,
-                    fromAddress: '',
-                    deployFolder: '',
-                    convertedFoldersPath: '',
-                    fallBackFoldersPath: ''
-                },
                 complete: false
             }
         };
@@ -92,6 +70,10 @@ class SetupController {
     newConverter(converter) {
       converter.primary = true;
       return this.ConvertersService.create(converter);
+    }
+
+    setConfig(config) {
+      return this.ConfigService.create(config);
     }
 
     success(type) {

@@ -84,11 +84,11 @@
 
 	var _DirectivesConfigFormEs6Js2 = _interopRequireDefault(_DirectivesConfigFormEs6Js);
 
-	var _angularUiNotification = __webpack_require__(13);
+	var _angularUiNotification = __webpack_require__(14);
 
 	var _angularUiNotification2 = _interopRequireDefault(_angularUiNotification);
 
-	var _angularLoadingBar = __webpack_require__(15);
+	var _angularLoadingBar = __webpack_require__(16);
 
 	var _angularLoadingBar2 = _interopRequireDefault(_angularLoadingBar);
 
@@ -31903,36 +31903,14 @@
 	        this.sections = {
 
 	            user: {
-	                data: {
-	                    name: '',
-	                    email: '',
-	                    password: '',
-	                    confirm: ''
-	                },
 	                complete: false
 	            },
 
 	            converter: {
-	                data: {
-	                    name: '',
-	                    path: ''
-	                },
 	                complete: false
 	            },
 
 	            config: {
-	                data: {
-	                    url: location.origin || '',
-	                    smtpHost: '',
-	                    smtpUsername: '',
-	                    smtpPassword: '',
-	                    smtpPort: null,
-	                    secureConnection: false,
-	                    fromAddress: '',
-	                    deployFolder: '',
-	                    convertedFoldersPath: '',
-	                    fallBackFoldersPath: ''
-	                },
 	                complete: false
 	            }
 	        };
@@ -31990,6 +31968,11 @@
 	        value: function newConverter(converter) {
 	            converter.primary = true;
 	            return this.ConvertersService.create(converter);
+	        }
+	    }, {
+	        key: 'setConfig',
+	        value: function setConfig(config) {
+	            return this.ConfigService.create(config);
 	        }
 	    }, {
 	        key: 'success',
@@ -32123,6 +32106,11 @@
 	    key: 'runTests',
 	    value: function runTests() {
 	      return this.$http.get(this.urlBase + 'test');
+	    }
+	  }, {
+	    key: 'create',
+	    value: function create(config) {
+	      return this.$http.post(this.urlBase, config);
 	    }
 	  }]);
 
@@ -32286,24 +32274,48 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "<form on-submit-and-disable on-submit=\"validateAndSubmit()\">\n  <fieldset>\n    <label for=\"name\" class=\"required\">Converter Name</label>\n    <input type=\"text\" required=\"required\" name=\"name\" id=\"name\" ng-model=\"converter.name\" />\n    <label for=\"path\" class=\"required\">Converter's Full Path</label>\n    <input type=\"text\" required=\"required\" name=\"path\" id=\"path\" ng-model=\"converter.path\" />\n    <input type=\"submit\" class=\"button\" value=\"Create primary converter\" />\n  </fieldset>\n</form>\n";
+	module.exports = "<form on-submit-and-disable on-submit=\"validateAndSubmit()\">\n    <fieldset>\n        <label for=\"converterName\" class=\"required\">Converter Name</label>\n        <input type=\"text\" required=\"required\" name=\"converterName\" id=\"converterName\" ng-model=\"converter.name\" />\n        <label for=\"path\" class=\"required\">Converter's Full Path </label>\n        <input type=\"text\" required=\"required\" name=\"path\" id=\"path\" ng-model=\"converter.path\" />\n        <p class=\"explain\">Point this to the actual converter .exe</p>\n        <input type=\"submit\" class=\"button\" value=\"Create primary converter\" />\n    </fieldset>\n</form>\n";
 
 /***/ },
 /* 12 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _templatesConfigFormTemplateHtml = __webpack_require__(13);
+
+	var _templatesConfigFormTemplateHtml2 = _interopRequireDefault(_templatesConfigFormTemplateHtml);
+
 	function ConfigForm() {
 	  'use strict';
 	  return {
 	    restrict: 'E',
-	    scope: {},
-	    // template
-	    link: function link(scope, element, attrs) {}
+	    template: _templatesConfigFormTemplateHtml2['default'],
+	    scope: {
+	      validationError: '&',
+	      submitConfig: '&',
+	      onSuccess: '&'
+	    },
+	    link: function link(scope, element, attrs) {
+	      scope.validateAndSubmit = function () {
+	        return new Promise(function (resolve, reject) {
+	          scope.submitConfig({ config: scope.config }).then(function (response) {
+	            scope.onSuccess();
+	            return resolve();
+	          })['catch'](function (err) {
+	            scope.validationError({ err: err.data });
+	            console.log(err);
+	            return reject();
+	          });
+	        });
+	      };
+	    }
 	  };
 	}
 
@@ -32312,16 +32324,22 @@
 
 /***/ },
 /* 13 */
+/***/ function(module, exports) {
+
+	module.exports = "<form on-submit-and-disable on-submit=\"validateAndSubmit()\">\n\n        <fieldset>\n            <h4>AutoConverter Location</h4>\n            <label for=\"url\" class=\"required\">Base url</label>\n            <input type=\"text\" required=\"required\" name=\"url\" id=\"url\" ng-model=\"config.url\" />\n            <p class=\"explain\">What is the url of the page you are currently on? Or the machine name or whatever funkery you're going to use to allow people to get to this. Include the 'http://' pls.</p>\n        </fieldset>\n\n        <fieldset>\n            <h4>Email Settings</h4>\n            <label for=\"smtpHost\" class=\"required\">SMTP Host</label>\n            <input type=\"text\" required=\"required\" name=\"smtpHost\" id=\"smtpHost\" ng-model=\"config.smtpHost\" />\n\n            <label for=\"smtpUsername\">SMTP Username</label>\n            <input type=\"text\" name=\"smtpUsername\" id=\"smtpUsername\" ng-model=\"config.smtpUsername\" />\n\n            <label for=\"smtpPassword\">SMTP Password</label>\n            <input type=\"password\" name=\"smtpPassword\" id=\"smtpPassword\" ng-model=\"config.smtpPassword\" />\n\n            <label for=\"smtpPort\">SMTP Port</label>\n            <input type=\"number\" name=\"smtpPort\" id=\"smtpPort\" ng-model=\"config.smtpPort\" />\n\n            <div class=\"checkbox-container\">\n                <input type=\"checkbox\" name=\"secureConnection\" id=\"secureConnection\" ng-model=\"config.secureConnection\" />\n                <label class=\"checkbox\" for=\"secureConnection\">Force secure connection</label>\n            </div>\n\n            <label for=\"fromAddress\">From address</label>\n            <input type=\"email\" required=\"required\" name=\"fromAddress\" id=\"fromAddress\" ng-model=\"config.fromAddress\" />\n            <p class=\"explain\">All emails from the AutoConverter will get sent using this address</p>\n        </fieldset>\n\n        <fieldset>\n            <h4>Directory settings</h4>\n            <label for=\"deployFolder\">Deploy Folder</label>\n            <input type=\"text\" required=\"required\" name=\"deployFolder\" id=\"deployFolder\" ng-model=\"config.deployFolder\" />\n            <p class=\"explain\">When the old school converter runs, which folder does it put the wdfp's and folders in?</p>\n\n            <label for=\"convertedFoldersPath\">Destination for AutoConverted forms</label>\n            <input type=\"text\" required=\"required\" name=\"convertedFoldersPath\" id=\"convertedFoldersPath\" ng-model=\"config.convertedFoldersPath\" />\n            <p class=\"explain\">Where do you want the converted forms to go when the AutoConverter has run? Probably somewhere on the FileServer.</p>\n\n            <label for=\"fallBackFoldersPath\">Local fallback destination</label>\n            <input type=\"text\" required=\"required\" name=\"fallBackFoldersPath\" id=\"fallBackFoldersPath\" ng-model=\"config.fallBackFoldersPath\" />\n            <p class=\"explain\">If the AutoConverter cannot reach the FileServer, it will place the forms inside this directory - make it a local one, i.e. on this machine. You idiot.</p>\n\n        </fieldset>\n\n        <input type=\"submit\" class=\"button\" value=\"Apply Config!\" />\n</form>\n";
+
+/***/ },
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by alex_crack on 20.11.15.
 	 */
-	__webpack_require__(14);
+	__webpack_require__(15);
 	module.exports = 'ui-notification';
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports) {
 
 	/**
@@ -32553,15 +32571,15 @@
 	angular.module("ui-notification").run(["$templateCache", function($templateCache) {$templateCache.put("angular-ui-notification.html","<div class=\"ui-notification\"><h3 ng-show=\"title\" ng-bind-html=\"title\"></h3><div class=\"message\" ng-bind-html=\"message\"></div></div>");}]);
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(16);
+	__webpack_require__(17);
 	module.exports = 'angular-loading-bar';
 
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 	/*! 

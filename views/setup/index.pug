@@ -1,13 +1,13 @@
 extends ../layouts/base
 block content
-  body.slight-gradient
+  body.grey
     .loading-view
       .circle.circle-1.no-transition
       .circle.circle-2.no-transition
       .text-container.white
         span Setup loading
     main(ng-app="setup", ng-controller="SetupController as setup").container.app-base
-      h1.center.white Setup
+      h1.center Setup
 
       section.setup-form(ng-class="setup.getClassName('user')").modal
         h2 Create default admin user
@@ -18,7 +18,7 @@ block content
         converters-form(validation-error="setup.Notification.error(err)", submit-converter="setup.newConverter(converter)" on-success="setup.success('converter')")
 
       section.setup-form(ng-class="setup.getClassName('config')").modal
-        h2 Set config
-        config-form
+        h2 Global Config
+        config-form(validation-error="setup.Notification.error(err)", submit-config="setup.setConfig(config)" on-success="setup.success('config')")
 
     script(src="/bundles/setup.js", type="text/javascript")

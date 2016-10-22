@@ -4,7 +4,10 @@ form {
     padding: 0 0 1rem;
 
     fieldset {
-      border: none;
+        border       : none;
+        background   : rgba(0,0,0,0.1);
+        margin       : 0.8em auto;
+        border-radius: 0.3em;
     }
 
     h3 {
@@ -23,9 +26,9 @@ form {
     }
 
     &.submitting {
-      input[type="submit"] {
-        opacity: 0.7;
-      }
+        input[type="submit"] {
+            opacity: 0.7;
+        }
     }
 
     p.error {
@@ -36,11 +39,13 @@ form {
         font-style : italic;
         text-align : right;
         color      : $colorError;
+
         &.main {
-          font-size: 1.1em;
-          text-align: center;
+            font-size : 1.1em;
+            text-align: center;
         }
     }
+
     p.explain {
         margin     : -.9em auto 2em;
         width      : 90%;
@@ -79,7 +84,7 @@ textarea {
     padding      : 0.6rem 0.4rem;
     margin       : 0.2rem auto 1.4rem;
     border-radius: 0.3rem;
-    border       : 1px solid $colorLight;
+    border       : 1px solid $colorDarkGrey;
     box-sizing   : border-box;
     resize       : none;
     width        : 90%;
@@ -225,6 +230,11 @@ input[type="checkbox"] {
             width : 2.5rem;
         }
     }
+}
+
+.checkbox-container {
+    display      : block;
+    margin-bottom: 1.4em;
 }
 
 input[type="radio"] {

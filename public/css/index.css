@@ -945,8 +945,7 @@ button.icon {
   color: #212121; }
 
 .grey {
-  background: #E0E0E0;
-  color: #FAFAFA; }
+  background: #E0E0E0; }
 
 .accent {
   background: #00796b;
@@ -1123,7 +1122,10 @@ footer {
 form {
   padding: 0 0 1rem; }
   form fieldset {
-    border: none; }
+    border: none;
+    background: rgba(0, 0, 0, 0.1);
+    margin: 0.8em auto;
+    border-radius: 0.3em; }
   form h3 {
     margin: 1rem 0;
     padding: 0.6rem 0;
@@ -1177,7 +1179,7 @@ textarea {
   padding: 0.6rem 0.4rem;
   margin: 0.2rem auto 1.4rem;
   border-radius: 0.3rem;
-  border: 1px solid #1e88e5;
+  border: 1px solid #6f6f6f;
   box-sizing: border-box;
   resize: none;
   width: 90%;
@@ -1332,6 +1334,10 @@ input[type="checkbox"] {
   input[type="checkbox"].large:checked + label:before {
     height: 0.9rem;
     width: 2.5rem; }
+
+.checkbox-container {
+  display: block;
+  margin-bottom: 1.4em; }
 
 input[type="radio"] {
   display: none; }
@@ -2343,8 +2349,7 @@ button.icon {
   color: #212121; }
 
 .grey {
-  background: #E0E0E0;
-  color: #FAFAFA; }
+  background: #E0E0E0; }
 
 .accent {
   background: #00796b;

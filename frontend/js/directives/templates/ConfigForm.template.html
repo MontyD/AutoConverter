@@ -1,0 +1,51 @@
+<form on-submit-and-disable on-submit="validateAndSubmit()">
+
+        <fieldset>
+            <h4>AutoConverter Location</h4>
+            <label for="url" class="required">Base url</label>
+            <input type="text" required="required" name="url" id="url" ng-model="config.url" />
+            <p class="explain">What is the url of the page you are currently on? Or the machine name or whatever funkery you're going to use to allow people to get to this. Include the 'http://' pls.</p>
+        </fieldset>
+
+        <fieldset>
+            <h4>Email Settings</h4>
+            <label for="smtpHost" class="required">SMTP Host</label>
+            <input type="text" required="required" name="smtpHost" id="smtpHost" ng-model="config.smtpHost" />
+
+            <label for="smtpUsername">SMTP Username</label>
+            <input type="text" name="smtpUsername" id="smtpUsername" ng-model="config.smtpUsername" />
+
+            <label for="smtpPassword">SMTP Password</label>
+            <input type="password" name="smtpPassword" id="smtpPassword" ng-model="config.smtpPassword" />
+
+            <label for="smtpPort">SMTP Port</label>
+            <input type="number" name="smtpPort" id="smtpPort" ng-model="config.smtpPort" />
+
+            <div class="checkbox-container">
+                <input type="checkbox" name="secureConnection" id="secureConnection" ng-model="config.secureConnection" />
+                <label class="checkbox" for="secureConnection">Force secure connection</label>
+            </div>
+
+            <label for="fromAddress">From address</label>
+            <input type="email" required="required" name="fromAddress" id="fromAddress" ng-model="config.fromAddress" />
+            <p class="explain">All emails from the AutoConverter will get sent using this address</p>
+        </fieldset>
+
+        <fieldset>
+            <h4>Directory settings</h4>
+            <label for="deployFolder">Deploy Folder</label>
+            <input type="text" required="required" name="deployFolder" id="deployFolder" ng-model="config.deployFolder" />
+            <p class="explain">When the old school converter runs, which folder does it put the wdfp's and folders in?</p>
+
+            <label for="convertedFoldersPath">Destination for AutoConverted forms</label>
+            <input type="text" required="required" name="convertedFoldersPath" id="convertedFoldersPath" ng-model="config.convertedFoldersPath" />
+            <p class="explain">Where do you want the converted forms to go when the AutoConverter has run? Probably somewhere on the FileServer.</p>
+
+            <label for="fallBackFoldersPath">Local fallback destination</label>
+            <input type="text" required="required" name="fallBackFoldersPath" id="fallBackFoldersPath" ng-model="config.fallBackFoldersPath" />
+            <p class="explain">If the AutoConverter cannot reach the FileServer, it will place the forms inside this directory - make it a local one, i.e. on this machine. You idiot.</p>
+
+        </fieldset>
+
+        <input type="submit" class="button" value="Apply Config!" />
+</form>
