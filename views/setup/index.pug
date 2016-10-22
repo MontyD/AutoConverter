@@ -9,6 +9,18 @@ block content
     main(ng-app="setup", ng-controller="SetupController as setup").container.app-base
       h1.center Setup
 
+      section.setup-form(ng-class="setup.getClassName('databaseError')").modal
+        h2.serif Come on mate
+        p At least try to create the bloody database:
+        p Boot postgres.
+        p Create a database.
+        p Edit /config/config.json with the database details of the db you just created.
+        p Restart the AutoConverter server.
+        p Profit.
+        p.transparent If all of that sounds too hard, my number is 0800-I-Don't-Care
+
+
+
       section.setup-form(ng-class="setup.getClassName('user')").modal
         h2 Create default admin user
         users-form(validation-error="setup.Notification.error(err)", submit-user="setup.newUser(user)" on-success="setup.success('user')")

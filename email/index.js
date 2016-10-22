@@ -62,7 +62,7 @@ EMAIL.sendSetupEmail = (emailAddress) => {
 			from: EMAIL.smtpSettings.from,
 			to: emailAddress,
 			subject: 'AutoConverter Setup',
-			text: 'AutoConverter Setup',
+			text: 'This is a test email to ensure the AutoConvert has access to an SMTP server.',
 		}, (err, info) => {
 			if(err) {
 				return reject(err);

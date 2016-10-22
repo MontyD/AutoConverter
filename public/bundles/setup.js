@@ -31902,6 +31902,9 @@
 
 	        this.sections = {
 
+	            databaseError: {
+	                complete: true
+	            },
 	            user: {
 	                complete: false
 	            },
@@ -31911,6 +31914,9 @@
 	            },
 
 	            config: {
+	                complete: false
+	            },
+	            done: {
 	                complete: false
 	            }
 	        };
@@ -31983,6 +31989,11 @@
 	    }, {
 	        key: 'handleErrors',
 	        value: function handleErrors(error) {
+	            if (/database|relation/gi.test(error.data)) {
+	                this.sections.databaseError.complete = false;
+	            } else {
+	                this.sections.databaseError.complete = true;
+	            }
 	            this.Notification('Setup incomplete');
 	            return false;
 	        }

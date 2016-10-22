@@ -45,7 +45,7 @@ converter.tests = {
 					resolve();
 				} else {
 					reject({
-						message: 'Folder not accessible or does not exist'
+						message: `${directory} is not accessible or does not exist.`
 					});
 				}
 			});

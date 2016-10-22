@@ -10,6 +10,10 @@ class SetupController {
 
         this.sections = {
 
+
+            databaseError: {
+                complete: true,
+            },
             user: {
                 complete: false,
             },
@@ -19,6 +23,9 @@ class SetupController {
             },
 
             config: {
+                complete: false
+            },
+            done: {
                 complete: false
             }
         };
@@ -63,25 +70,30 @@ class SetupController {
     }
 
     newUser(user) {
-      user.isAdmin = true;
-      return this.UsersService.create(user);
+        user.isAdmin = true;
+        return this.UsersService.create(user);
     }
 
     newConverter(converter) {
-      converter.primary = true;
-      return this.ConvertersService.create(converter);
+        converter.primary = true;
+        return this.ConvertersService.create(converter);
     }
 
     setConfig(config) {
-      return this.ConfigService.create(config);
+        return this.ConfigService.create(config);
     }
 
     success(type) {
-      this.sections[type].complete = true;
-      this.Notification.success(type + ' successfully created!');
+        this.sections[type].complete = true;
+        this.Notification.success(type + ' successfully created!');
     }
 
     handleErrors(error) {
+        if (/database|relation/gi.test(error.data)) {
+            this.sections.databaseError.complete = false;
+        } else {
+            this.sections.databaseError.complete = true;
+        }
         this.Notification('Setup incomplete');
         return false;
     }
