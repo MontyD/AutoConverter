@@ -1,8 +1,8 @@
 @import '../vendor/normalize';
 @import '_layout.scss';
-$colorLight: #81d4fa;
+$colorLight: #1e88e5;
 $colorMain: #f57f17;
-$colorDark: #1976d2;
+$colorDark: #0d47a1;
 $colorSubtle: #E0E0E0;
 $colorAccent: #00796b;
 $colorAccentLight: #FFE082;
@@ -147,6 +147,7 @@ p.slight {
     display        : inline-block;
     padding        : 0.6rem 0.8rem;
     margin         : 0.4rem;
+    font-weight    : bold;
     border         : 1px solid $colorMain;
     border-radius  : 0.2rem;
     background     : $colorMain;
@@ -305,7 +306,7 @@ button.icon {
 }
 
 .setup-form {
-  background: $colorWhite;
+    background: $colorWhite;
 }
 
 .pagination {

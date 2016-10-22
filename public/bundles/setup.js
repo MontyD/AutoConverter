@@ -31891,6 +31891,8 @@
 
 	var SetupController = (function () {
 	    function SetupController(UsersService, ConfigService, ConvertersService, Notification) {
+	        var _this = this;
+
 	        _classCallCheck(this, SetupController);
 
 	        this.UsersService = UsersService;
@@ -31935,9 +31937,11 @@
 	            }
 	        };
 
-	        this.runTest(this.UsersService.get.bind(this.UsersService), 'length', this.sections.user);
-	        this.runTest(this.ConvertersService.get.bind(this.ConvertersService), 'length', this.sections.converter);
-	        this.runTest(this.ConfigService.runTests.bind(this.ConfigService), 'success', this.sections.config);
+	        this.runTest(this.UsersService.get.bind(this.UsersService), 'length', this.sections.user).then(function () {
+	            return _this.runTest(_this.ConvertersService.get.bind(_this.ConvertersService), 'length', _this.sections.converter);
+	        }).then(function () {
+	            return _this.runTest(_this.ConfigService.runTests.bind(_this.ConfigService), 'success', _this.sections.config);
+	        })['catch'](this.handleErrors.bind(this));
 
 	        document.body.classList.add('loaded');
 	    }
@@ -31961,11 +31965,19 @@
 	    }, {
 	        key: 'runTest',
 	        value: function runTest(test, dataAttribute, elementToSetComplete) {
-	            test().then(function (response) {
-	                if (response.data[dataAttribute]) {
-	                    elementToSetComplete.complete = true;
-	                }
-	            })['catch'](this.handleErrors.bind(this));
+	            return new Promise(function (resolve, reject) {
+	                test().then(function (response) {
+	                    if (response.dataAttribute) {
+	                        elementToSetComplete.complete = true;
+	                        return resolve();
+	                    }
+	                    return reject({
+	                        message: 'No users created'
+	                    });
+	                })['catch'](function (err) {
+	                    return reject(err);
+	                });
+	            });
 	        }
 	    }, {
 	        key: 'handleErrors',
@@ -32118,9 +32130,11 @@
 						return false;
 					}
 					scope.submitting = true;
-				});
-				scope.clickAndDisable()['finally'](function () {
-					return scope.submitting = false;
+					if (typeof scope.SubmitFormAndDisable === 'function') {
+						scope.SubmitFormAndDisable()['finally'](function () {
+							return scope.submitting = false;
+						});
+					}
 				});
 			}
 		};
@@ -32163,7 +32177,7 @@
 /* 9 */
 /***/ function(module, exports) {
 
-	module.exports = "<form on-submit-and-disable=\"validateAndSubmit()\">\r\n  <fieldset>\r\n    <label for=\"name\" class=\"required\">Username</label>\r\n    <input type=\"text\" required=\"required\" pattern=\"[A-Z|a-z|0-9|\\.]{4,20}\" title=\"Only include numbers, letters and dots. Keep it between 4 and 20 characters.\" name=\"name\" id=\"name\" ng-model=\"user.name\" />\r\n    <label for=\"email\" class=\"required\">Email</label>\r\n    <input type=\"email\" required=\"required\" name=\"email\" id=\"email\" ng-model=\"user.email\" />\r\n    <label for=\"password\" class=\"required\">Password</label>\r\n    <input type=\"password\" required=\"required\" name=\"password\" id=\"password\" pattern=\".{4,70}\" title=\"Between 4 and 70 characters\" ng-model=\"user.password\" />\r\n    <label for=\"confirm\" class=\"required\">Confirm password</label>\r\n    <input type=\"password\" required=\"required\" name=\"confirm\" id=\"confirm\" pattern=\".{4,70}\" title=\"Between 4 and 70 characters\" ng-model=\"user.confirm\" />\r\n    <input type=\"submit\" class=\"button\" value=\"Create admin user\" />\r\n  </fieldset>\r\n</form>\r\n";
+	module.exports = "<form on-submit-and-disable=\"validateAndSubmit()\">\n  <fieldset>\n    <label for=\"name\" class=\"required\">Username</label>\n    <input type=\"text\" required=\"required\" pattern=\"[A-Z|a-z|0-9|\\.]{4,20}\" title=\"Only include numbers, letters and dots. Keep it between 4 and 20 characters.\" name=\"name\" id=\"name\" ng-model=\"user.name\" />\n    <label for=\"email\" class=\"required\">Email</label>\n    <input type=\"email\" required=\"required\" name=\"email\" id=\"email\" ng-model=\"user.email\" />\n    <label for=\"password\" class=\"required\">Password</label>\n    <input type=\"password\" required=\"required\" name=\"password\" id=\"password\" pattern=\".{4,70}\" title=\"Between 4 and 70 characters\" ng-model=\"user.password\" />\n    <label for=\"confirm\" class=\"required\">Confirm password</label>\n    <input type=\"password\" required=\"required\" name=\"confirm\" id=\"confirm\" pattern=\".{4,70}\" title=\"Between 4 and 70 characters\" ng-model=\"user.confirm\" />\n    <input type=\"submit\" class=\"button\" value=\"Create admin user\" />\n  </fieldset>\n</form>\n";
 
 /***/ },
 /* 10 */

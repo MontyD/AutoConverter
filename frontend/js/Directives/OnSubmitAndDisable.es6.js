@@ -13,8 +13,10 @@ function SubmitFormAndDisable() {
            return false;
          }
          scope.submitting = true;
+				 if (typeof scope.SubmitFormAndDisable === 'function') {
+					 scope.SubmitFormAndDisable().finally(() => scope.submitting = false);
+				 }
 			});
-      scope.clickAndDisable().finally(() => scope.submitting = false);
 		}
 	};
 }

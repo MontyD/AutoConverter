@@ -45,41 +45,48 @@ class SetupController {
             }
         };
 
-        this.runTest(this.UsersService.get.bind(this.UsersService), 'length', this.sections.user);
-        this.runTest(this.ConvertersService.get.bind(this.ConvertersService), 'length', this.sections.converter);
-        this.runTest(this.ConfigService.runTests.bind(this.ConfigService), 'success', this.sections.config);
+        this.runTest(this.UsersService.get.bind(this.UsersService), 'length', this.sections.user)
+            .then(() => this.runTest(this.ConvertersService.get.bind(this.ConvertersService), 'length', this.sections.converter))
+            .then(() => this.runTest(this.ConfigService.runTests.bind(this.ConfigService), 'success', this.sections.config))
+            .catch(this.handleErrors.bind(this));
 
         document.body.classList.add('loaded');
     }
 
     getClassName(attribute) {
-      if (this.sections[attribute].complete) {
-        return 'complete';
-      }
-      for (let key in this.sections) {
-        if (this.sections.hasOwnProperty(key)) {
-          if (key === attribute && !this.sections[key].complete) {
-            return 'active';
-          } else if (!this.sections[key].complete) {
-            return '';
-          }
-         }
-      }
+        if (this.sections[attribute].complete) {
+            return 'complete';
+        }
+        for (let key in this.sections) {
+            if (this.sections.hasOwnProperty(key)) {
+                if (key === attribute && !this.sections[key].complete) {
+                    return 'active';
+                } else if (!this.sections[key].complete) {
+                    return '';
+                }
+            }
+        }
     }
 
     runTest(test, dataAttribute, elementToSetComplete) {
-      test()
-        .then(response => {
-          if (response.data[dataAttribute]) {
-            elementToSetComplete.complete = true;
-          }
-        })
-        .catch(this.handleErrors.bind(this));
+        return new Promise((resolve, reject) => {
+            test()
+                .then(response => {
+                    if (response.dataAttribute) {
+                        elementToSetComplete.complete = true;
+                        return resolve();
+                    }
+                    return reject({
+                        message: 'No users created'
+                    });
+                }).catch(err => reject(err));
+        });
+
     }
 
     handleErrors(error) {
-      this.Notification('Setup incomplete');
-      return false;
+        this.Notification('Setup incomplete');
+        return false;
     }
 
 }
