@@ -30,10 +30,9 @@ class SetupController {
             }
         };
 
-        this.runTest(this.UsersService.get.bind(this.UsersService), 0, this.sections.user)
-            .then(() => this.runTest(this.ConvertersService.get.bind(this.ConvertersService), 0, this.sections.converter))
-            .then(() => this.runTest(this.ConfigService.runTests.bind(this.ConfigService), 'success', this.sections.config))
-            .catch(this.handleErrors.bind(this));
+        this.runTest(this.UsersService.get.bind(this.UsersService), 0, this.sections.user);
+        this.runTest(this.ConvertersService.get.bind(this.ConvertersService), 0, this.sections.converter);
+        this.runTest(this.ConfigService.runTests.bind(this.ConfigService), 'success', this.sections.config);
 
         document.body.classList.add('loaded');
     }
@@ -54,19 +53,13 @@ class SetupController {
     }
 
     runTest(test, dataAttribute, elementToSetComplete) {
-        return new Promise((resolve, reject) => {
-            test()
-                .then(response => {
-                    if (response.data[dataAttribute]) {
-                        elementToSetComplete.complete = true;
-                        return resolve();
-                    }
-                    return reject({
-                        message: 'No users created'
-                    });
-                }).catch(err => reject(err));
-        });
-
+        test()
+            .then(response => {
+                if (response.data[dataAttribute]) {
+                    elementToSetComplete.complete = true;
+                    return false;
+                }
+            }).catch(this.handleErrors.bind(this));
     }
 
     newUser(user) {
@@ -84,6 +77,7 @@ class SetupController {
     }
 
     success(type) {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
         this.sections[type].complete = true;
         this.Notification.success(type + ' successfully created!');
     }

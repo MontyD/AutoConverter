@@ -33,4 +33,11 @@ block content
         h2 Global Config
         config-form(validation-error="setup.Notification.error(err)", submit-config="setup.setConfig(config)" on-success="setup.success('config')")
 
+      section.setup-form(ng-class="setup.getClassName('done')").modal
+        h2.serif Yes m9!
+        p You've successfully configured the autoconverter!
+        p All you need to do now is restart the server and it will boot in live mode.
+        p Now get converting you cheeky cupcake.
+
+
     script(src="/bundles/setup.js", type="text/javascript")

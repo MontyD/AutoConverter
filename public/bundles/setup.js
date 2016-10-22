@@ -31891,8 +31891,6 @@
 
 	var SetupController = (function () {
 	    function SetupController(UsersService, ConfigService, ConvertersService, Notification) {
-	        var _this = this;
-
 	        _classCallCheck(this, SetupController);
 
 	        this.UsersService = UsersService;
@@ -31921,11 +31919,9 @@
 	            }
 	        };
 
-	        this.runTest(this.UsersService.get.bind(this.UsersService), 0, this.sections.user).then(function () {
-	            return _this.runTest(_this.ConvertersService.get.bind(_this.ConvertersService), 0, _this.sections.converter);
-	        }).then(function () {
-	            return _this.runTest(_this.ConfigService.runTests.bind(_this.ConfigService), 'success', _this.sections.config);
-	        })['catch'](this.handleErrors.bind(this));
+	        this.runTest(this.UsersService.get.bind(this.UsersService), 0, this.sections.user);
+	        this.runTest(this.ConvertersService.get.bind(this.ConvertersService), 0, this.sections.converter);
+	        this.runTest(this.ConfigService.runTests.bind(this.ConfigService), 'success', this.sections.config);
 
 	        document.body.classList.add('loaded');
 	    }
@@ -31949,19 +31945,12 @@
 	    }, {
 	        key: 'runTest',
 	        value: function runTest(test, dataAttribute, elementToSetComplete) {
-	            return new Promise(function (resolve, reject) {
-	                test().then(function (response) {
-	                    if (response.data[dataAttribute]) {
-	                        elementToSetComplete.complete = true;
-	                        return resolve();
-	                    }
-	                    return reject({
-	                        message: 'No users created'
-	                    });
-	                })['catch'](function (err) {
-	                    return reject(err);
-	                });
-	            });
+	            test().then(function (response) {
+	                if (response.data[dataAttribute]) {
+	                    elementToSetComplete.complete = true;
+	                    return false;
+	                }
+	            })['catch'](this.handleErrors.bind(this));
 	        }
 	    }, {
 	        key: 'newUser',
@@ -31983,6 +31972,7 @@
 	    }, {
 	        key: 'success',
 	        value: function success(type) {
+	            document.body.scrollTop = document.documentElement.scrollTop = 0;
 	            this.sections[type].complete = true;
 	            this.Notification.success(type + ' successfully created!');
 	        }
