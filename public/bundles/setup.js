@@ -31980,6 +31980,13 @@
 	            });
 	        }
 	    }, {
+	        key: 'newUser',
+	        value: function newUser(user) {
+	            console.log('new users');
+	            console.log(user);
+	            return this.UsersService.create(user);
+	        }
+	    }, {
 	        key: 'handleErrors',
 	        value: function handleErrors(error) {
 	            this.Notification('Setup incomplete');
@@ -32021,6 +32028,11 @@
 	    key: 'get',
 	    value: function get() {
 	      return this.$http.get(this.urlBase);
+	    }
+	  }, {
+	    key: 'create',
+	    value: function create(newUser) {
+	      return this.$http.post(this.urlBase, newUser);
 	    }
 	  }]);
 
@@ -32113,31 +32125,33 @@
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-		value: true
+	    value: true
 	});
 	function SubmitFormAndDisable() {
-		'use strict';
-		return {
-			restrict: 'A',
-			scope: {
-				SubmitFormAndDisable: '&'
-			},
-			// template
-			link: function link(scope, element, attrs) {
-				scope.submitting = false;
-				element.on('submit', function () {
-					if (scope.submitting) {
-						return false;
-					}
-					scope.submitting = true;
-					if (typeof scope.SubmitFormAndDisable === 'function') {
-						scope.SubmitFormAndDisable()['finally'](function () {
-							return scope.submitting = false;
-						});
-					}
-				});
-			}
-		};
+	    'use strict';
+	    return {
+	        restrict: 'A',
+	        scope: {
+	            onSubmit: '&'
+	        },
+	        // template
+	        link: function link(scope, element, attrs) {
+	            scope.submitting = false;
+	            element.on('submit', function () {
+	                if (scope.submitting) {
+	                    return false;
+	                }
+	                scope.submitting = true;
+	                scope.onSubmit()
+	                // 'finally is causing an error [.finally is not a function]'
+	                .then(function () {
+	                    return scope.submitting = false;
+	                })['catch'](function () {
+	                    return scope.submitting = false;
+	                });
+	            });
+	        }
+	    };
 	}
 
 	exports['default'] = SubmitFormAndDisable;
@@ -32150,7 +32164,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	  value: true
+	    value: true
 	});
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -32160,14 +32174,36 @@
 	var _templatesUsersFormTemplateHtml2 = _interopRequireDefault(_templatesUsersFormTemplateHtml);
 
 	function UserForm() {
-	  'use strict';
-	  return {
-	    restrict: 'E',
-	    template: _templatesUsersFormTemplateHtml2['default'],
-	    scope: {},
-	    // template
-	    link: function link(scope, element, attrs) {}
-	  };
+	    'use strict';
+	    return {
+	        restrict: 'E',
+	        template: _templatesUsersFormTemplateHtml2['default'],
+	        scope: {
+	            validationError: '&',
+	            submitUser: '&'
+	        },
+	        // template
+	        link: function link(scope, element, attrs) {
+
+	            scope.validateAndSubmit = function () {
+	                return new Promise(function (resolve, reject) {
+	                    if (scope.user.password !== scope.user.confirm) {
+	                        scope.validationError({
+	                            err: 'Passwords do not match'
+	                        });
+	                        return resolve();
+	                    }
+	                    return scope.submitUser({ user: scope.user }).then(function (response) {
+	                        return resolve();
+	                    })['catch'](function (err) {
+	                        scope.validationError({ err: err.data });
+	                        console.error(err);
+	                        return reject();
+	                    });
+	                });
+	            };
+	        }
+	    };
 	}
 
 	exports['default'] = UserForm;
@@ -32177,7 +32213,7 @@
 /* 9 */
 /***/ function(module, exports) {
 
-	module.exports = "<form on-submit-and-disable=\"validateAndSubmit()\">\n  <fieldset>\n    <label for=\"name\" class=\"required\">Username</label>\n    <input type=\"text\" required=\"required\" pattern=\"[A-Z|a-z|0-9|\\.]{4,20}\" title=\"Only include numbers, letters and dots. Keep it between 4 and 20 characters.\" name=\"name\" id=\"name\" ng-model=\"user.name\" />\n    <label for=\"email\" class=\"required\">Email</label>\n    <input type=\"email\" required=\"required\" name=\"email\" id=\"email\" ng-model=\"user.email\" />\n    <label for=\"password\" class=\"required\">Password</label>\n    <input type=\"password\" required=\"required\" name=\"password\" id=\"password\" pattern=\".{4,70}\" title=\"Between 4 and 70 characters\" ng-model=\"user.password\" />\n    <label for=\"confirm\" class=\"required\">Confirm password</label>\n    <input type=\"password\" required=\"required\" name=\"confirm\" id=\"confirm\" pattern=\".{4,70}\" title=\"Between 4 and 70 characters\" ng-model=\"user.confirm\" />\n    <input type=\"submit\" class=\"button\" value=\"Create admin user\" />\n  </fieldset>\n</form>\n";
+	module.exports = "<form on-submit-and-disable on-submit=\"validateAndSubmit()\">\n  <fieldset>\n    <label for=\"name\" class=\"required\">Username</label>\n    <input type=\"text\" required=\"required\" pattern=\"[A-Z|a-z|0-9|\\.]{4,20}\" title=\"Only include numbers, letters and dots. Keep it between 4 and 20 characters.\" name=\"name\" id=\"name\" ng-model=\"user.name\" />\n    <label for=\"email\" class=\"required\">Email</label>\n    <input type=\"email\" required=\"required\" name=\"email\" id=\"email\" ng-model=\"user.email\" />\n    <label for=\"password\" class=\"required\">Password</label>\n    <input type=\"password\" required=\"required\" name=\"password\" id=\"password\" pattern=\".{4,70}\" title=\"Between 4 and 70 characters\" ng-model=\"user.password\" />\n    <label for=\"confirm\" class=\"required\">Confirm password</label>\n    <input type=\"password\" required=\"required\" name=\"confirm\" id=\"confirm\" pattern=\".{4,70}\" title=\"Between 4 and 70 characters\" ng-model=\"user.confirm\" />\n    <input type=\"submit\" class=\"button\" value=\"Create admin user\" />\n  </fieldset>\n</form>\n";
 
 /***/ },
 /* 10 */

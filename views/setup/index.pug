@@ -11,7 +11,7 @@ block content
 
       section.setup-form(ng-class="setup.getClassName('user')").modal
         h2 Create default admin user
-        users-form
+        users-form(validation-error="setup.Notification.error(err)", submit-user="setup.newUser(user)")
 
       section.setup-form(ng-class="setup.getClassName('converter')").modal
         h2 Create default converter

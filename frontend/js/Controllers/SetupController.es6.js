@@ -84,6 +84,12 @@ class SetupController {
 
     }
 
+    newUser(user) {
+      console.log('new users');
+      console.log(user);
+      return this.UsersService.create(user);
+    }
+
     handleErrors(error) {
         this.Notification('Setup incomplete');
         return false;

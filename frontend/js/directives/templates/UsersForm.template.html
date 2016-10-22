@@ -1,4 +1,4 @@
-<form on-submit-and-disable="validateAndSubmit()">
+<form on-submit-and-disable on-submit="validateAndSubmit()">
   <fieldset>
     <label for="name" class="required">Username</label>
     <input type="text" required="required" pattern="[A-Z|a-z|0-9|\.]{4,20}" title="Only include numbers, letters and dots. Keep it between 4 and 20 characters." name="name" id="name" ng-model="user.name" />
