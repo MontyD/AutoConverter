@@ -11,6 +11,10 @@ class ConvertersService {
     return this.$http.get(this.urlBase);
   }
 
+  create(newConverter) {
+    return this.$http.post(this.urlBase, newConverter);
+  }
+
 
 
 }

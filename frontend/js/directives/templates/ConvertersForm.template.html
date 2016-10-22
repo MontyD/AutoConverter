@@ -1,0 +1,9 @@
+<form on-submit-and-disable on-submit="validateAndSubmit()">
+  <fieldset>
+    <label for="name" class="required">Converter Name</label>
+    <input type="text" required="required" name="name" id="name" ng-model="converter.name" />
+    <label for="path" class="required">Converter's Full Path</label>
+    <input type="text" required="required" name="path" id="path" ng-model="converter.path" />
+    <input type="submit" class="button" value="Create primary converter" />
+  </fieldset>
+</form>

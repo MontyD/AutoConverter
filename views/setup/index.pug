@@ -11,11 +11,11 @@ block content
 
       section.setup-form(ng-class="setup.getClassName('user')").modal
         h2 Create default admin user
-        users-form(validation-error="setup.Notification.error(err)", submit-user="setup.newUser(user)")
+        users-form(validation-error="setup.Notification.error(err)", submit-user="setup.newUser(user)" on-success="setup.success('user')")
 
       section.setup-form(ng-class="setup.getClassName('converter')").modal
         h2 Create default converter
-        converters-form
+        converters-form(validation-error="setup.Notification.error(err)", submit-converter="setup.newConverter(converter)" on-success="setup.success('converter')")
 
       section.setup-form(ng-class="setup.getClassName('config')").modal
         h2 Set config

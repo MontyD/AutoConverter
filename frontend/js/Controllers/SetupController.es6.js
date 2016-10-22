@@ -45,8 +45,8 @@ class SetupController {
             }
         };
 
-        this.runTest(this.UsersService.get.bind(this.UsersService), 'length', this.sections.user)
-            .then(() => this.runTest(this.ConvertersService.get.bind(this.ConvertersService), 'length', this.sections.converter))
+        this.runTest(this.UsersService.get.bind(this.UsersService), 0, this.sections.user)
+            .then(() => this.runTest(this.ConvertersService.get.bind(this.ConvertersService), 0, this.sections.converter))
             .then(() => this.runTest(this.ConfigService.runTests.bind(this.ConfigService), 'success', this.sections.config))
             .catch(this.handleErrors.bind(this));
 
@@ -72,7 +72,7 @@ class SetupController {
         return new Promise((resolve, reject) => {
             test()
                 .then(response => {
-                    if (response.dataAttribute) {
+                    if (response.data[dataAttribute]) {
                         elementToSetComplete.complete = true;
                         return resolve();
                     }
@@ -85,9 +85,18 @@ class SetupController {
     }
 
     newUser(user) {
-      console.log('new users');
-      console.log(user);
+      user.isAdmin = true;
       return this.UsersService.create(user);
+    }
+
+    newConverter(converter) {
+      converter.primary = true;
+      return this.ConvertersService.create(converter);
+    }
+
+    success(type) {
+      this.sections[type].complete = true;
+      this.Notification.success(type + ' successfully created!');
     }
 
     handleErrors(error) {

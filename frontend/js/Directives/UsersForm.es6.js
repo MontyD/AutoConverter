@@ -7,11 +7,11 @@ function UserForm() {
         template: template,
         scope: {
             validationError: '&',
-            submitUser: '&'
+            submitUser: '&',
+            onSuccess: '&'
         },
         // template
         link: (scope, element, attrs) => {
-
 
             scope.validateAndSubmit = () => {
                 return new Promise((resolve, reject) => {
@@ -23,6 +23,7 @@ function UserForm() {
                     }
                     return scope.submitUser({user: scope.user})
                       .then(response => {
+                          scope.onSuccess();
                           return resolve();
                       })
                       .catch(err => {

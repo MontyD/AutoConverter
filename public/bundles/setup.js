@@ -80,15 +80,15 @@
 
 	var _DirectivesConvertersFormEs6Js2 = _interopRequireDefault(_DirectivesConvertersFormEs6Js);
 
-	var _DirectivesConfigFormEs6Js = __webpack_require__(11);
+	var _DirectivesConfigFormEs6Js = __webpack_require__(12);
 
 	var _DirectivesConfigFormEs6Js2 = _interopRequireDefault(_DirectivesConfigFormEs6Js);
 
-	var _angularUiNotification = __webpack_require__(12);
+	var _angularUiNotification = __webpack_require__(13);
 
 	var _angularUiNotification2 = _interopRequireDefault(_angularUiNotification);
 
-	var _angularLoadingBar = __webpack_require__(14);
+	var _angularLoadingBar = __webpack_require__(15);
 
 	var _angularLoadingBar2 = _interopRequireDefault(_angularLoadingBar);
 
@@ -31937,8 +31937,8 @@
 	            }
 	        };
 
-	        this.runTest(this.UsersService.get.bind(this.UsersService), 'length', this.sections.user).then(function () {
-	            return _this.runTest(_this.ConvertersService.get.bind(_this.ConvertersService), 'length', _this.sections.converter);
+	        this.runTest(this.UsersService.get.bind(this.UsersService), 0, this.sections.user).then(function () {
+	            return _this.runTest(_this.ConvertersService.get.bind(_this.ConvertersService), 0, _this.sections.converter);
 	        }).then(function () {
 	            return _this.runTest(_this.ConfigService.runTests.bind(_this.ConfigService), 'success', _this.sections.config);
 	        })['catch'](this.handleErrors.bind(this));
@@ -31967,7 +31967,7 @@
 	        value: function runTest(test, dataAttribute, elementToSetComplete) {
 	            return new Promise(function (resolve, reject) {
 	                test().then(function (response) {
-	                    if (response.dataAttribute) {
+	                    if (response.data[dataAttribute]) {
 	                        elementToSetComplete.complete = true;
 	                        return resolve();
 	                    }
@@ -31982,9 +31982,20 @@
 	    }, {
 	        key: 'newUser',
 	        value: function newUser(user) {
-	            console.log('new users');
-	            console.log(user);
+	            user.isAdmin = true;
 	            return this.UsersService.create(user);
+	        }
+	    }, {
+	        key: 'newConverter',
+	        value: function newConverter(converter) {
+	            converter.primary = true;
+	            return this.ConvertersService.create(converter);
+	        }
+	    }, {
+	        key: 'success',
+	        value: function success(type) {
+	            this.sections[type].complete = true;
+	            this.Notification.success(type + ' successfully created!');
 	        }
 	    }, {
 	        key: 'handleErrors',
@@ -32071,6 +32082,11 @@
 	    value: function get() {
 	      return this.$http.get(this.urlBase);
 	    }
+	  }, {
+	    key: 'create',
+	    value: function create(newConverter) {
+	      return this.$http.post(this.urlBase, newConverter);
+	    }
 	  }]);
 
 	  return ConvertersService;
@@ -32137,18 +32153,21 @@
 	        // template
 	        link: function link(scope, element, attrs) {
 	            scope.submitting = false;
+
+	            scope.resetForm = function () {
+	                scope.submitting = false;
+	                element.removeClass('submitting');
+	            };
+
 	            element.on('submit', function () {
 	                if (scope.submitting) {
 	                    return false;
 	                }
+	                element.addClass('submitting');
 	                scope.submitting = true;
 	                scope.onSubmit()
 	                // 'finally is causing an error [.finally is not a function]'
-	                .then(function () {
-	                    return scope.submitting = false;
-	                })['catch'](function () {
-	                    return scope.submitting = false;
-	                });
+	                .then(scope.resetForm)['catch'](scope.resetForm);
 	            });
 	        }
 	    };
@@ -32180,7 +32199,8 @@
 	        template: _templatesUsersFormTemplateHtml2['default'],
 	        scope: {
 	            validationError: '&',
-	            submitUser: '&'
+	            submitUser: '&',
+	            onSuccess: '&'
 	        },
 	        // template
 	        link: function link(scope, element, attrs) {
@@ -32194,6 +32214,7 @@
 	                        return resolve();
 	                    }
 	                    return scope.submitUser({ user: scope.user }).then(function (response) {
+	                        scope.onSuccess();
 	                        return resolve();
 	                    })['catch'](function (err) {
 	                        scope.validationError({ err: err.data });
@@ -32217,20 +32238,44 @@
 
 /***/ },
 /* 10 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _templatesConvertersFormTemplateHtml = __webpack_require__(11);
+
+	var _templatesConvertersFormTemplateHtml2 = _interopRequireDefault(_templatesConvertersFormTemplateHtml);
+
 	function ConvertersForm() {
 	  'use strict';
 	  return {
 	    restrict: 'E',
-	    scope: {},
-	    // template
-	    link: function link(scope, element, attrs) {}
+	    template: _templatesConvertersFormTemplateHtml2['default'],
+	    scope: {
+	      validationError: '&',
+	      submitConverter: '&',
+	      onSuccess: '&'
+	    },
+	    link: function link(scope, element, attrs) {
+	      scope.validateAndSubmit = function () {
+	        return new Promise(function (resolve, reject) {
+	          scope.submitConverter({ converter: scope.converter }).then(function (response) {
+	            scope.onSuccess();
+	            return resolve();
+	          })['catch'](function (err) {
+	            scope.validationError({ err: err.data });
+	            console.log(err);
+	            return reject();
+	          });
+	        });
+	      };
+	    }
 	  };
 	}
 
@@ -32239,6 +32284,12 @@
 
 /***/ },
 /* 11 */
+/***/ function(module, exports) {
+
+	module.exports = "<form on-submit-and-disable on-submit=\"validateAndSubmit()\">\n  <fieldset>\n    <label for=\"name\" class=\"required\">Converter Name</label>\n    <input type=\"text\" required=\"required\" name=\"name\" id=\"name\" ng-model=\"converter.name\" />\n    <label for=\"path\" class=\"required\">Converter's Full Path</label>\n    <input type=\"text\" required=\"required\" name=\"path\" id=\"path\" ng-model=\"converter.path\" />\n    <input type=\"submit\" class=\"button\" value=\"Create primary converter\" />\n  </fieldset>\n</form>\n";
+
+/***/ },
+/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -32260,17 +32311,17 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by alex_crack on 20.11.15.
 	 */
-	__webpack_require__(13);
+	__webpack_require__(14);
 	module.exports = 'ui-notification';
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports) {
 
 	/**
@@ -32502,15 +32553,15 @@
 	angular.module("ui-notification").run(["$templateCache", function($templateCache) {$templateCache.put("angular-ui-notification.html","<div class=\"ui-notification\"><h3 ng-show=\"title\" ng-bind-html=\"title\"></h3><div class=\"message\" ng-bind-html=\"message\"></div></div>");}]);
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(15);
+	__webpack_require__(16);
 	module.exports = 'angular-loading-bar';
 
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports) {
 
 	/*! 

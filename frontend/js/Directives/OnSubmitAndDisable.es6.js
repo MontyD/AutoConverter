@@ -8,15 +8,22 @@ function SubmitFormAndDisable() {
         // template
         link: (scope, element, attrs) => {
             scope.submitting = false;
+
+						scope.resetForm = () => {
+							scope.submitting = false;
+							element.removeClass('submitting');
+						};
+
             element.on('submit', () => {
                 if (scope.submitting) {
                     return false;
                 }
+								element.addClass('submitting');
                 scope.submitting = true;
                 scope.onSubmit()
 									// 'finally is causing an error [.finally is not a function]'
-									.then(() => scope.submitting = false)
-									.catch(() => scope.submitting = false);
+									.then(scope.resetForm)
+									.catch(scope.resetForm);
             });
         }
     };
