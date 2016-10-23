@@ -378,6 +378,11 @@ body {
   margin: 0;
   padding: 0; }
 
+ui-view {
+  display: block;
+  margin: 0;
+  padding: 0; }
+
 main.full-height {
   position: relative;
   min-height: 100%;
@@ -701,7 +706,8 @@ main.full-height {
     padding: 0.4rem 0.4rem 0; }
 
 .loading-view {
-  z-index: 100; }
+  position: fixed;
+  z-index: 9999; }
 
 footer {
   position: relative;
@@ -1776,6 +1782,11 @@ body {
   margin: 0;
   padding: 0; }
 
+ui-view {
+  display: block;
+  margin: 0;
+  padding: 0; }
+
 main.full-height {
   position: relative;
   min-height: 100%;
@@ -2099,7 +2110,8 @@ main.full-height {
     padding: 0.4rem 0.4rem 0; }
 
 .loading-view {
-  z-index: 100; }
+  position: fixed;
+  z-index: 9999; }
 
 footer {
   position: relative;
@@ -2631,6 +2643,42 @@ nav.top {
       @media (min-width: 630px) {
         nav.top a.close {
           display: none; } }
+
+nav.sidebar {
+  position: fixed;
+  left: 0;
+  z-index: 0;
+  width: 240px;
+  height: 100%;
+  z-index: 1000;
+  background: #0d47a1;
+  color: #FAFAFA;
+  box-sizing: border-box;
+  overflow-x: hidden; }
+  nav.sidebar a:hover {
+    color: #FAFAFA;
+    text-decoration: none; }
+  nav.sidebar h1 {
+    font-size: 2.5em;
+    padding: 0.3em; }
+  nav.sidebar ul {
+    padding: 0.2em 0 1em 0.4em; }
+  nav.sidebar li {
+    list-style: none;
+    margin: 0.6em 0;
+    padding: 0; }
+    nav.sidebar li a {
+      padding: 0.4em 0.5em;
+      display: block;
+      border-top-left-radius: 0.2em;
+      border-bottom-left-radius: 0.2em;
+      background: rgba(0, 0, 0, 0.1); }
+      nav.sidebar li a:hover {
+        background: rgba(0, 0, 0, 0.3); }
+
+.next-to-sidebar {
+  margin-left: 240px;
+  box-sizing: border-box; }
 
 @media (max-width: 630px) {
   .menu-open ul {

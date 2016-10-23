@@ -1,2 +1,13 @@
-<h1>this is the sidebar</h1>
-<ui-view></ui-view>
+<nav class="sidebar">
+  <h1><a ui-sref="converter.new" title="Upload Conversions">The<br>Auto<br>Converter</a></h1>
+    <ul>
+        <li><a ui-sref="converter.new" title="Upload Conversions">Upload Conversions</a></li>
+        <li><a ui-sref="converter.config" title="Configure Conversions">Configure Conversions</a></li>
+        <li><a ui-sref="converter.queue" title="Queue">Queue</a></li>
+        <li><a ui-sref="converter.done" title="Completed Conversions">Completed Conversions</a></li>
+    </ul>
+</nav>
+
+<main class="next-to-sidebar">
+    <ui-view></ui-view>
+</main>

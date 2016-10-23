@@ -17,7 +17,13 @@ body {
     width                 : 100%;
     font-family           : $sans-serif;
     -webkit-font-smoothing: antialiased;
-    margin: 0;
+    margin                : 0;
+    padding               : 0;
+}
+
+ui-view {
+    display: block;
+    margin : 0;
     padding: 0;
 }
 
@@ -357,21 +363,22 @@ main.full-height {
 }
 
 .setup-form {
-    position: absolute;
-    margin  : 1em auto 1.5em;
-    left    : 0;
-    right   : 0;
-    transform: translateX(-200%);
-    opacity: 0;
+    position  : absolute;
+    margin    : 1em auto 1.5em;
+    left      : 0;
+    right     : 0;
+    transform : translateX(-200%);
+    opacity   : 0;
     transition: transform 0.3s ease-out, opacity 0.2s ease-out;
 
     &.active {
-      opacity: 1;
-      transform: translateX(0);
+        opacity  : 1;
+        transform: translateX(0);
     }
+
     &.complete {
-      opacity: 0;
-      transform: translateX(200%);
+        opacity  : 0;
+        transform: translateX(200%);
     }
 }
 
@@ -413,7 +420,8 @@ main.full-height {
 }
 
 .loading-view {
-    z-index: 100;
+    position: fixed;
+    z-index : 9999;
 }
 
 footer {
