@@ -45745,30 +45745,31 @@
 
 	    $locationProvider.html5Mode(true);
 
-	    $urlRouterProvider.otherwise('/new');
+	    $urlRouterProvider.otherwise('/');
 
 	    $stateProvider.state('converter', {
 	        url: '/',
+	        abstract: true,
 	        template: __webpack_require__(71),
 	        controller: 'SidebarController',
 	        controllerAs: 'sidebar'
 	    }).state('converter.new', {
-	        url: '/new',
+	        url: '',
 	        template: __webpack_require__(72),
 	        controller: 'NewConversionController',
 	        controllerAs: 'new'
 	    }).state('converter.config', {
-	        url: '/configure',
+	        url: 'configure',
 	        template: __webpack_require__(73),
 	        controller: 'ConfigConversionsController',
 	        controllerAs: 'config'
 	    }).state('converter.queue', {
-	        url: '/queue',
+	        url: 'queue',
 	        template: __webpack_require__(74),
 	        controller: 'ConversionsQueueController',
 	        controllerAs: 'queue'
 	    }).state('converter.done', {
-	        url: '/done',
+	        url: 'done',
 	        template: __webpack_require__(75),
 	        controller: 'ConversionsDoneController',
 	        controllerAs: 'done'
@@ -45784,7 +45785,7 @@
 /* 71 */
 /***/ function(module, exports) {
 
-	module.exports = "<h1>this is the sidebar</h1>\n";
+	module.exports = "<h1>this is the sidebar</h1>\n<ui-view></ui-view>\n";
 
 /***/ },
 /* 72 */

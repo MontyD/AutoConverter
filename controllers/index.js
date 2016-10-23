@@ -9,13 +9,17 @@ const express = require('express'),
     isAdmin = require(path.join(__dirname, '..', 'middlewares', 'isAdmin')),
     passUser = require(path.join(__dirname, '..', 'middlewares', 'passUser'));
 
-router.get('/', (req, res, next) => res.render('index'));
+router.get(['/', '/new', '/configure', '/queue', '/done'], (req, res, next) => res.render('index'));
+
+
 
 router.use('/users', require('./Users.js'));
 
 router.use('/converters', respondsToJSON, checkUser, require('./Converters.js'));
 
 router.use('/configuration', respondsToJSON, checkUser, isAdmin, require('./Config.js'));
+
+
 
 
 
