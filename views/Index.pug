@@ -1,4 +1,20 @@
-extends layouts/base
-block content
-  body.slight-gradient
-    h1 Index
+doctype html
+html
+  head
+    title AutoConverter
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/css/index.min.css')
+    link(href='/fonts/linearicons.css', rel='stylesheet', type='text/css')
+    link(href='https://fonts.googleapis.com/css?family=Open+Sans', rel='stylesheet', type='text/css')
+    link(href='/fonts/butlerbold.css', rel='stylesheet', type='text/css')
+    base(href='/')
+  body(ng-app="converter")
+    .loading-view
+      .circle.circle-1.no-transition
+      .circle.circle-2.no-transition
+      .text-container.white
+        span Loading
+    ui-view
+    script(src="/bundles/converter.js")
