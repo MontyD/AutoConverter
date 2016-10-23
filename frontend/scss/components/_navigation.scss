@@ -164,7 +164,7 @@ nav.sidebar {
     overflow-x: hidden;
 
     a:hover {
-        color: $colorWhite;
+        color          : $colorWhite;
         text-decoration: none;
     }
 
@@ -192,13 +192,20 @@ nav.sidebar {
             &:hover {
                 background: rgba(0,0,0,0.3);
             }
+            &.active {
+              font-style: italic;
+            }
         }
     }
 }
 
 .next-to-sidebar {
+    position   : absolute;
     margin-left: 240px;
     box-sizing : border-box;
+    height     : 100%;
+    width      : 100%;
+    @include shadow(1);
 }
 
 .menu-open {

@@ -45785,7 +45785,7 @@
 /* 71 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"sidebar\">\n  <h1><a ui-sref=\"converter.new\" title=\"Upload Conversions\">The<br>Auto<br>Converter</a></h1>\n    <ul>\n        <li><a ui-sref=\"converter.new\" title=\"Upload Conversions\">Upload Conversions</a></li>\n        <li><a ui-sref=\"converter.config\" title=\"Configure Conversions\">Configure Conversions</a></li>\n        <li><a ui-sref=\"converter.queue\" title=\"Queue\">Queue</a></li>\n        <li><a ui-sref=\"converter.done\" title=\"Completed Conversions\">Completed Conversions</a></li>\n    </ul>\n</nav>\n\n<main class=\"next-to-sidebar\">\n    <ui-view></ui-view>\n</main>\n";
+	module.exports = "<nav class=\"sidebar\">\n  <h1><a ui-sref=\"converter.new\" ui-sref-active=\"active\" title=\"Upload Conversions\">The<br>Auto<br>Converter</a></h1>\n    <ul>\n        <li><a ui-sref=\"converter.new\" ui-sref-active=\"active\" title=\"Upload Conversions\">Upload Conversions</a></li>\n        <li><a ui-sref=\"converter.config\" ui-sref-active=\"active\" title=\"Configure Conversions\">Configure Conversions</a></li>\n        <li><a ui-sref=\"converter.queue\" ui-sref-active=\"active\" title=\"Queue\">Queue</a></li>\n        <li><a ui-sref=\"converter.done\" ui-sref-active=\"active\" title=\"Completed Conversions\">Completed Conversions</a></li>\n    </ul>\n</nav>\n\n<main class=\"next-to-sidebar\">\n    <ui-view></ui-view>\n</main>\n";
 
 /***/ },
 /* 72 */
