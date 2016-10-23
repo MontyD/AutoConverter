@@ -1,39 +1,18 @@
 extends ../layouts/base
 block content
     body.slight-gradient
-      .circle.circle-1.no-transition
-      .circle.circle-2.no-transition
       nav.top.grey
           .container
               include ../includes/_headerLinks.pug
       section.modal.light.main
           h1 Login
-          form(id="sign-in-form" method="POST", action="/rooms/login")
-            if noRoom
-              p.error.main Room cannot be found (room name is case sensitive)
-            else if badpassword
-              p.error.main Incorrect passcode or admin password
-            label(for="name") Your name
-            if (username)
-              input(type="text", name="name", id="name", required="required", value=username)
-            else
-              input(type="text", name="name", id="name", autofocus="autofocus", required="required")
-            if (room)
-                input(type="text", name="username", id="username", required="required", value=room).hidden
-            else if (username)
-              label(for="username") Room name
-              input(type="text", name="username", id="username", autofocus="autofocus", required="required")
-            else
-              label(for="username") Room name
-              input(type="text", name="username", id="username", required="required")
+          form(id="sign-in-form" method="POST", action="/users/login")
+            if badpassword
+              p.error.main Login details incorrect
+            label(for="username") Username
+            input(type="text", name="username", id="username", required="required", autofocus="autofocus")
             label(for="password") Room passcode
-              span.transparent &nbsp;or admin password
-            if (username && room)
-              input(type="password", name="password", id="password", autofocus="autofocus", required="required")
-            else
-              input(type="password", name="password", id="password", required="required")
+            input(type="password", name="password", id="password", required="required")
             input(type="submit", value="Login").button.primary
             if (originalURL)
                 input(type="text", value=originalURL, name="originalURL").hidden
-      include ../includes/_footer
-      script(type="text/javascript", src="/bundles/signin.js")

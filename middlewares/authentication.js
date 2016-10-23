@@ -10,22 +10,22 @@ var authentication = new LocalStrategy(
             where: {
                 'name': name
             },
-            attributes: ['salt', 'passcode', 'id', 'name']
+            attributes: ['salt', 'password', 'id', 'name', 'isAdmin']
         }).then(user => {
             if (user === null) {
                 return done(null, false, {
-                    noroom: true
+                    noUser: true
                 });
             }
-            bcrypt.hash(password, user.passcodeSalt, (err, hash) => {
+            bcrypt.hash(password, user.salt, undefined, (err, hash) => {
                 if (err) {
                     return done(null, false, err);
                 }
-                if (hash === user.passcode) {
+                if (hash === user.password) {
                     return done(null, {
                         id: user.id,
                         name: user.name,
-                        isAdmin: false
+                        isAdmin: user.isAdmin
                     });
                 } else {
                     return done(null, false, {

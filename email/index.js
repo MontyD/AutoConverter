@@ -1,7 +1,8 @@
 'use strict';
 const path = require('path'),
 	nodemailer = require('nodemailer'),
-	models = require(path.resolve(__dirname, '..', 'models'));
+	models = require(path.resolve(__dirname, '..', 'models')),
+	doNotEmail = require(path.resolve(__dirname, '..', 'config.js')).doNotEmail || false;
 
 const EMAIL = {};
 
@@ -58,6 +59,9 @@ EMAIL.checkExistingSMTPSettings = function () {
 
 EMAIL.sendSetupEmail = (emailAddress) => {
 	return new Promise((resolve, reject) => {
+		if (doNotEmail) {
+			return resolve();
+		}
 		EMAIL.transporter.sendMail({
 			from: EMAIL.smtpSettings.from,
 			to: emailAddress,

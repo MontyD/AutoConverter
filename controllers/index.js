@@ -9,7 +9,7 @@ const express = require('express'),
     isAdmin = require(path.join(__dirname, '..', 'middlewares', 'isAdmin')),
     passUser = require(path.join(__dirname, '..', 'middlewares', 'passUser'));
 
-router.get(['/', '/new', '/configure', '/queue', '/done'], (req, res, next) => res.render('index'));
+router.get(['/', '/new', '/configure', '/queue', '/done'], checkUser, (req, res, next) => res.render('index'));
 
 
 

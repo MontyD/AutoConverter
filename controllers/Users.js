@@ -19,7 +19,7 @@ function authenticateUser(req, res, next) {
             return next(err);
         }
         if (!user) {
-            return res.redirect('/login');
+            return res.redirect('/users/login?badpassword=true');
         }
         req.logIn(user, err => {
             if (err) {
@@ -41,11 +41,17 @@ router.get('/', (req, res, next) => {
 // Get - register page
 router.get('/login', (req, res, next) => {
     req.logout();
-    res.render('security/login');
+    let locals = {
+      badpassword: req.query.badpassword
+    };
+    res.render('security/login', locals);
 });
 
 // Post login - authenticate
-router.post('/login', authenticateUser);
+router.post('/login', (req, res, next) => {
+  console.log(req.body);
+  return authenticateUser(req, res, next);
+});
 
 // Post register
 router.post('/', (req, res, next) => {

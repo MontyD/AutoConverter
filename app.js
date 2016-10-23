@@ -15,7 +15,7 @@ const express = require('express'),
 	controllers = require(path.join(__dirname, 'controllers')),
 	models = require(path.join(__dirname, 'models')),
 	email = require(path.join(__dirname, 'email')),
-	authentication = require(path.join(__dirname, 'middlewares', 'authentication.js')),
+	authentication = require(path.join(__dirname, 'middlewares', 'authentication')),
 	checkModelsSetup = require(path.join(__dirname, 'models', 'checkSetup'));
 
 app.set('views', __dirname + '/views');
