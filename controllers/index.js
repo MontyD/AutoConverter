@@ -12,7 +12,6 @@ const express = require('express'),
 router.get(['/', '/new', '/configure', '/queue', '/done'], checkUser, (req, res, next) => res.render('index'));
 
 
-
 router.use('/users', require('./Users.js'));
 
 router.use('/converters', respondsToJSON, checkUser, require('./Converters.js'));

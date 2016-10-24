@@ -33,24 +33,26 @@ function authenticateUser(req, res, next) {
 
 // Get - display list of users
 router.get('/', (req, res, next) => {
-  models.users.findAll({attributes: ['name']})
-    .then(users => res.json(users))
-    .catch(err => handleError(err, next));
+    models.users.findAll({
+            attributes: ['name']
+        })
+        .then(users => res.json(users))
+        .catch(err => handleError(err, next));
 });
 
 // Get - register page
 router.get('/login', (req, res, next) => {
     req.logout();
     let locals = {
-      badpassword: req.query.badpassword
+        badpassword: req.query.badpassword
     };
     res.render('security/login', locals);
 });
 
 // Post login - authenticate
 router.post('/login', (req, res, next) => {
-  console.log(req.body);
-  return authenticateUser(req, res, next);
+    console.log(req.body);
+    return authenticateUser(req, res, next);
 });
 
 // Post register
@@ -66,10 +68,15 @@ router.post('/', (req, res, next) => {
 });
 
 // PUT update
-router.put('/', respondsToJSON, checkUser, isAdmin, (req, res, next) => {
+router.put('/', checkUser, respondsToJSON, checkUser, isAdmin, (req, res, next) => {
     models.users.findById(req.user.id, {
         attributes: ['id']
     }).then(user => {
+        if (user.id !== req.user.id && !req.user.isAdmin) {
+            let error = new Error('You don\'t have permission to edit this user');
+            error.status = 403;
+            return next(error);
+        }
         // Ensure the admin boolean is an actual boolean.
         let updatedUser = req.body;
         updatedUser.isAdmin = !!req.body.isAdmin;
