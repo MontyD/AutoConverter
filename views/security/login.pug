@@ -1,17 +1,16 @@
 extends ../layouts/base
 block content
     body.slight-gradient
-      nav.top.grey
-          .container
-              include ../includes/_headerLinks.pug
-      section.modal.light.main
+      .circle.circle-1.no-transition
+      .circle.circle-2.no-transition
+      section.modal.light.vertically-center
           h1 Login
           form(id="sign-in-form" method="POST", action="/users/login")
             if badpassword
               p.error.main Login details incorrect
             label(for="username") Username
             input(type="text", name="username", id="username", required="required", autofocus="autofocus")
-            label(for="password") Room passcode
+            label(for="password") Password
             input(type="password", name="password", id="password", required="required")
             input(type="submit", value="Login").button.primary
             if (originalURL)

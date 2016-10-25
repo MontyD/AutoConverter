@@ -48,10 +48,7 @@ router.get('/login', (req, res, next) => {
 });
 
 // Post login - authenticate
-router.post('/login', (req, res, next) => {
-  console.log(req.body);
-  return authenticateUser(req, res, next);
-});
+router.post('/login', authenticateUser);
 
 // Post register
 router.post('/', (req, res, next) => {

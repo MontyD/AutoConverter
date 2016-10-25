@@ -17,6 +17,8 @@ router.use('/users', require('./Users.js'));
 
 router.use('/converters', respondsToJSON, checkUser, require('./Converters.js'));
 
+router.use('/conversions', respondsToJSON, checkUser, require('./Conversions.js'));
+
 router.use('/configuration', respondsToJSON, checkUser, isAdmin, require('./Config.js'));
 
 

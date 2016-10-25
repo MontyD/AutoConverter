@@ -137,10 +137,6 @@ main.full-height {
         width: 65%;
     }
 
-    &.vertically-center {
-        vertical-align: middle;
-    }
-
     h3 {
         margin   : 0 auto;
         font-size: 2.2rem;
@@ -171,10 +167,6 @@ main.full-height {
 
     &.full-width {
         max-width: none;
-    }
-
-    &.vertically-center {
-        top: 40%;
     }
 
     h1,
