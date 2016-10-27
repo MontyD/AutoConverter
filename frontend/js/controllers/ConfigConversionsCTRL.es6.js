@@ -36,6 +36,21 @@ class ConfigConversionsController {
 
     }
 
+    deleteConversion(id) {
+
+        this.ConversionsService.remove(id)
+            .then(response => {
+                this.Notification('Conversion Deleted');
+                for (let i = 0; i < this.conversions.length; i++) {
+                    if (this.conversions[i].id === id) {
+                        this.conversions.splice(i, 1);
+                        break;
+                    }
+                }
+            })
+            .catch(this.handleError.bind(this));
+    }
+
     changePage(number) {
         let offset = (number - 1) * this.conversionsPerPage;
         this.ConversionsService

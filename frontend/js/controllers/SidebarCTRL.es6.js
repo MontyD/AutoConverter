@@ -41,6 +41,12 @@ class SidebarController {
       this.scope.$apply();
     }.bind(this));
 
+		this.SocketService.on('deletedUploaded', data => {
+			console.log('in');
+			this.configConversions--;
+			this.scope.$apply();
+		}.bind(this));
+
 		document.body.classList.add('loaded');
 	}
 

@@ -1,10 +1,10 @@
 <section class="feature light">
     <h2 class="serif">Configure your forms!</h2>
-    <article ng-if="conversions.length === 0">
-      <h3 class="empty-notification">You ain't got no forms to convert!</h3>
+    <article ng-if="config.conversions.length === 0">
+      <h3 class="empty-notification">You ain't got no forms to convert</h3>
     </article>
     <article dir-paginate="conversion in config.conversions | itemsPerPage: config.conversionsPerPage" total-items="config.totalConversions" current-page="config.currentPage">
-      <conversion-form conversion="conversion" converters="config.converters"></conversion-form>
+      <conversion-form conversion="conversion" converters="config.converters" remove-conversion="config.deleteConversion(conversion.id)"></conversion-form>
     </article>
     <div class="paginination-container">
         <dir-pagination-controls on-page-change="config.changePage(newPageNumber)"></dir-pagination-controls>
