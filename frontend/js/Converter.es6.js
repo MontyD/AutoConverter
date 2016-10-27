@@ -24,6 +24,7 @@ import SocketService from './Services/SocketService.es6.js';
 import ConversionsService from './Services/ConversionsService.es6.js';
 
 import onSubmitAndDisable from './Directives/OnSubmitAndDisable.es6.js';
+import conversionForm from './Directives/ConversionForm.es6.js';
 
 import uiNotification from 'angular-ui-notification';
 import angularLoadingBar from 'angular-loading-bar';
@@ -32,7 +33,7 @@ import ngDropzone from 'ngDropzone';
 
 import converterConfig from './config/converterConfig.es6.js';
 
-angular.module('converter', [uiRouter, 'ui-notification', 'angular-loading-bar', 'thatisuday.dropzone'])
+angular.module('converter', [uiRouter, 'ui-notification', 'angular-loading-bar', 'thatisuday.dropzone', 'angularUtils.directives.dirPagination'])
   .controller('SidebarController', SidebarController)
   .controller('NewConversionController', NewConversionController)
   .controller('ConfigConversionsController', ConfigConversionsController)
@@ -44,4 +45,5 @@ angular.module('converter', [uiRouter, 'ui-notification', 'angular-loading-bar',
   .service('ConfigService', ConfigService)
   .service('ConversionsService', ConversionsService)
   .directive('onSubmitAndDisable', onSubmitAndDisable)
+  .directive('conversionForm', conversionForm)
   .config(converterConfig);

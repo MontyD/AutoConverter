@@ -12,14 +12,30 @@ const express = require('express'),
 	});
 
 
-// Get configuration
+// Get all conversions by query
 router.get('/', (req, res, next) => {
+	let limit = req.query.limit;
+	let offset = req.query.offset;
 	let query = req.query;
 	query.userId = req.user.id;
-	models.currentConversions.findAll({where: query})
+	delete query.limit;
+	delete query.offset;
+
+	models.currentConversions.findAll({where: query, limit: limit, offset: offset})
 		.then(conversions => res.json(conversions))
 		.catch(err => handleError(err, next));
 });
+
+// Get count by query
+router.get('/count', (req, res, next) => {
+	let query = req.query;
+	query.userId = req.user.id;
+	models.currentConversions.count({where: query})
+		.then(count => res.json(count))
+		.catch(err => handleError(err, next));
+});
+
+
 
 router.post('/', upload.single('file'), (req, res, next) => {
 	// Check the extension for sfx or ufx.

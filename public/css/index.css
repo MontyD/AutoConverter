@@ -411,17 +411,17 @@ main.full-height {
     padding: 0.4rem;
     min-width: 0; }
   .button-group a,
-  .button-group button {
+  .button-group .button {
     font-size: 1rem;
     margin: 0.4rem -1px 0.4rem 0;
     border-radius: 0;
     min-width: 75px; }
     .button-group a:first-child,
-    .button-group button:first-child {
+    .button-group .button:first-child {
       border-top-left-radius: 0.3rem;
       border-bottom-left-radius: 0.3rem; }
     .button-group a:last-child,
-    .button-group button:last-child {
+    .button-group .button:last-child {
       border-top-right-radius: 0.3rem;
       border-bottom-right-radius: 0.3rem; }
 
@@ -497,6 +497,13 @@ main.full-height {
   .modal h3,
   .main-stats-container h3 {
     margin-top: 0; }
+
+.feature {
+  width: 95%;
+  margin: 3% auto;
+  padding: 0.8em;
+  box-sizing: border-box;
+  text-align: center; }
 
 .stats-container {
   display: inline-block;
@@ -777,9 +784,13 @@ ui-view {
   color: #212121;
   overflow-x: hidden; }
 
-.modal, .main-stats-container {
+.feature,
+.modal,
+.main-stats-container {
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
-  .modal hr, .main-stats-container hr {
+  .feature hr,
+  .modal hr,
+  .main-stats-container hr {
     margin: 2em auto;
     border: none;
     max-width: 300px;
@@ -1009,11 +1020,37 @@ button.icon {
   color: #0d47a1;
   text-decoration: none;
   background-color: #FAFAFA;
-  border: 1px solid #f57f17; }
+  border: 1px solid #1e88e5; }
 .pagination a:focus,
 .pagination a:hover {
   color: #0d47a1;
   background-color: #eceeef; }
+
+.conversion-form {
+  color: #6f6f6f;
+  padding: 0.4em;
+  box-sizing: border-box;
+  width: 95%;
+  margin: 0.4em auto;
+  border: #E0E0E0 1px solid;
+  border-right: #0d47a1 3px solid; }
+  .conversion-form h4 {
+    font-family: "butlerbold", serif;
+    font-size: 1.4em;
+    font-weight: normal;
+    margin-top: 0.4em;
+    margin-bottom: 0.6em; }
+  .conversion-form .checkbox-container.inline-block {
+    display: inline-block;
+    margin-bottom: 1.4em;
+    text-align: left;
+    margin: 0.5 auto;
+    padding: 0 2em;
+    box-sizing: border-box; }
+  .conversion-form .checkbox-container div {
+    margin: 0.3em auto; }
+  .conversion-form fieldset {
+    margin: 0.8em auto; }
 
 .circle {
   position: fixed;
@@ -1816,17 +1853,17 @@ main.full-height {
     padding: 0.4rem;
     min-width: 0; }
   .button-group a,
-  .button-group button {
+  .button-group .button {
     font-size: 1rem;
     margin: 0.4rem -1px 0.4rem 0;
     border-radius: 0;
     min-width: 75px; }
     .button-group a:first-child,
-    .button-group button:first-child {
+    .button-group .button:first-child {
       border-top-left-radius: 0.3rem;
       border-bottom-left-radius: 0.3rem; }
     .button-group a:last-child,
-    .button-group button:last-child {
+    .button-group .button:last-child {
       border-top-right-radius: 0.3rem;
       border-bottom-right-radius: 0.3rem; }
 
@@ -1902,6 +1939,13 @@ main.full-height {
   .modal h3,
   .main-stats-container h3 {
     margin-top: 0; }
+
+.feature {
+  width: 95%;
+  margin: 3% auto;
+  padding: 0.8em;
+  box-sizing: border-box;
+  text-align: center; }
 
 .stats-container {
   display: inline-block;
@@ -2182,9 +2226,13 @@ ui-view {
   color: #212121;
   overflow-x: hidden; }
 
-.modal, .main-stats-container {
+.feature,
+.modal,
+.main-stats-container {
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
-  .modal hr, .main-stats-container hr {
+  .feature hr,
+  .modal hr,
+  .main-stats-container hr {
     margin: 2em auto;
     border: none;
     max-width: 300px;
@@ -2414,11 +2462,37 @@ button.icon {
   color: #0d47a1;
   text-decoration: none;
   background-color: #FAFAFA;
-  border: 1px solid #f57f17; }
+  border: 1px solid #1e88e5; }
 .pagination a:focus,
 .pagination a:hover {
   color: #0d47a1;
   background-color: #eceeef; }
+
+.conversion-form {
+  color: #6f6f6f;
+  padding: 0.4em;
+  box-sizing: border-box;
+  width: 95%;
+  margin: 0.4em auto;
+  border: #E0E0E0 1px solid;
+  border-right: #0d47a1 3px solid; }
+  .conversion-form h4 {
+    font-family: "butlerbold", serif;
+    font-size: 1.4em;
+    font-weight: normal;
+    margin-top: 0.4em;
+    margin-bottom: 0.6em; }
+  .conversion-form .checkbox-container.inline-block {
+    display: inline-block;
+    margin-bottom: 1.4em;
+    text-align: left;
+    margin: 0.5 auto;
+    padding: 0 2em;
+    box-sizing: border-box; }
+  .conversion-form .checkbox-container div {
+    margin: 0.3em auto; }
+  .conversion-form fieldset {
+    margin: 0.8em auto; }
 
 .circle {
   position: fixed;
@@ -2675,11 +2749,12 @@ nav.sidebar {
         font-style: italic; }
 
 .next-to-sidebar {
-  position: absolute;
+  position: fixed;
   margin-left: 240px;
   box-sizing: border-box;
   height: 100%;
   width: calc(100% - 240px);
+  overflow: auto;
   box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.24), 0 1.5px 6px rgba(0, 0, 0, 0.12); }
 
 @media (max-width: 630px) {

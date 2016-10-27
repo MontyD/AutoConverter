@@ -7,15 +7,24 @@ class ConversionsService {
     this.urlBase = '/Conversions/';
   }
 
-  get(query) {
+  generateQueryString(query) {
     let queryString = '?';
     for (let key in query) {
       if (query.hasOwnProperty(key)) {
         queryString += (key + '=' + query[key] + '&');
       }
     }
-    queryString = queryString.substring(0, queryString.length -1);
+    return queryString.substring(0, queryString.length -1);
+  }
+
+  get(query) {
+    let queryString = this.generateQueryString(query);
     return this.$http.get(this.urlBase + queryString);
+  }
+
+  count(query) {
+    let queryString = this.generateQueryString(query);
+    return this.$http.get(this.urlBase + 'count' + queryString);
   }
 
   create(newConverter) {

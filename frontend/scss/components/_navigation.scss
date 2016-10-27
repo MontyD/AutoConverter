@@ -194,11 +194,11 @@ nav.sidebar {
 }
 
 .next-to-sidebar {
-    position: absolute;
+    position: fixed;
     margin-left: 240px;
-    box-sizing: border-box;
-    height: 100%;
-    width: calc(100% - 240px);
+    box-sizing: border-box;height: 100%;
+width: calc(100% - 240px);
+    overflow: auto;
     @include shadow(1);
 }
 

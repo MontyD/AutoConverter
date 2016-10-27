@@ -17,7 +17,6 @@ class SidebarController {
 
 		this.configConversions = 0;
 
-
 		this.UsersService.getInfo()
       .then(response => {
         this.user = {
@@ -30,9 +29,9 @@ class SidebarController {
       })
       .catch(err => this.handleError.bind(this));
 
-    this.ConversionsService.get({status: 'Uploaded'})
+    this.ConversionsService.count({status: 'Uploaded'})
       .then(response => {
-        this.configConversions = response.data.length;
+        this.configConversions = response.data;
       })
       .catch(err => this.handleError.bind(this));
 

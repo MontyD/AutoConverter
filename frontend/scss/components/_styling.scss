@@ -46,6 +46,7 @@ ui-view {
     overflow-x: hidden;
 }
 
+.feature,
 .modal {
     @include shadow(1);
 
@@ -348,13 +349,50 @@ button.icon {
         color: $colorDark;
         text-decoration: none;
         background-color: $colorWhite;
-        border: 1px solid $colorMain;
+        border: 1px solid $colorLight;
     }
 
     a:focus,
     a:hover {
         color: $colorDark;
         background-color: #eceeef;
+    }
+}
+
+.conversion-form {
+    color: $colorDarkGrey;
+    padding: 0.4em;
+    box-sizing: border-box;
+    width: 95%;
+    margin: 0.4em auto;
+    border: $colorSubtle 1px solid;
+    border-right: $colorDark 3px solid;
+
+    h4 {
+        font-family: $serif;
+        font-size: 1.4em;
+        font-weight: normal;
+        margin-top: 0.4em;
+        margin-bottom: 0.6em;
+    }
+
+    .checkbox-container {
+        &.inline-block {
+            display: inline-block;
+            margin-bottom: 1.4em;
+            text-align: left;
+            margin: 0.5 auto;
+            padding: 0 2em;
+            box-sizing: border-box;
+        }
+
+        div {
+            margin: 0.3em auto;
+        }
+    }
+
+    fieldset {
+        margin: 0.8em auto;
     }
 }
 

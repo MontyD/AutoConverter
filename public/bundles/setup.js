@@ -73,23 +73,23 @@
 
 	var _DirectivesOnSubmitAndDisableEs6Js2 = _interopRequireDefault(_DirectivesOnSubmitAndDisableEs6Js);
 
-	var _DirectivesUsersFormEs6Js = __webpack_require__(79);
+	var _DirectivesUsersFormEs6Js = __webpack_require__(81);
 
 	var _DirectivesUsersFormEs6Js2 = _interopRequireDefault(_DirectivesUsersFormEs6Js);
 
-	var _DirectivesConvertersFormEs6Js = __webpack_require__(81);
+	var _DirectivesConvertersFormEs6Js = __webpack_require__(83);
 
 	var _DirectivesConvertersFormEs6Js2 = _interopRequireDefault(_DirectivesConvertersFormEs6Js);
 
-	var _DirectivesConfigFormEs6Js = __webpack_require__(83);
+	var _DirectivesConfigFormEs6Js = __webpack_require__(85);
 
 	var _DirectivesConfigFormEs6Js2 = _interopRequireDefault(_DirectivesConfigFormEs6Js);
 
-	var _angularUiNotification = __webpack_require__(66);
+	var _angularUiNotification = __webpack_require__(68);
 
 	var _angularUiNotification2 = _interopRequireDefault(_angularUiNotification);
 
-	var _angularLoadingBar = __webpack_require__(68);
+	var _angularLoadingBar = __webpack_require__(70);
 
 	var _angularLoadingBar2 = _interopRequireDefault(_angularLoadingBar);
 
@@ -32180,18 +32180,18 @@
 
 /***/ },
 
-/***/ 66:
+/***/ 68:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by alex_crack on 20.11.15.
 	 */
-	__webpack_require__(67);
+	__webpack_require__(69);
 	module.exports = 'ui-notification';
 
 /***/ },
 
-/***/ 67:
+/***/ 69:
 /***/ function(module, exports) {
 
 	/**
@@ -32424,16 +32424,16 @@
 
 /***/ },
 
-/***/ 68:
+/***/ 70:
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(69);
+	__webpack_require__(71);
 	module.exports = 'angular-loading-bar';
 
 
 /***/ },
 
-/***/ 69:
+/***/ 71:
 /***/ function(module, exports) {
 
 	/*! 
@@ -32781,7 +32781,7 @@
 
 /***/ },
 
-/***/ 79:
+/***/ 81:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32792,7 +32792,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _templatesUsersFormTemplateHtml = __webpack_require__(80);
+	var _templatesUsersFormTemplateHtml = __webpack_require__(82);
 
 	var _templatesUsersFormTemplateHtml2 = _interopRequireDefault(_templatesUsersFormTemplateHtml);
 
@@ -32836,14 +32836,14 @@
 
 /***/ },
 
-/***/ 80:
+/***/ 82:
 /***/ function(module, exports) {
 
 	module.exports = "<form on-submit-and-disable on-submit=\"validateAndSubmit()\">\r\n  <fieldset>\r\n    <label for=\"name\" class=\"required\">Username</label>\r\n    <input type=\"text\" required=\"required\" pattern=\"[A-Z|a-z|0-9|\\.]{4,20}\" title=\"Only include numbers, letters and dots. Keep it between 4 and 20 characters.\" name=\"name\" id=\"name\" ng-model=\"user.name\" />\r\n    <label for=\"email\" class=\"required\">Email</label>\r\n    <input type=\"email\" required=\"required\" name=\"email\" id=\"email\" ng-model=\"user.email\" />\r\n    <label for=\"password\" class=\"required\">Password</label>\r\n    <input type=\"password\" required=\"required\" name=\"password\" id=\"password\" pattern=\".{4,70}\" title=\"Between 4 and 70 characters\" ng-model=\"user.password\" />\r\n    <label for=\"confirm\" class=\"required\">Confirm password</label>\r\n    <input type=\"password\" required=\"required\" name=\"confirm\" id=\"confirm\" pattern=\".{4,70}\" title=\"Between 4 and 70 characters\" ng-model=\"user.confirm\" />\r\n    <input type=\"submit\" class=\"button\" value=\"Create admin user\" />\r\n  </fieldset>\r\n</form>\r\n";
 
 /***/ },
 
-/***/ 81:
+/***/ 83:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32854,7 +32854,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _templatesConvertersFormTemplateHtml = __webpack_require__(82);
+	var _templatesConvertersFormTemplateHtml = __webpack_require__(84);
 
 	var _templatesConvertersFormTemplateHtml2 = _interopRequireDefault(_templatesConvertersFormTemplateHtml);
 
@@ -32890,14 +32890,14 @@
 
 /***/ },
 
-/***/ 82:
+/***/ 84:
 /***/ function(module, exports) {
 
 	module.exports = "<form on-submit-and-disable on-submit=\"validateAndSubmit()\">\r\n    <fieldset>\r\n        <label for=\"converterName\" class=\"required\">Converter Name</label>\r\n        <input type=\"text\" required=\"required\" name=\"converterName\" id=\"converterName\" ng-model=\"converter.name\" />\r\n        <label for=\"path\" class=\"required\">Converter's Full Path </label>\r\n        <input type=\"text\" required=\"required\" name=\"path\" id=\"path\" ng-model=\"converter.path\" />\r\n        <p class=\"explain\">Point this to the actual converter .exe</p>\r\n        <input type=\"submit\" class=\"button\" value=\"Create primary converter\" />\r\n    </fieldset>\r\n</form>\r\n";
 
 /***/ },
 
-/***/ 83:
+/***/ 85:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32908,7 +32908,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _templatesConfigFormTemplateHtml = __webpack_require__(84);
+	var _templatesConfigFormTemplateHtml = __webpack_require__(86);
 
 	var _templatesConfigFormTemplateHtml2 = _interopRequireDefault(_templatesConfigFormTemplateHtml);
 
@@ -32944,7 +32944,7 @@
 
 /***/ },
 
-/***/ 84:
+/***/ 86:
 /***/ function(module, exports) {
 
 	module.exports = "<form on-submit-and-disable on-submit=\"validateAndSubmit()\">\r\n\r\n        <fieldset>\r\n            <h4>AutoConverter Location</h4>\r\n            <label for=\"url\" class=\"required\">Base url</label>\r\n            <input type=\"text\" required=\"required\" name=\"url\" id=\"url\" ng-model=\"config.url\" />\r\n            <p class=\"explain\">What is the url of the page you are currently on? Or the machine name or whatever funkery you're going to use to allow people to get to this. Include the 'http://' pls.</p>\r\n        </fieldset>\r\n\r\n        <fieldset>\r\n            <h4>Email Settings</h4>\r\n            <label for=\"smtpHost\" class=\"required\">SMTP Host</label>\r\n            <input type=\"text\" required=\"required\" name=\"smtpHost\" id=\"smtpHost\" ng-model=\"config.smtpHost\" />\r\n\r\n            <label for=\"smtpUsername\">SMTP Username</label>\r\n            <input type=\"text\" name=\"smtpUsername\" id=\"smtpUsername\" ng-model=\"config.smtpUsername\" />\r\n\r\n            <label for=\"smtpPassword\">SMTP Password</label>\r\n            <input type=\"password\" name=\"smtpPassword\" id=\"smtpPassword\" ng-model=\"config.smtpPassword\" />\r\n\r\n            <label for=\"smtpPort\">SMTP Port</label>\r\n            <input type=\"number\" name=\"smtpPort\" id=\"smtpPort\" ng-model=\"config.smtpPort\" />\r\n\r\n            <div class=\"checkbox-container\">\r\n                <input type=\"checkbox\" name=\"secureConnection\" id=\"secureConnection\" ng-model=\"config.secureConnection\" />\r\n                <label class=\"checkbox\" for=\"secureConnection\">Force secure connection</label>\r\n            </div>\r\n\r\n            <label for=\"fromAddress\">From address</label>\r\n            <input type=\"email\" required=\"required\" name=\"fromAddress\" id=\"fromAddress\" ng-model=\"config.fromAddress\" />\r\n            <p class=\"explain\">All emails from the AutoConverter will get sent using this address</p>\r\n        </fieldset>\r\n\r\n        <fieldset>\r\n            <h4>Directory settings</h4>\r\n            <label for=\"deployFolder\">Deploy Folder</label>\r\n            <input type=\"text\" required=\"required\" name=\"deployFolder\" id=\"deployFolder\" ng-model=\"config.deployFolder\" />\r\n            <p class=\"explain\">When the old school converter runs, which folder does it put the wdfp's and folders in?</p>\r\n\r\n            <label for=\"convertedFoldersPath\">Destination for AutoConverted forms</label>\r\n            <input type=\"text\" required=\"required\" name=\"convertedFoldersPath\" id=\"convertedFoldersPath\" ng-model=\"config.convertedFoldersPath\" />\r\n            <p class=\"explain\">Where do you want the converted forms to go when the AutoConverter has run? Probably somewhere on the FileServer.</p>\r\n\r\n            <label for=\"fallBackFoldersPath\">Local fallback destination</label>\r\n            <input type=\"text\" required=\"required\" name=\"fallBackFoldersPath\" id=\"fallBackFoldersPath\" ng-model=\"config.fallBackFoldersPath\" />\r\n            <p class=\"explain\">If the AutoConverter cannot reach the FileServer, it will place the forms inside this directory - make it a local one, i.e. on this machine. You idiot.</p>\r\n\r\n        </fieldset>\r\n\r\n        <input type=\"submit\" class=\"button\" value=\"Apply Config!\" />\r\n</form>\r\n";

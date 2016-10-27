@@ -1,1 +1,9 @@
-<h4>Config Conversions</h4>
+<section class="feature light">
+    <h2 class="serif">Configure your forms!</h2>
+    <article dir-paginate="conversion in config.conversions | itemsPerPage: config.conversionsPerPage" total-items="config.totalConversions" current-page="config.currentPage">
+      <conversion-form conversion="conversion"></conversion-form>
+    </article>
+    <div class="paginination-container">
+        <dir-pagination-controls on-page-change="config.changePage(newPageNumber)"></dir-pagination-controls>
+    </div>
+</section>
