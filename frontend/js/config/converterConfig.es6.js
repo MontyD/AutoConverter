@@ -40,7 +40,7 @@ function config($stateProvider, $urlRouterProvider, $locationProvider, dropzoneO
 		});
 
 	dropzoneOpsProvider.setOptions({
-		acceptedFiles: '.ufx, .sfx',
+		acceptedFiles: '.ufx, .sfx, .png',
 		createImageThumbnails: false,
 		parallelUploads: 10,
     url: '/conversions/'

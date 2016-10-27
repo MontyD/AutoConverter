@@ -60,81 +60,81 @@
 
 	var _socketIoClient2 = _interopRequireDefault(_socketIoClient);
 
-	var _dropzone = __webpack_require__(53);
+	var _dropzone = __webpack_require__(54);
 
 	var _dropzone2 = _interopRequireDefault(_dropzone);
 
 	// External dependencies expected to be global by ng
 
-	var _ControllersSetupControllerEs6Js = __webpack_require__(54);
+	var _ControllersSetupControllerEs6Js = __webpack_require__(55);
 
 	var _ControllersSetupControllerEs6Js2 = _interopRequireDefault(_ControllersSetupControllerEs6Js);
 
-	var _ControllersSidebarCTRLEs6Js = __webpack_require__(55);
+	var _ControllersSidebarCTRLEs6Js = __webpack_require__(56);
 
 	var _ControllersSidebarCTRLEs6Js2 = _interopRequireDefault(_ControllersSidebarCTRLEs6Js);
 
-	var _ControllersNewConversionCTRLEs6Js = __webpack_require__(56);
+	var _ControllersNewConversionCTRLEs6Js = __webpack_require__(57);
 
 	var _ControllersNewConversionCTRLEs6Js2 = _interopRequireDefault(_ControllersNewConversionCTRLEs6Js);
 
-	var _ControllersConfigConversionsCTRLEs6Js = __webpack_require__(57);
+	var _ControllersConfigConversionsCTRLEs6Js = __webpack_require__(58);
 
 	var _ControllersConfigConversionsCTRLEs6Js2 = _interopRequireDefault(_ControllersConfigConversionsCTRLEs6Js);
 
-	var _ControllersConversionsQueueCTRLEs6Js = __webpack_require__(58);
+	var _ControllersConversionsQueueCTRLEs6Js = __webpack_require__(59);
 
 	var _ControllersConversionsQueueCTRLEs6Js2 = _interopRequireDefault(_ControllersConversionsQueueCTRLEs6Js);
 
-	var _ControllersConversionsDoneCTRLEs6Js = __webpack_require__(59);
+	var _ControllersConversionsDoneCTRLEs6Js = __webpack_require__(60);
 
 	var _ControllersConversionsDoneCTRLEs6Js2 = _interopRequireDefault(_ControllersConversionsDoneCTRLEs6Js);
 
-	var _ServicesUsersServiceEs6Js = __webpack_require__(60);
+	var _ServicesUsersServiceEs6Js = __webpack_require__(61);
 
 	var _ServicesUsersServiceEs6Js2 = _interopRequireDefault(_ServicesUsersServiceEs6Js);
 
-	var _ServicesConvertersServiceEs6Js = __webpack_require__(61);
+	var _ServicesConvertersServiceEs6Js = __webpack_require__(62);
 
 	var _ServicesConvertersServiceEs6Js2 = _interopRequireDefault(_ServicesConvertersServiceEs6Js);
 
-	var _ServicesConfigServiceEs6Js = __webpack_require__(62);
+	var _ServicesConfigServiceEs6Js = __webpack_require__(63);
 
 	var _ServicesConfigServiceEs6Js2 = _interopRequireDefault(_ServicesConfigServiceEs6Js);
 
-	var _ServicesSocketServiceEs6Js = __webpack_require__(63);
+	var _ServicesSocketServiceEs6Js = __webpack_require__(64);
 
 	var _ServicesSocketServiceEs6Js2 = _interopRequireDefault(_ServicesSocketServiceEs6Js);
 
-	var _ServicesConversionsServiceEs6Js = __webpack_require__(64);
+	var _ServicesConversionsServiceEs6Js = __webpack_require__(65);
 
 	var _ServicesConversionsServiceEs6Js2 = _interopRequireDefault(_ServicesConversionsServiceEs6Js);
 
-	var _DirectivesOnSubmitAndDisableEs6Js = __webpack_require__(65);
+	var _DirectivesOnSubmitAndDisableEs6Js = __webpack_require__(66);
 
 	var _DirectivesOnSubmitAndDisableEs6Js2 = _interopRequireDefault(_DirectivesOnSubmitAndDisableEs6Js);
 
-	var _DirectivesConversionFormEs6Js = __webpack_require__(66);
+	var _DirectivesConversionFormEs6Js = __webpack_require__(67);
 
 	var _DirectivesConversionFormEs6Js2 = _interopRequireDefault(_DirectivesConversionFormEs6Js);
 
-	var _angularUiNotification = __webpack_require__(68);
+	var _angularUiNotification = __webpack_require__(69);
 
 	var _angularUiNotification2 = _interopRequireDefault(_angularUiNotification);
 
-	var _angularLoadingBar = __webpack_require__(70);
+	var _angularLoadingBar = __webpack_require__(71);
 
 	var _angularLoadingBar2 = _interopRequireDefault(_angularLoadingBar);
 
-	var _angularUtilsPagination = __webpack_require__(72);
+	var _angularUtilsPagination = __webpack_require__(73);
 
 	var _angularUtilsPagination2 = _interopRequireDefault(_angularUtilsPagination);
 
-	var _ngDropzone = __webpack_require__(74);
+	var _ngDropzone = __webpack_require__(75);
 
 	var _ngDropzone2 = _interopRequireDefault(_ngDropzone);
 
-	var _configConverterConfigEs6Js = __webpack_require__(75);
+	var _configConverterConfigEs6Js = __webpack_require__(76);
 
 	var _configConverterConfigEs6Js2 = _interopRequireDefault(_configConverterConfigEs6Js);
 
@@ -36581,7 +36581,7 @@
 	 */
 
 	exports.Manager = __webpack_require__(18);
-	exports.Socket = __webpack_require__(45);
+	exports.Socket = __webpack_require__(46);
 
 
 /***/ },
@@ -38915,14 +38915,14 @@
 	 */
 
 	var eio = __webpack_require__(19);
-	var Socket = __webpack_require__(45);
-	var Emitter = __webpack_require__(46);
+	var Socket = __webpack_require__(46);
+	var Emitter = __webpack_require__(47);
 	var parser = __webpack_require__(10);
-	var on = __webpack_require__(48);
-	var bind = __webpack_require__(49);
+	var on = __webpack_require__(49);
+	var bind = __webpack_require__(50);
 	var debug = __webpack_require__(7)('socket.io-client:manager');
-	var indexOf = __webpack_require__(43);
-	var Backoff = __webpack_require__(52);
+	var indexOf = __webpack_require__(44);
+	var Backoff = __webpack_require__(53);
 
 	/**
 	 * IE6+ hasOwnProperty
@@ -39504,13 +39504,13 @@
 	 */
 
 	var transports = __webpack_require__(22);
-	var Emitter = __webpack_require__(15);
+	var Emitter = __webpack_require__(37);
 	var debug = __webpack_require__(7)('engine.io-client:socket');
-	var index = __webpack_require__(43);
+	var index = __webpack_require__(44);
 	var parser = __webpack_require__(28);
 	var parseuri = __webpack_require__(6);
-	var parsejson = __webpack_require__(44);
-	var parseqs = __webpack_require__(37);
+	var parsejson = __webpack_require__(45);
+	var parseqs = __webpack_require__(38);
 
 	/**
 	 * Module exports.
@@ -40231,8 +40231,8 @@
 
 	var XMLHttpRequest = __webpack_require__(23);
 	var XHR = __webpack_require__(25);
-	var JSONP = __webpack_require__(40);
-	var websocket = __webpack_require__(41);
+	var JSONP = __webpack_require__(41);
+	var websocket = __webpack_require__(42);
 
 	/**
 	 * Export transports.
@@ -40360,8 +40360,8 @@
 
 	var XMLHttpRequest = __webpack_require__(23);
 	var Polling = __webpack_require__(26);
-	var Emitter = __webpack_require__(15);
-	var inherit = __webpack_require__(38);
+	var Emitter = __webpack_require__(37);
+	var inherit = __webpack_require__(39);
 	var debug = __webpack_require__(7)('engine.io-client:polling-xhr');
 
 	/**
@@ -40778,10 +40778,10 @@
 	 */
 
 	var Transport = __webpack_require__(27);
-	var parseqs = __webpack_require__(37);
+	var parseqs = __webpack_require__(38);
 	var parser = __webpack_require__(28);
-	var inherit = __webpack_require__(38);
-	var yeast = __webpack_require__(39);
+	var inherit = __webpack_require__(39);
+	var yeast = __webpack_require__(40);
 	var debug = __webpack_require__(7)('engine.io-client:polling');
 
 	/**
@@ -41029,7 +41029,7 @@
 	 */
 
 	var parser = __webpack_require__(28);
-	var Emitter = __webpack_require__(15);
+	var Emitter = __webpack_require__(37);
 
 	/**
 	 * Module exports.
@@ -42381,6 +42381,176 @@
 /* 37 */
 /***/ function(module, exports) {
 
+	
+	/**
+	 * Expose `Emitter`.
+	 */
+
+	module.exports = Emitter;
+
+	/**
+	 * Initialize a new `Emitter`.
+	 *
+	 * @api public
+	 */
+
+	function Emitter(obj) {
+	  if (obj) return mixin(obj);
+	};
+
+	/**
+	 * Mixin the emitter properties.
+	 *
+	 * @param {Object} obj
+	 * @return {Object}
+	 * @api private
+	 */
+
+	function mixin(obj) {
+	  for (var key in Emitter.prototype) {
+	    obj[key] = Emitter.prototype[key];
+	  }
+	  return obj;
+	}
+
+	/**
+	 * Listen on the given `event` with `fn`.
+	 *
+	 * @param {String} event
+	 * @param {Function} fn
+	 * @return {Emitter}
+	 * @api public
+	 */
+
+	Emitter.prototype.on =
+	Emitter.prototype.addEventListener = function(event, fn){
+	  this._callbacks = this._callbacks || {};
+	  (this._callbacks[event] = this._callbacks[event] || [])
+	    .push(fn);
+	  return this;
+	};
+
+	/**
+	 * Adds an `event` listener that will be invoked a single
+	 * time then automatically removed.
+	 *
+	 * @param {String} event
+	 * @param {Function} fn
+	 * @return {Emitter}
+	 * @api public
+	 */
+
+	Emitter.prototype.once = function(event, fn){
+	  var self = this;
+	  this._callbacks = this._callbacks || {};
+
+	  function on() {
+	    self.off(event, on);
+	    fn.apply(this, arguments);
+	  }
+
+	  on.fn = fn;
+	  this.on(event, on);
+	  return this;
+	};
+
+	/**
+	 * Remove the given callback for `event` or all
+	 * registered callbacks.
+	 *
+	 * @param {String} event
+	 * @param {Function} fn
+	 * @return {Emitter}
+	 * @api public
+	 */
+
+	Emitter.prototype.off =
+	Emitter.prototype.removeListener =
+	Emitter.prototype.removeAllListeners =
+	Emitter.prototype.removeEventListener = function(event, fn){
+	  this._callbacks = this._callbacks || {};
+
+	  // all
+	  if (0 == arguments.length) {
+	    this._callbacks = {};
+	    return this;
+	  }
+
+	  // specific event
+	  var callbacks = this._callbacks[event];
+	  if (!callbacks) return this;
+
+	  // remove all handlers
+	  if (1 == arguments.length) {
+	    delete this._callbacks[event];
+	    return this;
+	  }
+
+	  // remove specific handler
+	  var cb;
+	  for (var i = 0; i < callbacks.length; i++) {
+	    cb = callbacks[i];
+	    if (cb === fn || cb.fn === fn) {
+	      callbacks.splice(i, 1);
+	      break;
+	    }
+	  }
+	  return this;
+	};
+
+	/**
+	 * Emit `event` with the given args.
+	 *
+	 * @param {String} event
+	 * @param {Mixed} ...
+	 * @return {Emitter}
+	 */
+
+	Emitter.prototype.emit = function(event){
+	  this._callbacks = this._callbacks || {};
+	  var args = [].slice.call(arguments, 1)
+	    , callbacks = this._callbacks[event];
+
+	  if (callbacks) {
+	    callbacks = callbacks.slice(0);
+	    for (var i = 0, len = callbacks.length; i < len; ++i) {
+	      callbacks[i].apply(this, args);
+	    }
+	  }
+
+	  return this;
+	};
+
+	/**
+	 * Return array of callbacks for `event`.
+	 *
+	 * @param {String} event
+	 * @return {Array}
+	 * @api public
+	 */
+
+	Emitter.prototype.listeners = function(event){
+	  this._callbacks = this._callbacks || {};
+	  return this._callbacks[event] || [];
+	};
+
+	/**
+	 * Check if this emitter has `event` handlers.
+	 *
+	 * @param {String} event
+	 * @return {Boolean}
+	 * @api public
+	 */
+
+	Emitter.prototype.hasListeners = function(event){
+	  return !! this.listeners(event).length;
+	};
+
+
+/***/ },
+/* 38 */
+/***/ function(module, exports) {
+
 	/**
 	 * Compiles a querystring
 	 * Returns string representation of the object
@@ -42421,7 +42591,7 @@
 
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports) {
 
 	
@@ -42433,7 +42603,7 @@
 	};
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -42507,7 +42677,7 @@
 
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -42516,7 +42686,7 @@
 	 */
 
 	var Polling = __webpack_require__(26);
-	var inherit = __webpack_require__(38);
+	var inherit = __webpack_require__(39);
 
 	/**
 	 * Module exports.
@@ -42745,7 +42915,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -42754,9 +42924,9 @@
 
 	var Transport = __webpack_require__(27);
 	var parser = __webpack_require__(28);
-	var parseqs = __webpack_require__(37);
-	var inherit = __webpack_require__(38);
-	var yeast = __webpack_require__(39);
+	var parseqs = __webpack_require__(38);
+	var inherit = __webpack_require__(39);
+	var yeast = __webpack_require__(40);
 	var debug = __webpack_require__(7)('engine.io-client:websocket');
 	var BrowserWebSocket = global.WebSocket || global.MozWebSocket;
 
@@ -42769,7 +42939,7 @@
 	var WebSocket = BrowserWebSocket;
 	if (!WebSocket && typeof window === 'undefined') {
 	  try {
-	    WebSocket = __webpack_require__(42);
+	    WebSocket = __webpack_require__(43);
 	  } catch (e) { }
 	}
 
@@ -43043,13 +43213,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports) {
 
 	
@@ -43064,7 +43234,7 @@
 	};
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -43102,7 +43272,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -43111,12 +43281,12 @@
 	 */
 
 	var parser = __webpack_require__(10);
-	var Emitter = __webpack_require__(46);
-	var toArray = __webpack_require__(47);
-	var on = __webpack_require__(48);
-	var bind = __webpack_require__(49);
+	var Emitter = __webpack_require__(47);
+	var toArray = __webpack_require__(48);
+	var on = __webpack_require__(49);
+	var bind = __webpack_require__(50);
 	var debug = __webpack_require__(7)('socket.io-client:socket');
-	var hasBin = __webpack_require__(50);
+	var hasBin = __webpack_require__(51);
 
 	/**
 	 * Module exports.
@@ -43527,7 +43697,7 @@
 
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports) {
 
 	
@@ -43694,7 +43864,7 @@
 
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports) {
 
 	module.exports = toArray
@@ -43713,7 +43883,7 @@
 
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports) {
 
 	
@@ -43743,7 +43913,7 @@
 
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports) {
 
 	/**
@@ -43772,7 +43942,7 @@
 
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -43780,7 +43950,7 @@
 	 * Module requirements.
 	 */
 
-	var isArray = __webpack_require__(51);
+	var isArray = __webpack_require__(52);
 
 	/**
 	 * Module exports.
@@ -43838,7 +44008,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports) {
 
 	module.exports = Array.isArray || function (arr) {
@@ -43847,7 +44017,7 @@
 
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports) {
 
 	
@@ -43938,7 +44108,7 @@
 
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {
@@ -45712,7 +45882,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)(module)))
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -45834,7 +46004,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 55 */
+/* 56 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -45913,31 +46083,31 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports) {
 
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	      value: true
+	  value: true
 	});
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var NewConversionController = function NewConversionController(Notification) {
-	      _classCallCheck(this, NewConversionController);
+	  _classCallCheck(this, NewConversionController);
 
-	      this.Notification = Notification;
+	  this.Notification = Notification;
 
-	      this.configureLink = false;
+	  this.configureLink = false;
 
-	      this.dropzoneCallbacks = {
-	            success: (function (file, response) {
-	                  this.dropzoneMethods.removeFile(file);
-	                  this.Notification.success(response.name + ' uploaded!');
-	                  this.configureLink = true;
-	            }).bind(this)
-	      };
+	  this.dropzoneCallbacks = {
+	    success: (function (file, response) {
+	      this.dropzoneMethods.removeFile(file);
+	      this.Notification.success(response.name + ' uploaded!');
+	      this.configureLink = true;
+	    }).bind(this)
+	  };
 	};
 
 	NewConversionController.$inject = ['Notification'];
@@ -45946,13 +46116,13 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 57 */
+/* 58 */
 /***/ function(module, exports) {
 
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	      value: true
+	    value: true
 	});
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -45960,64 +46130,80 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var ConfigConversionsController = (function () {
-	      function ConfigConversionsController(ConversionsService, Notification) {
-	            var _this = this;
+	    function ConfigConversionsController(ConversionsService, ConvertersService, Notification) {
+	        var _this = this;
 
-	            _classCallCheck(this, ConfigConversionsController);
+	        _classCallCheck(this, ConfigConversionsController);
 
-	            this.ConversionsService = ConversionsService;
-	            this.Notification = Notification;
+	        this.ConversionsService = ConversionsService;
+	        this.Notification = Notification;
+	        this.ConvertersService = ConvertersService;
 
-	            this.conversions = [];
+	        this.conversions = [];
 
-	            this.conversionsPerPage = 20;
+	        this.conversionsPerPage = 20;
 
-	            this.totalConversions = 0;
+	        this.totalConversions = 0;
 
-	            this.currentPage = 0;
+	        this.currentPage = 0;
 
-	            this.ConversionsService.count({ status: 'Uploaded' }).then(function (response) {
-	                  return _this.totalConversions = response.data;
-	            })['catch'](this.handleError.bind(this));
+	        this.converters = {};
 
-	            this.ConversionsService.get({ status: 'Uploaded', limit: this.conversionsPerPage }).then(function (response) {
-	                  return _this.conversions = response.data;
-	            })['catch'](this.handleError.bind(this));
-	      }
+	        this.ConversionsService.count({
+	            status: 'Uploaded'
+	        }).then(function (response) {
+	            return _this.totalConversions = response.data;
+	        })['catch'](this.handleError.bind(this));
 
-	      _createClass(ConfigConversionsController, [{
-	            key: 'changePage',
-	            value: function changePage(number) {
-	                  var _this2 = this;
+	        this.ConversionsService.get({
+	            status: 'Uploaded',
+	            limit: this.conversionsPerPage
+	        }).then(function (response) {
+	            return _this.conversions = response.data;
+	        })['catch'](this.handleError.bind(this));
 
-	                  var offset = (number - 1) * this.conversionsPerPage;
-	                  this.ConversionsService.get({ status: 'Uploaded', offset: offset, limit: this.conversionsPerPage }).then(function (result) {
-	                        return _this2.conversions = result.data;
-	                  })['catch'](function (err) {
-	                        return _this2.handleError.bind(_this2);
-	                  });
+	        this.ConvertersService.get().then(function (response) {
+	            return _this.converters = response.data;
+	        })['catch'](this.handleError.bind(this));
+	    }
+
+	    _createClass(ConfigConversionsController, [{
+	        key: 'changePage',
+	        value: function changePage(number) {
+	            var _this2 = this;
+
+	            var offset = (number - 1) * this.conversionsPerPage;
+	            this.ConversionsService.get({
+	                status: 'Uploaded',
+	                offset: offset,
+	                limit: this.conversionsPerPage
+	            }).then(function (result) {
+	                return _this2.conversions = result.data;
+	            })['catch'](function (err) {
+	                return _this2.handleError.bind(_this2);
+	            });
+	        }
+	    }, {
+	        key: 'handleError',
+	        value: function handleError(error) {
+	            if (error.status === 401 || error.status === 403) {
+	                window.location = '/users/login';
 	            }
-	      }, {
-	            key: 'handleError',
-	            value: function handleError(error) {
-	                  if (error.status === 401 || error.status === 403) {
-	                        window.location = '/users/login';
-	                  }
-	                  console.error(error);
-	                  this.Notification.error('Error communicating with server');
-	            }
-	      }]);
+	            console.error(error);
+	            this.Notification.error('Error communicating with server');
+	        }
+	    }]);
 
-	      return ConfigConversionsController;
+	    return ConfigConversionsController;
 	})();
 
-	ConfigConversionsController.$inject = ['ConversionsService', 'Notification'];
+	ConfigConversionsController.$inject = ['ConversionsService', 'ConvertersService', 'Notification'];
 
 	exports['default'] = ConfigConversionsController;
 	module.exports = exports['default'];
 
 /***/ },
-/* 58 */
+/* 59 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -46067,7 +46253,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 59 */
+/* 60 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -46088,7 +46274,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 60 */
+/* 61 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -46135,7 +46321,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 61 */
+/* 62 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -46177,7 +46363,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 62 */
+/* 63 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -46219,7 +46405,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 63 */
+/* 64 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -46279,7 +46465,7 @@
 	module.exports = SocketService;
 
 /***/ },
-/* 64 */
+/* 65 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -46339,7 +46525,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 65 */
+/* 66 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -46381,7 +46567,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 66 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46392,7 +46578,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _templatesConversionFormTemplateHtml = __webpack_require__(67);
+	var _templatesConversionFormTemplateHtml = __webpack_require__(68);
 
 	var _templatesConversionFormTemplateHtml2 = _interopRequireDefault(_templatesConversionFormTemplateHtml);
 
@@ -46402,7 +46588,8 @@
 			restrict: 'E',
 			template: _templatesConversionFormTemplateHtml2['default'],
 			scope: {
-				conversion: '='
+				conversion: '=',
+				converters: '='
 			},
 			link: function link(scope, element, attrs) {
 				scope.conversion.config = {
@@ -46420,23 +46607,23 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 67 */
+/* 68 */
 /***/ function(module, exports) {
 
-	module.exports = "<form on-submit-and-disable on-submit=\"validateAndSubmit()\" class=\"conversion-form\">\r\n    <h4>{{conversion.name}}</h4>\r\n    <fieldset class=\"halves\">\r\n        <label for=\"backgroundField{{conversion.id}}\">\r\n      Background Field Color\r\n    </label>\r\n        <input type=\"text\" ng-model=\"conversion.config.backgroundField\" id=\"backgroundField{{conversion.id}}\" />\r\n        <label for=\"activeField{{conversion.id}}\">\r\n      Active Field Colour\r\n    </label>\r\n    <input type=\"text\" ng-model=\"conversion.config.activeField\" id=\"activeField{{conversion.id}}\" />\r\n    </fieldset>\r\n    <fieldset class=\"halves\">\r\n        <div class=\"checkbox-container inline-block\">\r\n            <div>\r\n                <input type=\"radio\" name=\"animatedPages{{conversion.id}}\" ng-model=\"conversion.config.animatedPages\" id=\"allAnimated{{conversion.id}}\" value=\"allAnimated\">\r\n                <label for=\"allAnimated{{conversion.id}}\">Completely animated</label>\r\n            </div>\r\n            <div>\r\n                <input type=\"radio\" name=\"animatedPages{{conversion.id}}\" ng-model=\"conversion.config.animatedPages\" id=\"staticForm{{conversion.id}}\" value=\"staticForm\">\r\n                <label for=\"staticForm{{conversion.id}}\">Completely static</label>\r\n            </div>\r\n            <div>\r\n                <input type=\"radio\" name=\"animatedPages{{conversion.id}}\" ng-model=\"conversion.config.animatedPages\" id=\"customAnimated{{conversion.id}}\" value=\"customAnimatedPages\">\r\n                <label for=\"customAnimated{{conversion.id}}\">Custom animated pages</label>\r\n            </div>\r\n        </div>\r\n        <input ng-if=\"conversion.config.animatedPages === 'customAnimatedPages'\" type=\"text\" ng-model=\"conversion.config.customAniPages\" id=\"customAniPages{{conversion.id}}\" placeholder=\"Custom animated pages\" />\r\n        <div class=\"checkbox-container\" ng-if=\"conversion.config.animatedPages !== 'staticForm'\">\r\n            <input type=\"checkbox\" name=\"externalCSS{{conversion.id}}\" ng-model=\"conversion.config.externalCSS\" id=\"externalCSS{{conversion.id}}\">\r\n            <label for=\"externalCSS{{conversion.id}}\">External CSS</label>\r\n        </div>\r\n        <input ng-if=\"conversion.config.animatedPages !== 'staticForm' && conversion.config.externalCSS\" type=\"text\" ng-model=\"conversion.config.cssPath\" id=\"cssPath{{conversion.id}}\" />\r\n    </fieldset>\r\n    <div>\r\n      <div class=\"button-group\">\r\n        <input type=\"submit\" value=\"Convert this form!\" class=\"button primary\" />\r\n        <input type=\"button\" value=\"Delete\" class=\"button danger\" />\r\n      </div>\r\n    </div>\r\n</form>\r\n";
+	module.exports = "<form on-submit-and-disable on-submit=\"validateAndSubmit()\" class=\"conversion-form\">\n    <h4>{{conversion.name}}</h4>\n    <fieldset class=\"halves\">\n        <label for=\"backgroundField{{conversion.id}}\">\n      Background Field Color\n    </label>\n        <input type=\"text\" ng-model=\"conversion.config.backgroundField\" id=\"backgroundField{{conversion.id}}\" />\n        <label for=\"activeField{{conversion.id}}\">\n      Active Field Colour\n    </label>\n        <input type=\"text\" ng-model=\"conversion.config.activeField\" id=\"activeField{{conversion.id}}\" />\n    <label>Conveter</label>\n    <select ng-model=\"conversion.config.converter\">\n      <option ng-repeat=\"converter in converters\" value=\"converter.path\" ng-selected=\"converter.primary\">{{converter.name}}</option>\n    </select>\n    </fieldset>\n    <fieldset class=\"halves\">\n        <div class=\"checkbox-container inline-block\">\n            <div>\n                <input type=\"radio\" name=\"animatedPages{{conversion.id}}\" ng-model=\"conversion.config.animatedPages\" id=\"allAnimated{{conversion.id}}\" value=\"allAnimated\">\n                <label for=\"allAnimated{{conversion.id}}\">Completely animated</label>\n            </div>\n            <div>\n                <input type=\"radio\" name=\"animatedPages{{conversion.id}}\" ng-model=\"conversion.config.animatedPages\" id=\"staticForm{{conversion.id}}\" value=\"staticForm\">\n                <label for=\"staticForm{{conversion.id}}\">Completely static</label>\n            </div>\n            <div>\n                <input type=\"radio\" name=\"animatedPages{{conversion.id}}\" ng-model=\"conversion.config.animatedPages\" id=\"customAnimated{{conversion.id}}\" value=\"customAnimatedPages\">\n                <label for=\"customAnimated{{conversion.id}}\">Custom animated pages</label>\n            </div>\n        </div>\n        <input ng-if=\"conversion.config.animatedPages === 'customAnimatedPages'\" type=\"text\" ng-model=\"conversion.config.customAniPages\" id=\"customAniPages{{conversion.id}}\" placeholder=\"Custom animated pages\" />\n        <div class=\"checkbox-container\" ng-if=\"conversion.config.animatedPages !== 'staticForm'\">\n            <input type=\"checkbox\" name=\"externalCSS{{conversion.id}}\" ng-model=\"conversion.config.externalCSS\" id=\"externalCSS{{conversion.id}}\">\n            <label for=\"externalCSS{{conversion.id}}\">External CSS</label>\n        </div>\n        <input ng-if=\"conversion.config.animatedPages !== 'staticForm' && conversion.config.externalCSS\" type=\"text\" ng-model=\"conversion.config.cssPath\" id=\"cssPath{{conversion.id}}\" />\n    </fieldset>\n    <div>\n        <div class=\"button-group\">\n            <input type=\"submit\" value=\"Convert this form!\" class=\"button primary\" />\n            <input type=\"button\" value=\"Delete\" class=\"button danger\" />\n        </div>\n    </div>\n</form>\n";
 
 /***/ },
-/* 68 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by alex_crack on 20.11.15.
 	 */
-	__webpack_require__(69);
+	__webpack_require__(70);
 	module.exports = 'ui-notification';
 
 /***/ },
-/* 69 */
+/* 70 */
 /***/ function(module, exports) {
 
 	/**
@@ -46668,15 +46855,15 @@
 	angular.module("ui-notification").run(["$templateCache", function($templateCache) {$templateCache.put("angular-ui-notification.html","<div class=\"ui-notification\"><h3 ng-show=\"title\" ng-bind-html=\"title\"></h3><div class=\"message\" ng-bind-html=\"message\"></div></div>");}]);
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(71);
+	__webpack_require__(72);
 	module.exports = 'angular-loading-bar';
 
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports) {
 
 	/*! 
@@ -47023,15 +47210,15 @@
 
 
 /***/ },
-/* 72 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(73);
+	__webpack_require__(74);
 	module.exports = 'angularUtils.directives.dirPagination';
 
 
 /***/ },
-/* 73 */
+/* 74 */
 /***/ function(module, exports) {
 
 	/**
@@ -47676,7 +47863,7 @@
 
 
 /***/ },
-/* 74 */
+/* 75 */
 /***/ function(module, exports) {
 
 	/**!
@@ -47781,7 +47968,7 @@
 
 
 /***/ },
-/* 75 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47798,33 +47985,33 @@
 		$stateProvider.state('converter', {
 			url: '/',
 			abstract: true,
-			template: __webpack_require__(76),
+			template: __webpack_require__(77),
 			controller: 'SidebarController',
 			controllerAs: 'sidebar'
 		}).state('converter.new', {
 			url: '',
-			template: __webpack_require__(77),
+			template: __webpack_require__(78),
 			controller: 'NewConversionController',
 			controllerAs: 'new'
 		}).state('converter.config', {
 			url: 'configure',
-			template: __webpack_require__(78),
+			template: __webpack_require__(79),
 			controller: 'ConfigConversionsController',
 			controllerAs: 'config'
 		}).state('converter.queue', {
 			url: 'queue',
-			template: __webpack_require__(79),
+			template: __webpack_require__(80),
 			controller: 'ConversionsQueueController',
 			controllerAs: 'queue'
 		}).state('converter.done', {
 			url: 'done',
-			template: __webpack_require__(80),
+			template: __webpack_require__(81),
 			controller: 'ConversionsDoneController',
 			controllerAs: 'done'
 		});
 
 		dropzoneOpsProvider.setOptions({
-			acceptedFiles: '.ufx, .sfx',
+			acceptedFiles: '.ufx, .sfx, .png',
 			createImageThumbnails: false,
 			parallelUploads: 10,
 			url: '/conversions/'
@@ -47837,34 +48024,34 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 76 */
-/***/ function(module, exports) {
-
-	module.exports = "<nav class=\"sidebar\">\r\n  <h1><a ui-sref=\"converter.new\" ui-sref-active=\"active\" title=\"Upload Conversions\">The<br>Auto<br>Converter</a></h1>\r\n    <ul>\r\n        <li><a ui-sref=\"converter.new\" ui-sref-active=\"active\" title=\"Upload Conversions\">Upload Conversions</a></li>\r\n        <li><a ui-sref=\"converter.config\" ui-sref-active=\"active\" title=\"Configure Conversions\">Configure Conversions <span ng-if=\"sidebar.configConversions > 0\">({{sidebar.configConversions}})</span></a></li>\r\n        <li><a ui-sref=\"converter.queue\" ui-sref-active=\"active\" title=\"Queue\">Queue</a></li>\r\n        <li><a ui-sref=\"converter.done\" ui-sref-active=\"active\" title=\"Completed Conversions\">Completed Conversions</a></li>\r\n    </ul>\r\n</nav>\r\n\r\n<main class=\"next-to-sidebar\">\r\n    <ui-view></ui-view>\r\n</main>\r\n";
-
-/***/ },
 /* 77 */
 /***/ function(module, exports) {
 
-	module.exports = "<section class=\"feature light\">\r\n    <h2 class=\"serif\">Upload your forms!</h2>\r\n    <ng-dropzone class=\"dropzone\" callbacks=\"new.dropzoneCallbacks\" methods=\"new.dropzoneMethods\"></ng-dropzone>\r\n    <a ng-if=\"new.configureLink\" ui-sref=\"converter.config\" title=\"Configure Conversions\" class=\"button secondary\">Configure Conversions</a>\r\n</section>\r\n";
+	module.exports = "<nav class=\"sidebar\">\n  <h1><a ui-sref=\"converter.new\" ui-sref-active=\"active\" title=\"Upload Conversions\">The<br>Auto<br>Converter</a></h1>\n    <ul>\n        <li><a ui-sref=\"converter.new\" ui-sref-active=\"active\" title=\"Upload Conversions\">Upload Conversions</a></li>\n        <li><a ui-sref=\"converter.config\" ui-sref-active=\"active\" title=\"Configure Conversions\">Configure Conversions <span ng-if=\"sidebar.configConversions > 0\">({{sidebar.configConversions}})</span></a></li>\n        <li><a ui-sref=\"converter.queue\" ui-sref-active=\"active\" title=\"Queue\">Queue</a></li>\n        <li><a ui-sref=\"converter.done\" ui-sref-active=\"active\" title=\"Completed Conversions\">Completed Conversions</a></li>\n    </ul>\n</nav>\n\n<main class=\"next-to-sidebar\">\n    <ui-view></ui-view>\n</main>\n";
 
 /***/ },
 /* 78 */
 /***/ function(module, exports) {
 
-	module.exports = "<section class=\"feature light\">\r\n    <h2 class=\"serif\">Configure your forms!</h2>\r\n    <article dir-paginate=\"conversion in config.conversions | itemsPerPage: config.conversionsPerPage\" total-items=\"config.totalConversions\" current-page=\"config.currentPage\">\r\n      <conversion-form conversion=\"conversion\"></conversion-form>\r\n    </article>\r\n    <div class=\"paginination-container\">\r\n        <dir-pagination-controls on-page-change=\"config.changePage(newPageNumber)\"></dir-pagination-controls>\r\n    </div>\r\n</section>\r\n";
+	module.exports = "<section class=\"feature light\">\n    <h2 class=\"serif\">Upload your forms!</h2>\n    <ng-dropzone class=\"dropzone\" callbacks=\"new.dropzoneCallbacks\" methods=\"new.dropzoneMethods\"></ng-dropzone>\n    <a ng-if=\"new.configureLink\" ui-sref=\"converter.config\" title=\"Configure Conversions\" class=\"button secondary\">Configure Conversions</a>\n</section>\n";
 
 /***/ },
 /* 79 */
 /***/ function(module, exports) {
 
-	module.exports = "<h3>Conversions Queue</h3>\r\n";
+	module.exports = "<section class=\"feature light\">\n    <h2 class=\"serif\">Configure your forms!</h2>\n    <article ng-if=\"conversions.length === 0\">\n      <h3 class=\"empty-notification\">You ain't got no forms to convert!</h3>\n    </article>\n    <article dir-paginate=\"conversion in config.conversions | itemsPerPage: config.conversionsPerPage\" total-items=\"config.totalConversions\" current-page=\"config.currentPage\">\n      <conversion-form conversion=\"conversion\" converters=\"config.converters\"></conversion-form>\n    </article>\n    <div class=\"paginination-container\">\n        <dir-pagination-controls on-page-change=\"config.changePage(newPageNumber)\"></dir-pagination-controls>\n    </div>\n</section>\n";
 
 /***/ },
 /* 80 */
 /***/ function(module, exports) {
 
-	module.exports = "<h3>Conversions Done</h3>\r\n";
+	module.exports = "<h3>Conversions Queue</h3>\n";
+
+/***/ },
+/* 81 */
+/***/ function(module, exports) {
+
+	module.exports = "<h3>Conversions Done</h3>\n";
 
 /***/ }
 /******/ ]);

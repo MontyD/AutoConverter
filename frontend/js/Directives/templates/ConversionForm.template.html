@@ -8,7 +8,11 @@
         <label for="activeField{{conversion.id}}">
       Active Field Colour
     </label>
-    <input type="text" ng-model="conversion.config.activeField" id="activeField{{conversion.id}}" />
+        <input type="text" ng-model="conversion.config.activeField" id="activeField{{conversion.id}}" />
+    <label>Conveter</label>
+    <select ng-model="conversion.config.converter">
+      <option ng-repeat="converter in converters" value="converter.path" ng-selected="converter.primary">{{converter.name}}</option>
+    </select>
     </fieldset>
     <fieldset class="halves">
         <div class="checkbox-container inline-block">
@@ -33,9 +37,9 @@
         <input ng-if="conversion.config.animatedPages !== 'staticForm' && conversion.config.externalCSS" type="text" ng-model="conversion.config.cssPath" id="cssPath{{conversion.id}}" />
     </fieldset>
     <div>
-      <div class="button-group">
-        <input type="submit" value="Convert this form!" class="button primary" />
-        <input type="button" value="Delete" class="button danger" />
-      </div>
+        <div class="button-group">
+            <input type="submit" value="Convert this form!" class="button primary" />
+            <input type="button" value="Delete" class="button danger" />
+        </div>
     </div>
 </form>

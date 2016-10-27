@@ -39,7 +39,7 @@ router.get('/count', (req, res, next) => {
 
 router.post('/', upload.single('file'), (req, res, next) => {
 	// Check the extension for sfx or ufx.
-	if (!(/\.(sfx|ufx)/gi).test(path.extname(req.file.originalname))) {
+	if (!(/\.(sfx|ufx|png)/gi).test(path.extname(req.file.originalname))) {
 		fs.unlink(path.resolve(__dirname, '..', req.file.path), () => {
 			let error = new Error('Uploads must have the extension .ufx or .sfx');
 			error.status = 400;

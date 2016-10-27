@@ -858,6 +858,12 @@ p.slight {
   font-size: 0.9rem;
   color: #6f6f6f; }
 
+.dz-default.dz-message span {
+  font-size: 1.2em; }
+
+.dropzone.ng-isolate-scope.dz-clickable {
+  min-height: 300px; }
+
 .button,
 .fake-button {
   display: inline-block;
@@ -928,6 +934,12 @@ p.slight {
   border-bottom: 2px solid #E0E0E0; }
   .settings-article:last-child {
     border-bottom: none; }
+
+.empty-notification {
+  font-size: 1.4em;
+  padding: 1.2em 0;
+  color: #E0E0E0;
+  text-align: center; }
 
 button.icon {
   padding: 0.2rem 0.2rem 0.3rem 0.3rem;
@@ -2300,6 +2312,12 @@ p.slight {
   font-size: 0.9rem;
   color: #6f6f6f; }
 
+.dz-default.dz-message span {
+  font-size: 1.2em; }
+
+.dropzone.ng-isolate-scope.dz-clickable {
+  min-height: 300px; }
+
 .button,
 .fake-button {
   display: inline-block;
@@ -2370,6 +2388,12 @@ p.slight {
   border-bottom: 2px solid #E0E0E0; }
   .settings-article:last-child {
     border-bottom: none; }
+
+.empty-notification {
+  font-size: 1.4em;
+  padding: 1.2em 0;
+  color: #E0E0E0;
+  text-align: center; }
 
 button.icon {
   padding: 0.2rem 0.2rem 0.3rem 0.3rem;

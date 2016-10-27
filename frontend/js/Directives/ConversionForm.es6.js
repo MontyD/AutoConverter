@@ -6,7 +6,8 @@ function ConversionForm() {
 		restrict: 'E',
 		template: template,
 		scope: {
-			conversion: '='
+			conversion: '=',
+			converters: '='
 		},
 		link: (scope, element, attrs) => {
 			scope.conversion.config = {

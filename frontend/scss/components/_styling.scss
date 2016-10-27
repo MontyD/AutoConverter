@@ -13,14 +13,14 @@ $colorGrey: #E0E0E0;
 $colorDarkGrey: #6f6f6f; //** functions **//
 @function top-shadow($depth) {
     $primary-offset: nth(1.5 3 10 14 19, $depth) * 1px;
-    $blur: nth(1.5 3 10 14 19, $depth) * 4px;
-    $color: rgba(black, nth(.12 .16 .19 .25 .30, $depth));
+    $blur          : nth(1.5 3 10 14 19, $depth) * 4px;
+    $color         : rgba(black, nth(.12 .16 .19 .25 .30, $depth));
     @return 0 $primary-offset $blur $color;
 }
 @function bottom-shadow($depth) {
     $primary-offset: nth(1.5 3 6 10 15, $depth) * 1px;
-    $blur: nth(1 3 3 5 6, $depth) * 4px;
-    $color: rgba(black, nth(.24 .23 .23 .22 .22, $depth));
+    $blur          : nth(1 3 3 5 6, $depth) * 4px;
+    $color         : rgba(black, nth(.24 .23 .23 .22 .22, $depth));
     @return 0 $primary-offset $blur $color;
 }
 //** Mixins **//
@@ -42,7 +42,7 @@ body {
 
 body,
 ui-view {
-    color: $colorBlack;
+    color     : $colorBlack;
     overflow-x: hidden;
 }
 
@@ -51,16 +51,16 @@ ui-view {
     @include shadow(1);
 
     hr {
-        margin: 2em auto;
-        border: none;
-        max-width: 300px;
+        margin    : 2em auto;
+        border    : none;
+        max-width : 300px;
         border-top: 1px solid $colorDark;
     }
 }
 
 h1 {
     font-family: $serif;
-    font-size: 5rem;
+    font-size  : 5rem;
     line-height: 90%;
 
     &.shadow {
@@ -68,7 +68,7 @@ h1 {
     }
 
     &.short {
-        margin-top: 0.1em;
+        margin-top   : 0.1em;
         margin-bottom: 0.3em;
     }
     @media(max-width: $smallBP) {
@@ -78,30 +78,30 @@ h1 {
 
 h2 {
     font-family: $sans-serif;
-    font-size: 2rem;
+    font-size  : 2rem;
 
     &.shadow {
         text-shadow: 5px 5px 0 $colorDark;
     }
 
     &.serif {
-        font-size: 3rem;
+        font-size  : 3rem;
         font-family: $serif;
     }
 }
 
 h3 {
     font-family: $sans-serif;
-    font-size: 1.6rem;
+    font-size  : 1.6rem;
 
     &.shadow {
         text-shadow: 5px 5px 0 $colorDark;
     }
 
     &.serif {
-        font-size: 2.4rem;
+        font-size    : 2.4rem;
         margin-bottom: 0;
-        font-family: $serif;
+        font-family  : $serif;
     }
 }
 
@@ -115,13 +115,13 @@ h5 {
 }
 
 a {
-    color: inherit;
+    color          : inherit;
     text-decoration: none;
-    cursor: pointer;
+    cursor         : pointer;
 
     &:hover {
         text-decoration: underline;
-        color: $colorDark;
+        color          : $colorDark;
     }
 }
 
@@ -131,42 +131,50 @@ a {
 
 label.slight,
 p.slight {
-    font-style: italic;
-    color: $colorGrey;
-    font-weight: normal;
+    font-style    : italic;
+    color         : $colorGrey;
+    font-weight   : normal;
     padding-bottom: 1rem;
 }
 
 .explaination-text {
-    display: block;
+    display  : block;
     font-size: 0.9rem;
-    color: $colorDarkGrey;
+    color    : $colorDarkGrey;
+}
+
+.dz-default.dz-message span {
+    font-size: 1.2em;
+}
+
+.dropzone.ng-isolate-scope.dz-clickable {
+    min-height: 300px;
 }
 
 .button,
 .fake-button {
-    display: inline-block;
-    padding: 0.6rem 0.8rem;
-    margin: 0.4rem;
-    font-weight: normal;
-    border: 1px solid $colorMain;
-    border-radius: 0.2rem;
-    background: $colorMain;
-    color: $colorWhite;
-    cursor: pointer;
-    box-shadow: none;
-    transition: box-shadow 0.2s ease, color 0.2s ease, background 0.2s ease;
+    display        : inline-block;
+    padding        : 0.6rem 0.8rem;
+    margin         : 0.4rem;
+    font-weight    : normal;
+    border         : 1px solid $colorMain;
+    border-radius  : 0.2rem;
+    background     : $colorMain;
+    color          : $colorWhite;
+    cursor         : pointer;
+    box-shadow     : none;
+    transition     : box-shadow 0.2s ease, color 0.2s ease, background 0.2s ease;
     text-decoration: none;
 
     &.primary {
-        border: 1px solid $colorDark;
+        border    : 1px solid $colorDark;
         background: $colorDark;
     }
 
     &.secondary {
         background: $colorWhite;
-        border: 1px solid $colorDarkGrey;
-        color: $colorDarkGrey;
+        border    : 1px solid $colorDarkGrey;
+        color     : $colorDarkGrey;
 
         &:hover {
             color: $colorDarkGrey;
@@ -175,22 +183,22 @@ p.slight {
 
     &.danger {
         background: $colorWhite;
-        border: 1px solid $colorError;
-        color: $colorError;
+        border    : 1px solid $colorError;
+        color     : $colorError;
 
         &:hover {
-            color: $colorWhite;
+            color     : $colorWhite;
             background: $colorError;
         }
     }
 
     &.full-width {
         display: block;
-        width: 100%;
+        width  : 100%;
     }
 
     &:hover {
-        color: $colorWhite;
+        color          : $colorWhite;
         text-decoration: none;
         @include shadow(1);
     }
@@ -201,8 +209,8 @@ p.slight {
     }
 
     &.block {
-        display: block;
-        margin-left: auto;
+        display     : block;
+        margin-left : auto;
         margin-right: auto;
     }
 
@@ -223,13 +231,20 @@ p.slight {
     }
 }
 
+.empty-notification {
+    font-size : 1.4em;
+    padding   : 1.2em 0;
+    color     : $colorGrey;
+    text-align: center;
+}
+
 button.icon {
-    padding: 0.2rem 0.2rem 0.3rem 0.3rem;
-    font-size: 1.4rem;
-    cursor: pointer;
+    padding   : 0.2rem 0.2rem 0.3rem 0.3rem;
+    font-size : 1.4rem;
+    cursor    : pointer;
     background: transparent;
-    border: none;
-    color: $colorDarkGrey;
+    border    : none;
+    color     : $colorDarkGrey;
 
     &:hover {
         color: $colorDark;
@@ -248,12 +263,12 @@ button.icon {
 
 .dark {
     background: $colorDark;
-    color: $colorWhite;
+    color     : $colorWhite;
 }
 
 .light {
     background: $colorWhite;
-    color: $colorBlack;
+    color     : $colorBlack;
 }
 
 .grey {
@@ -262,16 +277,16 @@ button.icon {
 
 .accent {
     background: $colorAccent;
-    color: $colorWhite;
+    color     : $colorWhite;
 }
 
 .black {
-    color: $colorWhite;
+    color     : $colorWhite;
     background: $colorBlack;
 }
 
 .white {
-    color: $colorWhite;
+    color       : $colorWhite;
     border-color: $colorWhite;
 }
 
@@ -280,12 +295,12 @@ button.icon {
 }
 
 .slight-gradient {
-    background: $colorDark;
+    background      : $colorDark;
     background-image: linear-gradient(to bottom left, rgba(100,255,250,0) 0%, rgba(100,255,250,.5) 75%, rgba(100,255,250,.5) 100%);
 }
 
 .slight-gradient-small {
-    background: $colorDark;
+    background      : $colorDark;
     background-image: linear-gradient(to bottom left,rgba(100,255,250,0) 0,rgba(71, 158, 156, 0.5) 75%,rgba(90, 255, 235, 0.5) 100%);
 }
 
@@ -318,72 +333,72 @@ button.icon {
 .pagination {
     li:last-child a {
         border-bottom-right-radius: 0.25rem;
-        border-top-right-radius: 0.25rem;
+        border-top-right-radius   : 0.25rem;
     }
 
     li:first-child a {
         border-bottom-left-radius: 0.25rem;
-        border-top-left-radius: 0.25rem;
+        border-top-left-radius   : 0.25rem;
     }
 
     li.active a {
-        color: $colorWhite;
-        cursor: default;
+        color           : $colorWhite;
+        cursor          : default;
         background-color: $colorDark;
-        border-color: $colorDark;
+        border-color    : $colorDark;
     }
 
     li.disabled a {
-        color: $colorGrey;
-        pointer-events: none;
-        cursor: not-allowed;
+        color           : $colorGrey;
+        pointer-events  : none;
+        cursor          : not-allowed;
         background-color: $colorSubtle;
-        border-color: $colorSubtle;
+        border-color    : $colorSubtle;
     }
 
     a {
-        position: relative;
-        float: left;
-        padding: 0.75rem 1rem;
-        margin-left: -1px;
-        color: $colorDark;
-        text-decoration: none;
+        position        : relative;
+        float           : left;
+        padding         : 0.75rem 1rem;
+        margin-left     : -1px;
+        color           : $colorDark;
+        text-decoration : none;
         background-color: $colorWhite;
-        border: 1px solid $colorLight;
+        border          : 1px solid $colorLight;
     }
 
     a:focus,
     a:hover {
-        color: $colorDark;
+        color           : $colorDark;
         background-color: #eceeef;
     }
 }
 
 .conversion-form {
-    color: $colorDarkGrey;
-    padding: 0.4em;
-    box-sizing: border-box;
-    width: 95%;
-    margin: 0.4em auto;
-    border: $colorSubtle 1px solid;
+    color       : $colorDarkGrey;
+    padding     : 0.4em;
+    box-sizing  : border-box;
+    width       : 95%;
+    margin      : 0.4em auto;
+    border      : $colorSubtle 1px solid;
     border-right: $colorDark 3px solid;
 
     h4 {
-        font-family: $serif;
-        font-size: 1.4em;
-        font-weight: normal;
-        margin-top: 0.4em;
+        font-family  : $serif;
+        font-size    : 1.4em;
+        font-weight  : normal;
+        margin-top   : 0.4em;
         margin-bottom: 0.6em;
     }
 
     .checkbox-container {
         &.inline-block {
-            display: inline-block;
+            display      : inline-block;
             margin-bottom: 1.4em;
-            text-align: left;
-            margin: 0.5 auto;
-            padding: 0 2em;
-            box-sizing: border-box;
+            text-align   : left;
+            margin       : 0.5 auto;
+            padding      : 0 2em;
+            box-sizing   : border-box;
         }
 
         div {
@@ -397,76 +412,76 @@ button.icon {
 }
 
 .circle {
-    position: fixed;
-    top: 50%;
-    margin: 0 auto;
-    left: 0;
-    right: 0;
-    border-radius: 50%;
-    height: 65vw;
-    width: 65vw;
+    position        : fixed;
+    top             : 50%;
+    margin          : 0 auto;
+    left            : 0;
+    right           : 0;
+    border-radius   : 50%;
+    height          : 65vw;
+    width           : 65vw;
     transform-origin: center center;
     @include shadow(1);
     @media(max-width: $smallBP) {
         height: 95vw;
-        width: 95vw;
+        width : 95vw;
     }
 
     &.circle-1 {
-        transform: translateY(-49%) translateX(1%) scale(1.12);
+        transform : translateY(-49%) translateX(1%) scale(1.12);
         background: $colorSubtle;
-        opacity: 0.7;
+        opacity   : 0.7;
     }
 
     &.circle-2 {
-        transform: translateY(-51%) translateX(-1%) scale(1);
+        transform : translateY(-51%) translateX(-1%) scale(1);
         background: $colorLight;
-        opacity: 0.5;
+        opacity   : 0.5;
     }
 }
 
 .loading-view {
-    display: block;
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    text-align: center;
-    font-family: $serif;
-    font-size: 5rem;
-    visibility: visible;
-    opacity: 1;
-    transition: visibility 0.2s, opacity 0.2s;
+    display         : block;
+    position        : fixed;
+    height          : 100%;
+    width           : 100%;
+    top             : 0;
+    left            : 0;
+    right           : 0;
+    margin          : 0 auto;
+    text-align      : center;
+    font-family     : $serif;
+    font-size       : 5rem;
+    visibility      : visible;
+    opacity         : 1;
+    transition      : visibility 0.2s, opacity 0.2s;
     transition-delay: 2s;
     @extend .slight-gradient;
 
     * {
-        position: absolute;
-        top: 50%;
-        margin: 0 auto;
-        left: 0;
-        right: 0;
+        position : absolute;
+        top      : 50%;
+        margin   : 0 auto;
+        left     : 0;
+        right    : 0;
         transform: translateY(-50%);
     }
 
     .circle {
-        transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+        transition      : transform 0.6s ease-out, opacity 0.6s ease-out;
         transition-delay: 1s;
     }
 
     .text-container {
-        color: $colorWhite;
+        color   : $colorWhite;
         overflow: hidden;
-        display: inline-block;
-        width: 100%;
-        height: 7rem;
+        display : inline-block;
+        width   : 100%;
+        height  : 7rem;
 
         span {
-            transition: transform 0.5s ease-out;
-            transform: translateY(-50%);
+            transition      : transform 0.5s ease-out;
+            transform       : translateY(-50%);
             transition-delay: 1.3s;
         }
     }
@@ -474,7 +489,7 @@ button.icon {
 
 .loaded {
     .loading-view {
-        opacity: 0;
+        opacity   : 0;
         visibility: hidden;
 
         .text-container span {
@@ -483,19 +498,19 @@ button.icon {
 
         .circle.circle-1 {
             transform: translateY(-49%) translateX(1%) scale(0);
-            opacity: 0;
+            opacity  : 0;
         }
 
         .circle.circle-2 {
             transform: translateY(-51%) translateX(-1%) scale(0);
-            opacity: 0;
+            opacity  : 0;
         }
     }
 }
 
 footer {
     background: $colorDark;
-    color: $colorSubtle;
+    color     : $colorSubtle;
 
     &.grey {
         background: rgba(0,0,0, 0.1);
