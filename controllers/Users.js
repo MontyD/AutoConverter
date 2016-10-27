@@ -38,6 +38,15 @@ router.get('/', (req, res, next) => {
     .catch(err => handleError(err, next));
 });
 
+// Get - echo user info
+router.get('/info', respondsToJSON, checkUser, (req, res, next) => {
+  res.json({
+    userId: req.user.id,
+    username: req.user.name,
+    isAdmin: req.user.isAdmin
+  });
+});
+
 // Get - register page
 router.get('/login', (req, res, next) => {
     req.logout();

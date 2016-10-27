@@ -11,6 +11,10 @@ class UsersService {
     return this.$http.get(this.urlBase);
   }
 
+  getInfo() {
+    return this.$http.get(this.urlBase + 'info');
+  }
+
   create(newUser) {
     return this.$http.post(this.urlBase, newUser);
   }

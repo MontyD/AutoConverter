@@ -20,6 +20,8 @@ import ConversionsDoneController from './Controllers/ConversionsDoneCTRL.es6.js'
 import UsersService from './Services/UsersService.es6.js';
 import ConvertersService from './Services/ConvertersService.es6.js';
 import ConfigService from './Services/ConfigService.es6.js';
+import SocketService from './Services/SocketService.es6.js';
+import ConversionsService from './Services/ConversionsService.es6.js';
 
 import onSubmitAndDisable from './Directives/OnSubmitAndDisable.es6.js';
 
@@ -36,8 +38,10 @@ angular.module('converter', [uiRouter, 'ui-notification', 'angular-loading-bar',
   .controller('ConfigConversionsController', ConfigConversionsController)
   .controller('ConversionsQueueController', ConversionsQueueController)
   .controller('ConversionsDoneController', ConversionsDoneController)
+  .service('SocketService', SocketService)
   .service('UsersService', UsersService)
   .service('ConvertersService', ConvertersService)
   .service('ConfigService', ConfigService)
+  .service('ConversionsService', ConversionsService)
   .directive('onSubmitAndDisable', onSubmitAndDisable)
   .config(converterConfig);

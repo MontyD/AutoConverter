@@ -102,27 +102,35 @@
 
 	var _ServicesConfigServiceEs6Js2 = _interopRequireDefault(_ServicesConfigServiceEs6Js);
 
-	var _DirectivesOnSubmitAndDisableEs6Js = __webpack_require__(63);
+	var _ServicesSocketServiceEs6Js = __webpack_require__(63);
+
+	var _ServicesSocketServiceEs6Js2 = _interopRequireDefault(_ServicesSocketServiceEs6Js);
+
+	var _ServicesConversionsServiceEs6Js = __webpack_require__(64);
+
+	var _ServicesConversionsServiceEs6Js2 = _interopRequireDefault(_ServicesConversionsServiceEs6Js);
+
+	var _DirectivesOnSubmitAndDisableEs6Js = __webpack_require__(65);
 
 	var _DirectivesOnSubmitAndDisableEs6Js2 = _interopRequireDefault(_DirectivesOnSubmitAndDisableEs6Js);
 
-	var _angularUiNotification = __webpack_require__(64);
+	var _angularUiNotification = __webpack_require__(66);
 
 	var _angularUiNotification2 = _interopRequireDefault(_angularUiNotification);
 
-	var _angularLoadingBar = __webpack_require__(66);
+	var _angularLoadingBar = __webpack_require__(68);
 
 	var _angularLoadingBar2 = _interopRequireDefault(_angularLoadingBar);
 
-	var _angularUtilsPagination = __webpack_require__(68);
+	var _angularUtilsPagination = __webpack_require__(70);
 
 	var _angularUtilsPagination2 = _interopRequireDefault(_angularUtilsPagination);
 
-	var _ngDropzone = __webpack_require__(70);
+	var _ngDropzone = __webpack_require__(72);
 
 	var _ngDropzone2 = _interopRequireDefault(_ngDropzone);
 
-	var _configConverterConfigEs6Js = __webpack_require__(71);
+	var _configConverterConfigEs6Js = __webpack_require__(73);
 
 	var _configConverterConfigEs6Js2 = _interopRequireDefault(_configConverterConfigEs6Js);
 
@@ -130,7 +138,7 @@
 	window.Dropzone = _dropzone2['default'];
 	window.Dropzone.autoDiscover = false;
 
-	_angular2['default'].module('converter', [_angularUiRouter2['default'], 'ui-notification', 'angular-loading-bar', 'thatisuday.dropzone']).controller('SidebarController', _ControllersSidebarCTRLEs6Js2['default']).controller('NewConversionController', _ControllersNewConversionCTRLEs6Js2['default']).controller('ConfigConversionsController', _ControllersConfigConversionsCTRLEs6Js2['default']).controller('ConversionsQueueController', _ControllersConversionsQueueCTRLEs6Js2['default']).controller('ConversionsDoneController', _ControllersConversionsDoneCTRLEs6Js2['default']).service('UsersService', _ServicesUsersServiceEs6Js2['default']).service('ConvertersService', _ServicesConvertersServiceEs6Js2['default']).service('ConfigService', _ServicesConfigServiceEs6Js2['default']).directive('onSubmitAndDisable', _DirectivesOnSubmitAndDisableEs6Js2['default']).config(_configConverterConfigEs6Js2['default']);
+	_angular2['default'].module('converter', [_angularUiRouter2['default'], 'ui-notification', 'angular-loading-bar', 'thatisuday.dropzone']).controller('SidebarController', _ControllersSidebarCTRLEs6Js2['default']).controller('NewConversionController', _ControllersNewConversionCTRLEs6Js2['default']).controller('ConfigConversionsController', _ControllersConfigConversionsCTRLEs6Js2['default']).controller('ConversionsQueueController', _ControllersConversionsQueueCTRLEs6Js2['default']).controller('ConversionsDoneController', _ControllersConversionsDoneCTRLEs6Js2['default']).service('SocketService', _ServicesSocketServiceEs6Js2['default']).service('UsersService', _ServicesUsersServiceEs6Js2['default']).service('ConvertersService', _ServicesConvertersServiceEs6Js2['default']).service('ConfigService', _ServicesConfigServiceEs6Js2['default']).service('ConversionsService', _ServicesConversionsServiceEs6Js2['default']).directive('onSubmitAndDisable', _DirectivesOnSubmitAndDisableEs6Js2['default']).config(_configConverterConfigEs6Js2['default']);
 
 /***/ },
 /* 1 */
@@ -45828,20 +45836,74 @@
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	    value: true
+	  value: true
 	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var SidebarController = function SidebarController(Notification) {
+	var SidebarController = (function () {
+	  function SidebarController(Notification, SocketService, UsersService, ConversionsService, $scope) {
+	    var _this = this;
+
 	    _classCallCheck(this, SidebarController);
 
 	    this.Notification = Notification;
+	    this.SocketService = SocketService;
+	    this.UsersService = UsersService;
+	    this.ConversionsService = ConversionsService;
+	    this.scope = $scope;
+
+	    this.user = {
+	      id: null,
+	      username: '',
+	      isAdmin: false
+	    };
+
+	    this.configConversions = 0;
+
+	    this.UsersService.getInfo().then(function (response) {
+	      _this.user = {
+	        id: response.data.userId,
+	        isAdmin: response.data.isAdmin,
+	        username: response.data.username
+	      };
+	      _this.SocketService.init(_this.user.id);
+	      return true;
+	    })['catch'](function (err) {
+	      return _this.handleError.bind(_this);
+	    });
+
+	    this.ConversionsService.get({ status: 'Uploaded' }).then(function (response) {
+	      _this.configConversions = response.data.length;
+	    })['catch'](function (err) {
+	      return _this.handleError.bind(_this);
+	    });
+
+	    this.SocketService.on('newUploaded', (function (data) {
+	      _this.configConversions++;
+	      _this.scope.$apply();
+	    }).bind(this));
 
 	    document.body.classList.add('loaded');
-	};
+	  }
 
-	SidebarController.$inject = ['Notification'];
+	  _createClass(SidebarController, [{
+	    key: 'handleError',
+	    value: function handleError(error) {
+	      if (error.status === 401 || error.status === 403) {
+	        window.location = '/users/login';
+	      }
+	      console.error(error);
+	      this.Notification.error('Error communicating with server');
+	    }
+	  }]);
+
+	  return SidebarController;
+	})();
+
+	SidebarController.$inject = ['Notification', 'SocketService', 'UsersService', 'ConversionsService', '$scope'];
 
 	exports['default'] = SidebarController;
 	module.exports = exports['default'];
@@ -45853,16 +45915,28 @@
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	  value: true
+	      value: true
 	});
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var NewConversionController = function NewConversionController() {
-	  _classCallCheck(this, NewConversionController);
+	var NewConversionController = function NewConversionController(Notification) {
+	      _classCallCheck(this, NewConversionController);
+
+	      this.Notification = Notification;
+
+	      this.configureLink = false;
+
+	      this.dropzoneCallbacks = {
+	            success: (function (file, response) {
+	                  this.dropzoneMethods.removeFile(file);
+	                  this.Notification.success(response.name + ' uploaded!');
+	                  this.configureLink = true;
+	            }).bind(this)
+	      };
 	};
 
-	NewConversionController.$inject = [];
+	NewConversionController.$inject = ['Notification'];
 
 	exports['default'] = NewConversionController;
 	module.exports = exports['default'];
@@ -45956,6 +46030,11 @@
 	    key: 'get',
 	    value: function get() {
 	      return this.$http.get(this.urlBase);
+	    }
+	  }, {
+	    key: 'getInfo',
+	    value: function getInfo() {
+	      return this.$http.get(this.urlBase + 'info');
 	    }
 	  }, {
 	    key: 'create',
@@ -46062,6 +46141,115 @@
 
 	'use strict';
 
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var SocketService = (function () {
+	    function SocketService($window) {
+	        _classCallCheck(this, SocketService);
+
+	        this.socket = $window.io.connect($window.location.origin);
+	        this.subscriptions = [];
+	        this.userId = null;
+	    }
+
+	    _createClass(SocketService, [{
+	        key: 'init',
+	        value: function init(userId) {
+	            this.userId = userId;
+	            return true;
+	        }
+	    }, {
+	        key: 'on',
+	        value: function on(eventName, callback) {
+	            var alreadySubscribed = this.subscriptions.indexOf(eventName) > -1;
+	            if (!alreadySubscribed) {
+	                this.subscriptions.push(eventName);
+	            } else {
+	                this.socket.off(eventName);
+	            }
+	            this.socket.on(eventName, (function (data) {
+	                if (data.userId !== this.userId) {
+	                    return;
+	                }
+	                return callback(data);
+	            }).bind(this));
+	        }
+	    }, {
+	        key: 'emit',
+	        value: function emit(eventName, data, callback) {
+	            this.socket.emit(eventName, data, function () {
+	                var args = arguments;
+	                if (callback) {
+	                    callback.apply(this.socket, args);
+	                }
+	            });
+	        }
+	    }]);
+
+	    return SocketService;
+	})();
+
+	SocketService.$inject = ['$window'];
+
+	module.exports = SocketService;
+
+/***/ },
+/* 64 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var ConversionsService = (function () {
+	  function ConversionsService($http) {
+	    _classCallCheck(this, ConversionsService);
+
+	    this.$http = $http;
+	    this.urlBase = '/Conversions/';
+	  }
+
+	  _createClass(ConversionsService, [{
+	    key: 'get',
+	    value: function get(query) {
+	      var queryString = '?';
+	      for (var key in query) {
+	        if (query.hasOwnProperty(key)) {
+	          queryString += key + '=' + query[key] + '&';
+	        }
+	      }
+	      queryString = queryString.substring(0, queryString.length - 1);
+	      return this.$http.get(this.urlBase + queryString);
+	    }
+	  }, {
+	    key: 'create',
+	    value: function create(newConverter) {
+	      return this.$http.post(this.urlBase, newConverter);
+	    }
+	  }]);
+
+	  return ConversionsService;
+	})();
+
+	ConversionsService.$inject = ['$http'];
+
+	exports['default'] = ConversionsService;
+	module.exports = exports['default'];
+
+/***/ },
+/* 65 */
+/***/ function(module, exports) {
+
+	'use strict';
+
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
@@ -46099,17 +46287,17 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by alex_crack on 20.11.15.
 	 */
-	__webpack_require__(65);
+	__webpack_require__(67);
 	module.exports = 'ui-notification';
 
 /***/ },
-/* 65 */
+/* 67 */
 /***/ function(module, exports) {
 
 	/**
@@ -46341,15 +46529,15 @@
 	angular.module("ui-notification").run(["$templateCache", function($templateCache) {$templateCache.put("angular-ui-notification.html","<div class=\"ui-notification\"><h3 ng-show=\"title\" ng-bind-html=\"title\"></h3><div class=\"message\" ng-bind-html=\"message\"></div></div>");}]);
 
 /***/ },
-/* 66 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(67);
+	__webpack_require__(69);
 	module.exports = 'angular-loading-bar';
 
 
 /***/ },
-/* 67 */
+/* 69 */
 /***/ function(module, exports) {
 
 	/*! 
@@ -46696,15 +46884,15 @@
 
 
 /***/ },
-/* 68 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(69);
+	__webpack_require__(71);
 	module.exports = 'angularUtils.directives.dirPagination';
 
 
 /***/ },
-/* 69 */
+/* 71 */
 /***/ function(module, exports) {
 
 	/**
@@ -47349,7 +47537,7 @@
 
 
 /***/ },
-/* 70 */
+/* 72 */
 /***/ function(module, exports) {
 
 	/**!
@@ -47454,7 +47642,7 @@
 
 
 /***/ },
-/* 71 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47471,27 +47659,27 @@
 		$stateProvider.state('converter', {
 			url: '/',
 			abstract: true,
-			template: __webpack_require__(72),
+			template: __webpack_require__(74),
 			controller: 'SidebarController',
 			controllerAs: 'sidebar'
 		}).state('converter.new', {
 			url: '',
-			template: __webpack_require__(73),
+			template: __webpack_require__(75),
 			controller: 'NewConversionController',
 			controllerAs: 'new'
 		}).state('converter.config', {
 			url: 'configure',
-			template: __webpack_require__(74),
+			template: __webpack_require__(76),
 			controller: 'ConfigConversionsController',
 			controllerAs: 'config'
 		}).state('converter.queue', {
 			url: 'queue',
-			template: __webpack_require__(75),
+			template: __webpack_require__(77),
 			controller: 'ConversionsQueueController',
 			controllerAs: 'queue'
 		}).state('converter.done', {
 			url: 'done',
-			template: __webpack_require__(76),
+			template: __webpack_require__(78),
 			controller: 'ConversionsDoneController',
 			controllerAs: 'done'
 		});
@@ -47510,31 +47698,31 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 72 */
-/***/ function(module, exports) {
-
-	module.exports = "<nav class=\"sidebar\">\r\n  <h1><a ui-sref=\"converter.new\" ui-sref-active=\"active\" title=\"Upload Conversions\">The<br>Auto<br>Converter</a></h1>\r\n    <ul>\r\n        <li><a ui-sref=\"converter.new\" ui-sref-active=\"active\" title=\"Upload Conversions\">Upload Conversions</a></li>\r\n        <li><a ui-sref=\"converter.config\" ui-sref-active=\"active\" title=\"Configure Conversions\">Configure Conversions</a></li>\r\n        <li><a ui-sref=\"converter.queue\" ui-sref-active=\"active\" title=\"Queue\">Queue</a></li>\r\n        <li><a ui-sref=\"converter.done\" ui-sref-active=\"active\" title=\"Completed Conversions\">Completed Conversions</a></li>\r\n    </ul>\r\n</nav>\r\n\r\n<main class=\"next-to-sidebar\">\r\n    <ui-view></ui-view>\r\n</main>\r\n";
-
-/***/ },
-/* 73 */
-/***/ function(module, exports) {
-
-	module.exports = "<section class=\"modal vertically-center light\">\r\n    <h2 class=\"serif\">Upload your forms!</h2>\r\n    <ng-dropzone class=\"dropzone\"></ng-dropzone>\r\n</section>\r\n";
-
-/***/ },
 /* 74 */
 /***/ function(module, exports) {
 
-	module.exports = "<h4>Config Conversions</h4>\r\n";
+	module.exports = "<nav class=\"sidebar\">\r\n  <h1><a ui-sref=\"converter.new\" ui-sref-active=\"active\" title=\"Upload Conversions\">The<br>Auto<br>Converter</a></h1>\r\n    <ul>\r\n        <li><a ui-sref=\"converter.new\" ui-sref-active=\"active\" title=\"Upload Conversions\">Upload Conversions</a></li>\r\n        <li><a ui-sref=\"converter.config\" ui-sref-active=\"active\" title=\"Configure Conversions\">Configure Conversions <span ng-if=\"sidebar.configConversions > 0\">({{sidebar.configConversions}})</span></a></li>\r\n        <li><a ui-sref=\"converter.queue\" ui-sref-active=\"active\" title=\"Queue\">Queue</a></li>\r\n        <li><a ui-sref=\"converter.done\" ui-sref-active=\"active\" title=\"Completed Conversions\">Completed Conversions</a></li>\r\n    </ul>\r\n</nav>\r\n\r\n<main class=\"next-to-sidebar\">\r\n    <ui-view></ui-view>\r\n</main>\r\n";
 
 /***/ },
 /* 75 */
 /***/ function(module, exports) {
 
-	module.exports = "<h3>Conversions Queue</h3>\r\n";
+	module.exports = "<section class=\"modal vertically-center light\">\r\n    <h2 class=\"serif\">Upload your forms!</h2>\r\n    <ng-dropzone class=\"dropzone\" callbacks=\"new.dropzoneCallbacks\" methods=\"new.dropzoneMethods\"></ng-dropzone>\r\n    <a ng-if=\"new.configureLink\" ui-sref=\"converter.config\" title=\"Configure Conversions\" class=\"button secondary\">Configure Conversions</a>\r\n</section>\r\n";
 
 /***/ },
 /* 76 */
+/***/ function(module, exports) {
+
+	module.exports = "<h4>Config Conversions</h4>\r\n";
+
+/***/ },
+/* 77 */
+/***/ function(module, exports) {
+
+	module.exports = "<h3>Conversions Queue</h3>\r\n";
+
+/***/ },
+/* 78 */
 /***/ function(module, exports) {
 
 	module.exports = "<h3>Conversions Done</h3>\r\n";
