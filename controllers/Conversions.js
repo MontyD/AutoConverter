@@ -17,6 +17,7 @@ const express = require('express'),
     returnValue.offset = count ? undefined : query.offset;
     returnValue.where = query;
     returnValue.where.userId = userId;
+    returnValue.order = ['createdAt'];
     delete query.limit;
     delete query.offset;
     if(query.status === 'allQueued') {
@@ -83,6 +84,7 @@ router.post('/convert/:id', (req, res, next) => {
 			}
 			converter.new(conversion, req.body)
 				.then(updatedConversion => {
+          console.log('in resolve');
 					res.io.emit('newQueuedConversion', updatedConversion);
 					return res.json(updatedConversion);
 				})

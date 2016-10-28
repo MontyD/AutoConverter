@@ -62,37 +62,52 @@ converter.tests = {
 
 converter.new = (conversion, config) => {
 	return new Promise((resolve, reject) => {
-			conversion.update({
-					config: config
-				})
-				.then(updatedConversion => {
-					converter.queue(updatedConversion)
-						.then(queuedConversion => resolve(queuedConversion))
-						.catch(err => err);
-				})
-				.catch(err => reject(err));
+		conversion.update({
+				config: config
+			})
+			.then(updatedConversion => {
+				converter.queue(updatedConversion)
+					.then(queuedConversion => resolve(queuedConversion))
+					.catch(err => err);
+			})
+			.catch(err => reject(err));
 	});
 };
 
 converter.queue = conversion => {
-	console.log('in queue');
-	let uploadsPath = path.join(basePath, conversion.path);
-	let queuePath = path.join(basePath, 'files', 'queue', String(conversion.id), conversion.name);
-	let iniPath = path.join(basePath, 'files', 'queue', String(conversion.id), 'config.ini');
 	return new Promise((resolve, reject) => {
-		mv(uploadsPath, queuePath, {mkdirp:true}, err => {
-			if (err) {
+		const uploadsPath = path.join(basePath, conversion.path);
+		const queuedPath = path.join(basePath, 'files', 'queue', String(conversion.id), conversion.name);
+		const iniPath = path.join(basePath, 'files', 'queue', String(conversion.id), 'config.ini');
+		mv(uploadsPath, queuedPath, {
+			mkdirp: true
+		}, err => {
+			if(err) {
 				return reject(err);
 			}
 			let conversionData = conversion.get();
-			conversionData.path = queuePath;
+			conversionData.path = queuedPath;
 			let iniString = ini.stringify(conversionData);
 			fs.writeFile(iniPath, iniString, err => {
-				if (err) {
+				if(err) {
 					return reject(err);
 				}
-				conversion.update({status: 'Queued', path: queuePath})
-					.then(queuedConversion => resolve(queuedConversion))
+				// reference to model level, as instance level did not allow path to update
+				models.currentConversions.findById(conversion.id)
+					.then(conversionInstance => {
+						conversionInstance.update({
+								status: 'Queued',
+								path: queuedPath
+							}, {
+								where: {
+									id: conversion.id
+								}
+							})
+							.then(updatedConversion => {
+								resolve(updatedConversion);
+							})
+							.catch(err => reject(err));
+					})
 					.catch(err => reject(err));
 			});
 		});
@@ -104,8 +119,10 @@ converter.queue = conversion => {
 converter.convert = conversion => {
 	let currentDir = path.join(basePath, conversion.path.replace(conversion.name, ''));
 	let conversionDir = path.join(basePath, 'files', 'converting');
-	ncp(currentDir, conversionDir, {clobber: true}, err => {
-		if (err) {
+	ncp(currentDir, conversionDir, {
+		clobber: true
+	}, err => {
+		if(err) {
 			return console.error(err);
 		}
 	});
