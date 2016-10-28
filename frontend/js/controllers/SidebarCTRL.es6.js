@@ -40,7 +40,7 @@ class SidebarController {
 			.catch(err => this.handleError.bind(this));
 
 		this.ConversionsService.count({
-				status: 'Queued'
+				status: 'allQueued'
 			})
 			.then(response => {
 				this.queuedConversions = response.data;

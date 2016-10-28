@@ -1,4 +1,9 @@
-<section class="feature">
-    <h1>Queue</h1>
-
+<section class="feature light">
+    <h2 class="serif">Queue</h2>
+    <article dir-paginate="conversion in queue.conversions | itemsPerPage: queue.conversionsPerPage" total-items="queue.totalConversions" current-page="queue.currentPage">
+      <pre>{{conversion | json}}</pre>
+    </article>
+    <div class="paginination-container">
+        <dir-pagination-controls on-page-change="queue.changePage(newPageNumber)"></dir-pagination-controls>
+    </div>
 </section>

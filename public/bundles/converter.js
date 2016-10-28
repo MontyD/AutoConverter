@@ -45890,7 +45890,7 @@
 			});
 
 			this.ConversionsService.count({
-				status: 'Queued'
+				status: 'allQueued'
 			}).then(function (response) {
 				_this.queuedConversions = response.data;
 			})['catch'](function (err) {
@@ -46083,7 +46083,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-	  value: true
+		value: true
 	});
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -46091,37 +46091,68 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var ConversionsQueueController = (function () {
-	  function ConversionsQueueController(ConversionsService) {
-	    var _this = this;
+		function ConversionsQueueController(ConversionsService, Notification) {
+			var _this = this;
 
-	    _classCallCheck(this, ConversionsQueueController);
+			_classCallCheck(this, ConversionsQueueController);
 
-	    this.ConversionsService = ConversionsService;
+			this.ConversionsService = ConversionsService;
+			this.Notification = Notification;
 
-	    this.conversions = [];
+			this.conversions = [];
 
-	    this.conversionsPageLimit = 20;
+			this.conversionsPerPage = 10;
 
-	    this.ConversionsService.get({ status: 'Queued', limit: this.conversionsPageLimit }).then(function (response) {
-	      return _this.conversions = response.data;
-	    })['catch'](this.handleError.bind(this));
-	  }
+			this.totalConversions = 0;
 
-	  _createClass(ConversionsQueueController, [{
-	    key: 'handleError',
-	    value: function handleError(error) {
-	      if (error.status === 401 || error.status === 403) {
-	        window.location = '/users/login';
-	      }
-	      console.error(error);
-	      this.Notification.error('Error communicating with server');
-	    }
-	  }]);
+			this.currentPage = 1;
 
-	  return ConversionsQueueController;
+			this.ConversionsService.get({
+				status: 'allQueued',
+				limit: this.conversionsPerPage
+			}).then(function (response) {
+				return _this.conversions = response.data;
+			})['catch'](this.handleError.bind(this));
+
+			this.ConversionsService.count({
+				status: 'allQueued',
+				limit: this.conversionsPerPage
+			}).then(function (response) {
+				return _this.totalConversions = response.data;
+			})['catch'](this.handleError.bind(this));
+		}
+
+		_createClass(ConversionsQueueController, [{
+			key: 'changePage',
+			value: function changePage(number) {
+				var _this2 = this;
+
+				var offset = (number - 1) * this.conversionsPerPage;
+				this.ConversionsService.get({
+					status: 'allQueued',
+					offset: offset,
+					limit: this.conversionsPerPage
+				}).then(function (result) {
+					return _this2.conversions = result.data;
+				})['catch'](function (err) {
+					return _this2.handleError.bind(_this2);
+				});
+			}
+		}, {
+			key: 'handleError',
+			value: function handleError(error) {
+				if (error.status === 401 || error.status === 403) {
+					window.location = '/users/login';
+				}
+				console.error(error);
+				this.Notification.error('Error communicating with server');
+			}
+		}]);
+
+		return ConversionsQueueController;
 	})();
 
-	ConversionsQueueController.$inject = ['ConversionsService'];
+	ConversionsQueueController.$inject = ['ConversionsService', 'Notification'];
 
 	exports['default'] = ConversionsQueueController;
 	module.exports = exports['default'];
@@ -47940,7 +47971,7 @@
 /* 79 */
 /***/ function(module, exports) {
 
-	module.exports = "<section class=\"feature\">\r\n    <h1>Queue</h1>\r\n\r\n</section>\r\n";
+	module.exports = "<section class=\"feature light\">\r\n    <h2 class=\"serif\">Queue</h2>\r\n    <article dir-paginate=\"conversion in queue.conversions | itemsPerPage: queue.conversionsPerPage\" total-items=\"queue.totalConversions\" current-page=\"queue.currentPage\">\r\n      <pre>{{conversion | json}}</pre>\r\n    </article>\r\n    <div class=\"paginination-container\">\r\n        <dir-pagination-controls on-page-change=\"queue.changePage(newPageNumber)\"></dir-pagination-controls>\r\n    </div>\r\n</section>\r\n";
 
 /***/ },
 /* 80 */
