@@ -252,6 +252,13 @@ main.full-height {
     }
 }
 
+.queue-item {
+  margin: 0.4em auto;
+  max-width: 750px;
+  padding: 0.4em;
+  box-sizing: border-box;
+}
+
 .graphs {
     position: absolute;
     top: 0;

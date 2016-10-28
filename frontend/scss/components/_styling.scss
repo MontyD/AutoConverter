@@ -180,6 +180,9 @@ p.slight {
             color: $colorDarkGrey;
         }
     }
+    &.small {
+      font-size: 0.8em;
+    }
 
     &.danger {
         background: $colorWhite;
@@ -221,6 +224,11 @@ p.slight {
             box-shadow: none;
         }
     }
+}
+
+.queue-item {
+  border: 1px solid $colorSubtle;
+  border-left: 3px solid $colorDark;
 }
 
 .settings-article {

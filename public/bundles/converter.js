@@ -118,23 +118,27 @@
 
 	var _DirectivesConversionFormEs6Js2 = _interopRequireDefault(_DirectivesConversionFormEs6Js);
 
-	var _angularUiNotification = __webpack_require__(68);
+	var _DirectivesQueuedConversionEs6Js = __webpack_require__(68);
+
+	var _DirectivesQueuedConversionEs6Js2 = _interopRequireDefault(_DirectivesQueuedConversionEs6Js);
+
+	var _angularUiNotification = __webpack_require__(70);
 
 	var _angularUiNotification2 = _interopRequireDefault(_angularUiNotification);
 
-	var _angularLoadingBar = __webpack_require__(70);
+	var _angularLoadingBar = __webpack_require__(72);
 
 	var _angularLoadingBar2 = _interopRequireDefault(_angularLoadingBar);
 
-	var _angularUtilsPagination = __webpack_require__(72);
+	var _angularUtilsPagination = __webpack_require__(74);
 
 	var _angularUtilsPagination2 = _interopRequireDefault(_angularUtilsPagination);
 
-	var _ngDropzone = __webpack_require__(74);
+	var _ngDropzone = __webpack_require__(76);
 
 	var _ngDropzone2 = _interopRequireDefault(_ngDropzone);
 
-	var _configConverterConfigEs6Js = __webpack_require__(75);
+	var _configConverterConfigEs6Js = __webpack_require__(77);
 
 	var _configConverterConfigEs6Js2 = _interopRequireDefault(_configConverterConfigEs6Js);
 
@@ -142,7 +146,7 @@
 	window.Dropzone = _dropzone2['default'];
 	window.Dropzone.autoDiscover = false;
 
-	_angular2['default'].module('converter', [_angularUiRouter2['default'], 'ui-notification', 'angular-loading-bar', 'thatisuday.dropzone', 'angularUtils.directives.dirPagination']).controller('SidebarController', _ControllersSidebarCTRLEs6Js2['default']).controller('NewConversionController', _ControllersNewConversionCTRLEs6Js2['default']).controller('ConfigConversionsController', _ControllersConfigConversionsCTRLEs6Js2['default']).controller('ConversionsQueueController', _ControllersConversionsQueueCTRLEs6Js2['default']).controller('ConversionsDoneController', _ControllersConversionsDoneCTRLEs6Js2['default']).service('SocketService', _ServicesSocketServiceEs6Js2['default']).service('UsersService', _ServicesUsersServiceEs6Js2['default']).service('ConvertersService', _ServicesConvertersServiceEs6Js2['default']).service('ConfigService', _ServicesConfigServiceEs6Js2['default']).service('ConversionsService', _ServicesConversionsServiceEs6Js2['default']).directive('onSubmitAndDisable', _DirectivesOnSubmitAndDisableEs6Js2['default']).directive('conversionForm', _DirectivesConversionFormEs6Js2['default']).config(_configConverterConfigEs6Js2['default']);
+	_angular2['default'].module('converter', [_angularUiRouter2['default'], 'ui-notification', 'angular-loading-bar', 'thatisuday.dropzone', 'angularUtils.directives.dirPagination']).controller('SidebarController', _ControllersSidebarCTRLEs6Js2['default']).controller('NewConversionController', _ControllersNewConversionCTRLEs6Js2['default']).controller('ConfigConversionsController', _ControllersConfigConversionsCTRLEs6Js2['default']).controller('ConversionsQueueController', _ControllersConversionsQueueCTRLEs6Js2['default']).controller('ConversionsDoneController', _ControllersConversionsDoneCTRLEs6Js2['default']).service('SocketService', _ServicesSocketServiceEs6Js2['default']).service('UsersService', _ServicesUsersServiceEs6Js2['default']).service('ConvertersService', _ServicesConvertersServiceEs6Js2['default']).service('ConfigService', _ServicesConfigServiceEs6Js2['default']).service('ConversionsService', _ServicesConversionsServiceEs6Js2['default']).directive('onSubmitAndDisable', _DirectivesOnSubmitAndDisableEs6Js2['default']).directive('conversionForm', _DirectivesConversionFormEs6Js2['default']).directive('queuedConversion', _DirectivesQueuedConversionEs6Js2['default']).config(_configConverterConfigEs6Js2['default']);
 
 /***/ },
 /* 1 */
@@ -46101,7 +46105,7 @@
 
 			this.conversions = [];
 
-			this.conversionsPerPage = 10;
+			this.conversionsPerPage = 20;
 
 			this.totalConversions = 0;
 
@@ -46542,14 +46546,56 @@
 /* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Created by alex_crack on 20.11.15.
-	 */
-	__webpack_require__(69);
-	module.exports = 'ui-notification';
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _templatesQueuedConversionTemplateHtml = __webpack_require__(69);
+
+	var _templatesQueuedConversionTemplateHtml2 = _interopRequireDefault(_templatesQueuedConversionTemplateHtml);
+
+	function ConversionForm() {
+		'use strict';
+		return {
+			restrict: 'E',
+			template: _templatesQueuedConversionTemplateHtml2['default'],
+			scope: {
+				conversion: '=',
+				owned: '@',
+				'delete': '&',
+				edit: '&'
+			},
+			link: function link(scope, element, attrs) {
+				console.log(scope.owned);
+			}
+		};
+	}
+
+	exports['default'] = ConversionForm;
+	module.exports = exports['default'];
 
 /***/ },
 /* 69 */
+/***/ function(module, exports) {
+
+	module.exports = "<article class=\"queue-item\" ng-class=\"generateClass()\">\r\n    <div class=\"halves two left-aligned vertical-middle\">\r\n        <strong>{{conversion.name}}</strong> - {{conversion.username}}\r\n    </div>\r\n    <div class=\"halves right-aligned vertical-middle\">\r\n        <div class=\"button-group\">\r\n            <button class=\"button secondary\">Reconfigure</button>\r\n            <button class=\"button danger\">Remove</button>\r\n        </div>\r\n    </div>\r\n</article>\r\n";
+
+/***/ },
+/* 70 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by alex_crack on 20.11.15.
+	 */
+	__webpack_require__(71);
+	module.exports = 'ui-notification';
+
+/***/ },
+/* 71 */
 /***/ function(module, exports) {
 
 	/**
@@ -46781,15 +46827,15 @@
 	angular.module("ui-notification").run(["$templateCache", function($templateCache) {$templateCache.put("angular-ui-notification.html","<div class=\"ui-notification\"><h3 ng-show=\"title\" ng-bind-html=\"title\"></h3><div class=\"message\" ng-bind-html=\"message\"></div></div>");}]);
 
 /***/ },
-/* 70 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(71);
+	__webpack_require__(73);
 	module.exports = 'angular-loading-bar';
 
 
 /***/ },
-/* 71 */
+/* 73 */
 /***/ function(module, exports) {
 
 	/*! 
@@ -47136,15 +47182,15 @@
 
 
 /***/ },
-/* 72 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(73);
+	__webpack_require__(75);
 	module.exports = 'angularUtils.directives.dirPagination';
 
 
 /***/ },
-/* 73 */
+/* 75 */
 /***/ function(module, exports) {
 
 	/**
@@ -47789,7 +47835,7 @@
 
 
 /***/ },
-/* 74 */
+/* 76 */
 /***/ function(module, exports) {
 
 	/**!
@@ -47894,7 +47940,7 @@
 
 
 /***/ },
-/* 75 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47911,27 +47957,27 @@
 		$stateProvider.state('converter', {
 			url: '/',
 			abstract: true,
-			template: __webpack_require__(76),
+			template: __webpack_require__(78),
 			controller: 'SidebarController',
 			controllerAs: 'sidebar'
 		}).state('converter.new', {
 			url: '',
-			template: __webpack_require__(77),
+			template: __webpack_require__(79),
 			controller: 'NewConversionController',
 			controllerAs: 'new'
 		}).state('converter.config', {
 			url: 'configure',
-			template: __webpack_require__(78),
+			template: __webpack_require__(80),
 			controller: 'ConfigConversionsController',
 			controllerAs: 'config'
 		}).state('converter.queue', {
 			url: 'queue',
-			template: __webpack_require__(79),
+			template: __webpack_require__(81),
 			controller: 'ConversionsQueueController',
 			controllerAs: 'queue'
 		}).state('converter.done', {
 			url: 'done',
-			template: __webpack_require__(80),
+			template: __webpack_require__(82),
 			controller: 'ConversionsDoneController',
 			controllerAs: 'done'
 		});
@@ -47950,31 +47996,31 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 76 */
+/* 78 */
 /***/ function(module, exports) {
 
 	module.exports = "<nav class=\"sidebar\">\r\n  <h1><a ui-sref=\"converter.new\" ui-sref-active=\"active\" title=\"Upload Conversions\">The<br>Auto<br>Converter</a></h1>\r\n    <ul>\r\n        <li><a ui-sref=\"converter.new\" ui-sref-active=\"active\" title=\"Upload Conversions\">Upload Conversions</a></li>\r\n        <li><a ui-sref=\"converter.config\" ui-sref-active=\"active\" title=\"Configure Conversions\">Configure Conversions <span ng-if=\"sidebar.configConversions > 0\">({{sidebar.configConversions}})</span></a></li>\r\n        <li><a ui-sref=\"converter.queue\" ui-sref-active=\"active\" title=\"Queue\">Queue <span ng-if=\"sidebar.queuedConversions > 0\">({{sidebar.queuedConversions}})</span></a></li>\r\n        <li><a ui-sref=\"converter.done\" ui-sref-active=\"active\" title=\"Completed Conversions\">Completed Conversions</a></li>\r\n    </ul>\r\n</nav>\r\n\r\n<main class=\"next-to-sidebar\">\r\n    <ui-view></ui-view>\r\n</main>\r\n";
 
 /***/ },
-/* 77 */
+/* 79 */
 /***/ function(module, exports) {
 
 	module.exports = "<section class=\"feature light\">\r\n    <h2 class=\"serif\">Upload your forms!</h2>\r\n    <ng-dropzone class=\"dropzone\" callbacks=\"new.dropzoneCallbacks\" methods=\"new.dropzoneMethods\"></ng-dropzone>\r\n    <a ng-if=\"new.configureLink\" ui-sref=\"converter.config\" title=\"Configure Conversions\" class=\"button secondary\">Configure Conversions</a>\r\n</section>\r\n";
 
 /***/ },
-/* 78 */
+/* 80 */
 /***/ function(module, exports) {
 
 	module.exports = "<section class=\"feature light\">\r\n    <h2 class=\"serif\">Configure your forms!</h2>\r\n    <article ng-if=\"config.conversions.length === 0\">\r\n      <h3 class=\"empty-notification\">You ain't got no forms to convert</h3>\r\n    </article>\r\n    <article dir-paginate=\"conversion in config.conversions | itemsPerPage: config.conversionsPerPage\" total-items=\"config.totalConversions\" current-page=\"config.currentPage\">\r\n      <conversion-form conversion=\"conversion\" converters=\"config.converters\" remove-conversion=\"config.deleteConversion(conversion.id)\" convert-form=\"config.convertForm(conversion.id, conversion.config)\"></conversion-form>\r\n    </article>\r\n    <div class=\"paginination-container\">\r\n        <dir-pagination-controls on-page-change=\"config.changePage(newPageNumber)\"></dir-pagination-controls>\r\n    </div>\r\n</section>\r\n";
 
 /***/ },
-/* 79 */
+/* 81 */
 /***/ function(module, exports) {
 
-	module.exports = "<section class=\"feature light\">\r\n    <h2 class=\"serif\">Queue</h2>\r\n    <article dir-paginate=\"conversion in queue.conversions | itemsPerPage: queue.conversionsPerPage\" total-items=\"queue.totalConversions\" current-page=\"queue.currentPage\">\r\n      <pre>{{conversion | json}}</pre>\r\n    </article>\r\n    <div class=\"paginination-container\">\r\n        <dir-pagination-controls on-page-change=\"queue.changePage(newPageNumber)\"></dir-pagination-controls>\r\n    </div>\r\n</section>\r\n";
+	module.exports = "<section class=\"feature light\">\r\n    <h2 class=\"serif\">Queue</h2>\r\n    <article dir-paginate=\"conversion in queue.conversions | itemsPerPage: queue.conversionsPerPage\" total-items=\"queue.totalConversions\" current-page=\"queue.currentPage\">\r\n      <queued-conversion conversion=\"conversion\" owned=\"{{conversion.id === queue.userId}}\" edit=\"queue.editConversion(conversion.id)\" delete=\"queue.deleteConversion(conversion.id)\"></queued-conversion>\r\n    </article>\r\n    <div class=\"paginination-container\">\r\n        <dir-pagination-controls on-page-change=\"queue.changePage(newPageNumber)\"></dir-pagination-controls>\r\n    </div>\r\n</section>\r\n";
 
 /***/ },
-/* 80 */
+/* 82 */
 /***/ function(module, exports) {
 
 	module.exports = "<h3>Conversions Done</h3>\r\n";

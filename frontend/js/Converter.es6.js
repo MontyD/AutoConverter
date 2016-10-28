@@ -25,6 +25,7 @@ import ConversionsService from './Services/ConversionsService.es6.js';
 
 import onSubmitAndDisable from './Directives/OnSubmitAndDisable.es6.js';
 import conversionForm from './Directives/ConversionForm.es6.js';
+import queuedConversion from './Directives/QueuedConversion.es6.js';
 
 import uiNotification from 'angular-ui-notification';
 import angularLoadingBar from 'angular-loading-bar';
@@ -46,4 +47,5 @@ angular.module('converter', [uiRouter, 'ui-notification', 'angular-loading-bar',
   .service('ConversionsService', ConversionsService)
   .directive('onSubmitAndDisable', onSubmitAndDisable)
   .directive('conversionForm', conversionForm)
+  .directive('queuedConversion', queuedConversion)
   .config(converterConfig);

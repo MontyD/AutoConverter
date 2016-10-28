@@ -1,7 +1,7 @@
 <section class="feature light">
     <h2 class="serif">Queue</h2>
     <article dir-paginate="conversion in queue.conversions | itemsPerPage: queue.conversionsPerPage" total-items="queue.totalConversions" current-page="queue.currentPage">
-      <pre>{{conversion | json}}</pre>
+      <queued-conversion conversion="conversion" owned="{{conversion.id === queue.userId}}" edit="queue.editConversion(conversion.id)" delete="queue.deleteConversion(conversion.id)"></queued-conversion>
     </article>
     <div class="paginination-container">
         <dir-pagination-controls on-page-change="queue.changePage(newPageNumber)"></dir-pagination-controls>

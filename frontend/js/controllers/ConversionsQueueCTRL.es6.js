@@ -9,7 +9,7 @@ class ConversionsQueueController {
 
 		this.conversions = [];
 
-		this.conversionsPerPage = 10;
+		this.conversionsPerPage = 20;
 
 		this.totalConversions = 0;
 

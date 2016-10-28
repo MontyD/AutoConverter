@@ -568,6 +568,12 @@ main.full-height {
     .overview-percentage {
       font-size: 2.5rem; } }
 
+.queue-item {
+  margin: 0.4em auto;
+  max-width: 750px;
+  padding: 0.4em;
+  box-sizing: border-box; }
+
 .graphs {
   position: absolute;
   top: 0;
@@ -890,6 +896,9 @@ p.slight {
     .button.secondary:hover,
     .fake-button.secondary:hover {
       color: #6f6f6f; }
+  .button.small,
+  .fake-button.small {
+    font-size: 0.8em; }
   .button.danger,
   .fake-button.danger {
     background: #FAFAFA;
@@ -929,6 +938,10 @@ p.slight {
     .fake-button.fullwidth
     .fake-button:disabled:hover {
       box-shadow: none; }
+
+.queue-item {
+  border: 1px solid #E0E0E0;
+  border-left: 3px solid #0d47a1; }
 
 .settings-article {
   border-bottom: 2px solid #E0E0E0; }
@@ -2024,6 +2037,12 @@ main.full-height {
     .overview-percentage {
       font-size: 2.5rem; } }
 
+.queue-item {
+  margin: 0.4em auto;
+  max-width: 750px;
+  padding: 0.4em;
+  box-sizing: border-box; }
+
 .graphs {
   position: absolute;
   top: 0;
@@ -2346,6 +2365,9 @@ p.slight {
     .button.secondary:hover,
     .fake-button.secondary:hover {
       color: #6f6f6f; }
+  .button.small,
+  .fake-button.small {
+    font-size: 0.8em; }
   .button.danger,
   .fake-button.danger {
     background: #FAFAFA;
@@ -2385,6 +2407,10 @@ p.slight {
     .fake-button.fullwidth
     .fake-button:disabled:hover {
       box-shadow: none; }
+
+.queue-item {
+  border: 1px solid #E0E0E0;
+  border-left: 3px solid #0d47a1; }
 
 .settings-article {
   border-bottom: 2px solid #E0E0E0; }

@@ -63,7 +63,8 @@ router.post('/', upload.single('file'), (req, res, next) => {
 				name: req.file.originalname,
 				path: req.file.path,
 				status: 'Uploaded',
-				userId: req.user.id
+				userId: req.user.id,
+        username: req.user.name
 			})
 			.then(conversion => {
 				res.io.emit('newUploaded', conversion);

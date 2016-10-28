@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
         config: {
           type: DataTypes.JSON
         },
+        username: {
+          type: DataTypes.STRING
+        }
     }, {
         hooks: {},
         instanceMethods: {}
