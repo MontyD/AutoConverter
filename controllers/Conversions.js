@@ -77,7 +77,7 @@ router.post('/convert/:id', (req, res, next) => {
       }
       converter.new(conversion, req.body)
         .then(updatedConversion => {
-          res.io.emit('newCurrentConversion', updatedConversion);
+          res.io.emit('newQueuedConversion', updatedConversion);
           return res.json(updatedConversion);
         })
         .catch(err => handleError(err, next));

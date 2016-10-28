@@ -3,7 +3,7 @@
     <ul>
         <li><a ui-sref="converter.new" ui-sref-active="active" title="Upload Conversions">Upload Conversions</a></li>
         <li><a ui-sref="converter.config" ui-sref-active="active" title="Configure Conversions">Configure Conversions <span ng-if="sidebar.configConversions > 0">({{sidebar.configConversions}})</span></a></li>
-        <li><a ui-sref="converter.queue" ui-sref-active="active" title="Queue">Queue</a></li>
+        <li><a ui-sref="converter.queue" ui-sref-active="active" title="Queue">Queue <span ng-if="sidebar.queuedConversions > 0">({{sidebar.queuedConversions}})</span></a></li>
         <li><a ui-sref="converter.done" ui-sref-active="active" title="Completed Conversions">Completed Conversions</a></li>
     </ul>
 </nav>

@@ -9,9 +9,9 @@
       Active Field Colour
     </label>
         <input type="text" ng-model="conversion.config.activeField" id="activeField{{conversion.id}}" />
-        <select ng-model="conversion.config.converter">
-      <option ng-repeat="converter in converters" value="converter.path" ng-selected="converter.primary">{{converter.name}}</option>
-    </select>
+        <select ng-model="conversion.config.converter"
+                ng-options="converter.path as converter.name for converter in converters">
+        </select>
     </fieldset>
     <fieldset class="halves">
         <div class="checkbox-container inline-block">

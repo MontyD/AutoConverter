@@ -46,8 +46,7 @@ class ConfigConversionsController {
 	}
 
 	deleteConversion(id) {
-
-		this.ConversionsService.remove(id)
+		return this.ConversionsService.remove(id)
 			.then(response => {
 				this.Notification('Conversion Deleted');
 				this.totalConversions--;

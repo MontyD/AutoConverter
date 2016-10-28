@@ -6,8 +6,8 @@ class SidebarController {
 		this.Notification = Notification;
 		this.SocketService = SocketService;
 		this.UsersService = UsersService;
-    this.ConversionsService = ConversionsService;
-    this.scope = $scope;
+		this.ConversionsService = ConversionsService;
+		this.scope = $scope;
 
 		this.user = {
 			id: null,
@@ -17,33 +17,49 @@ class SidebarController {
 
 		this.configConversions = 0;
 
+		this.queuedConversions = 0;
+
 		this.UsersService.getInfo()
-      .then(response => {
-        this.user = {
-          id: response.data.userId,
-          isAdmin: response.data.isAdmin,
-          username: response.data.username
-        };
-        this.SocketService.init(this.user.id);
-        return true;
-      })
-      .catch(err => this.handleError.bind(this));
+			.then(response => {
+				this.user = {
+					id: response.data.userId,
+					isAdmin: response.data.isAdmin,
+					username: response.data.username
+				};
+				this.SocketService.init(this.user.id);
+				return true;
+			})
+			.catch(err => this.handleError.bind(this));
 
-    this.ConversionsService.count({status: 'Uploaded'})
-      .then(response => {
-        this.configConversions = response.data;
-      })
-      .catch(err => this.handleError.bind(this));
+		this.ConversionsService.count({
+				status: 'Uploaded'
+			})
+			.then(response => {
+				this.configConversions = response.data;
+			})
+			.catch(err => this.handleError.bind(this));
 
+		this.ConversionsService.count({
+				status: 'Queued'
+			})
+			.then(response => {
+				this.queuedConversions = response.data;
+			})
+			.catch(err => this.handleError.bind(this));
 
-    this.SocketService.on('newUploaded', data => {
-      this.configConversions++;
-      this.scope.$apply();
-    }.bind(this));
+		this.SocketService.on('newUploaded', data => {
+			this.configConversions++;
+			this.scope.$apply();
+		}.bind(this));
 
 		this.SocketService.on('deletedUploaded', data => {
-			console.log('in');
 			this.configConversions--;
+			this.scope.$apply();
+		}.bind(this));
+
+		this.SocketService.on('newQueuedConversion', data => {
+			this.configConversions--;
+			this.queuedConversions++;
 			this.scope.$apply();
 		}.bind(this));
 

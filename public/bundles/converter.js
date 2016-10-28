@@ -45840,7 +45840,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
-			value: true
+		value: true
 	});
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -45848,69 +45848,86 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var SidebarController = (function () {
-			function SidebarController(Notification, SocketService, UsersService, ConversionsService, $scope) {
-					var _this = this;
+		function SidebarController(Notification, SocketService, UsersService, ConversionsService, $scope) {
+			var _this = this;
 
-					_classCallCheck(this, SidebarController);
+			_classCallCheck(this, SidebarController);
 
-					this.Notification = Notification;
-					this.SocketService = SocketService;
-					this.UsersService = UsersService;
-					this.ConversionsService = ConversionsService;
-					this.scope = $scope;
+			this.Notification = Notification;
+			this.SocketService = SocketService;
+			this.UsersService = UsersService;
+			this.ConversionsService = ConversionsService;
+			this.scope = $scope;
 
-					this.user = {
-							id: null,
-							username: '',
-							isAdmin: false
-					};
+			this.user = {
+				id: null,
+				username: '',
+				isAdmin: false
+			};
 
-					this.configConversions = 0;
+			this.configConversions = 0;
 
-					this.UsersService.getInfo().then(function (response) {
-							_this.user = {
-									id: response.data.userId,
-									isAdmin: response.data.isAdmin,
-									username: response.data.username
-							};
-							_this.SocketService.init(_this.user.id);
-							return true;
-					})['catch'](function (err) {
-							return _this.handleError.bind(_this);
-					});
+			this.queuedConversions = 0;
 
-					this.ConversionsService.count({ status: 'Uploaded' }).then(function (response) {
-							_this.configConversions = response.data;
-					})['catch'](function (err) {
-							return _this.handleError.bind(_this);
-					});
+			this.UsersService.getInfo().then(function (response) {
+				_this.user = {
+					id: response.data.userId,
+					isAdmin: response.data.isAdmin,
+					username: response.data.username
+				};
+				_this.SocketService.init(_this.user.id);
+				return true;
+			})['catch'](function (err) {
+				return _this.handleError.bind(_this);
+			});
 
-					this.SocketService.on('newUploaded', (function (data) {
-							_this.configConversions++;
-							_this.scope.$apply();
-					}).bind(this));
+			this.ConversionsService.count({
+				status: 'Uploaded'
+			}).then(function (response) {
+				_this.configConversions = response.data;
+			})['catch'](function (err) {
+				return _this.handleError.bind(_this);
+			});
 
-					this.SocketService.on('deletedUploaded', (function (data) {
-							console.log('in');
-							_this.configConversions--;
-							_this.scope.$apply();
-					}).bind(this));
+			this.ConversionsService.count({
+				status: 'Queued'
+			}).then(function (response) {
+				_this.queuedConversions = response.data;
+			})['catch'](function (err) {
+				return _this.handleError.bind(_this);
+			});
 
-					document.body.classList.add('loaded');
+			this.SocketService.on('newUploaded', (function (data) {
+				_this.configConversions++;
+				_this.scope.$apply();
+			}).bind(this));
+
+			this.SocketService.on('deletedUploaded', (function (data) {
+				_this.configConversions--;
+				_this.scope.$apply();
+			}).bind(this));
+
+			this.SocketService.on('newQueuedConversion', (function (data) {
+				_this.configConversions--;
+				_this.queuedConversions++;
+				_this.scope.$apply();
+			}).bind(this));
+
+			document.body.classList.add('loaded');
+		}
+
+		_createClass(SidebarController, [{
+			key: 'handleError',
+			value: function handleError(error) {
+				if (error.status === 401 || error.status === 403) {
+					window.location = '/users/login';
+				}
+				console.error(error);
+				this.Notification.error('Error communicating with server');
 			}
+		}]);
 
-			_createClass(SidebarController, [{
-					key: 'handleError',
-					value: function handleError(error) {
-							if (error.status === 401 || error.status === 403) {
-									window.location = '/users/login';
-							}
-							console.error(error);
-							this.Notification.error('Error communicating with server');
-					}
-			}]);
-
-			return SidebarController;
+		return SidebarController;
 	})();
 
 	SidebarController.$inject = ['Notification', 'SocketService', 'UsersService', 'ConversionsService', '$scope'];
@@ -46018,7 +46035,7 @@
 			value: function deleteConversion(id) {
 				var _this3 = this;
 
-				this.ConversionsService.remove(id).then(function (response) {
+				return this.ConversionsService.remove(id).then(function (response) {
 					_this3.Notification('Conversion Deleted');
 					_this3.totalConversions--;
 					_this3.changePage(_this3.currentPage);
@@ -46085,7 +46102,7 @@
 
 	    this.conversionsPageLimit = 20;
 
-	    this.ConversionsService.get({ status: 'Uploaded', limit: this.conversionsPageLimit }).then(function (response) {
+	    this.ConversionsService.get({ status: 'Queued', limit: this.conversionsPageLimit }).then(function (response) {
 	      return _this.conversions = response.data;
 	    })['catch'](this.handleError.bind(this));
 	  }
@@ -46468,6 +46485,15 @@
 					customAniPages: '',
 					cssPath: 'Setup/Form Styles/Custom/Custom.css'
 				};
+				// have to watch as converters may load after link is evaluated.
+				scope.$watch('converters', function () {
+					for (var i = 0; i < scope.converters.length; i++) {
+						if (scope.converters[i].primary) {
+							scope.conversion.config.converter = scope.converters[i].path;
+							break;
+						}
+					}
+				});
 			}
 		};
 	}
@@ -46479,7 +46505,7 @@
 /* 67 */
 /***/ function(module, exports) {
 
-	module.exports = "<form on-submit-and-disable on-submit=\"convertForm()\" class=\"conversion-form\">\r\n    <h4>{{conversion.name}}</h4>\r\n    <fieldset class=\"halves\">\r\n        <label for=\"backgroundField{{conversion.id}}\">\r\n      Background Field Color\r\n    </label>\r\n        <input type=\"text\" ng-model=\"conversion.config.backgroundField\" id=\"backgroundField{{conversion.id}}\" />\r\n        <label for=\"activeField{{conversion.id}}\">\r\n      Active Field Colour\r\n    </label>\r\n        <input type=\"text\" ng-model=\"conversion.config.activeField\" id=\"activeField{{conversion.id}}\" />\r\n        <select ng-model=\"conversion.config.converter\">\r\n      <option ng-repeat=\"converter in converters\" value=\"converter.path\" ng-selected=\"converter.primary\">{{converter.name}}</option>\r\n    </select>\r\n    </fieldset>\r\n    <fieldset class=\"halves\">\r\n        <div class=\"checkbox-container inline-block\">\r\n            <div>\r\n                <input type=\"radio\" name=\"animatedPages{{conversion.id}}\" ng-model=\"conversion.config.animatedPages\" id=\"autoMagicAnimated{{conversion.id}}\" value=\"autoAnimatedPages\">\r\n                <label for=\"autoMagicAnimated{{conversion.id}}\">Automagic animated pages</label>\r\n            </div>\r\n            <div>\r\n                <input type=\"radio\" name=\"animatedPages{{conversion.id}}\" ng-model=\"conversion.config.animatedPages\" id=\"allAnimated{{conversion.id}}\" value=\"allAnimated\">\r\n                <label for=\"allAnimated{{conversion.id}}\">Completely animated</label>\r\n            </div>\r\n            <div>\r\n                <input type=\"radio\" name=\"animatedPages{{conversion.id}}\" ng-model=\"conversion.config.animatedPages\" id=\"staticForm{{conversion.id}}\" value=\"staticForm\">\r\n                <label for=\"staticForm{{conversion.id}}\">Completely static</label>\r\n            </div>\r\n            <div>\r\n                <input type=\"radio\" name=\"animatedPages{{conversion.id}}\" ng-model=\"conversion.config.animatedPages\" id=\"customAnimated{{conversion.id}}\" value=\"customAnimatedPages\">\r\n                <label for=\"customAnimated{{conversion.id}}\">Custom animated pages</label>\r\n            </div>\r\n        </div>\r\n        <input ng-if=\"conversion.config.animatedPages === 'customAnimatedPages'\" type=\"text\" ng-model=\"conversion.config.customAniPages\" id=\"customAniPages{{conversion.id}}\" placeholder=\"Custom animated pages\" />\r\n        <div class=\"checkbox-container\" ng-if=\"conversion.config.animatedPages !== 'staticForm'\">\r\n            <input type=\"checkbox\" name=\"externalCSS{{conversion.id}}\" ng-model=\"conversion.config.externalCSS\" id=\"externalCSS{{conversion.id}}\">\r\n            <label for=\"externalCSS{{conversion.id}}\">External CSS</label>\r\n        </div>\r\n        <input ng-if=\"conversion.config.animatedPages !== 'staticForm' && conversion.config.externalCSS\" type=\"text\" ng-model=\"conversion.config.cssPath\" id=\"cssPath{{conversion.id}}\" />\r\n    </fieldset>\r\n    <div>\r\n        <div class=\"button-group\">\r\n            <input type=\"submit\" value=\"Convert this form!\" class=\"button primary\" />\r\n            <input type=\"button\" value=\"Delete\" class=\"button danger\" ng-click=\"removeConversion()\" />\r\n        </div>\r\n    </div>\r\n</form>\r\n";
+	module.exports = "<form on-submit-and-disable on-submit=\"convertForm()\" class=\"conversion-form\">\r\n    <h4>{{conversion.name}}</h4>\r\n    <fieldset class=\"halves\">\r\n        <label for=\"backgroundField{{conversion.id}}\">\r\n      Background Field Color\r\n    </label>\r\n        <input type=\"text\" ng-model=\"conversion.config.backgroundField\" id=\"backgroundField{{conversion.id}}\" />\r\n        <label for=\"activeField{{conversion.id}}\">\r\n      Active Field Colour\r\n    </label>\r\n        <input type=\"text\" ng-model=\"conversion.config.activeField\" id=\"activeField{{conversion.id}}\" />\r\n        <select ng-model=\"conversion.config.converter\"\r\n                ng-options=\"converter.path as converter.name for converter in converters\">\r\n        </select>\r\n    </fieldset>\r\n    <fieldset class=\"halves\">\r\n        <div class=\"checkbox-container inline-block\">\r\n            <div>\r\n                <input type=\"radio\" name=\"animatedPages{{conversion.id}}\" ng-model=\"conversion.config.animatedPages\" id=\"autoMagicAnimated{{conversion.id}}\" value=\"autoAnimatedPages\">\r\n                <label for=\"autoMagicAnimated{{conversion.id}}\">Automagic animated pages</label>\r\n            </div>\r\n            <div>\r\n                <input type=\"radio\" name=\"animatedPages{{conversion.id}}\" ng-model=\"conversion.config.animatedPages\" id=\"allAnimated{{conversion.id}}\" value=\"allAnimated\">\r\n                <label for=\"allAnimated{{conversion.id}}\">Completely animated</label>\r\n            </div>\r\n            <div>\r\n                <input type=\"radio\" name=\"animatedPages{{conversion.id}}\" ng-model=\"conversion.config.animatedPages\" id=\"staticForm{{conversion.id}}\" value=\"staticForm\">\r\n                <label for=\"staticForm{{conversion.id}}\">Completely static</label>\r\n            </div>\r\n            <div>\r\n                <input type=\"radio\" name=\"animatedPages{{conversion.id}}\" ng-model=\"conversion.config.animatedPages\" id=\"customAnimated{{conversion.id}}\" value=\"customAnimatedPages\">\r\n                <label for=\"customAnimated{{conversion.id}}\">Custom animated pages</label>\r\n            </div>\r\n        </div>\r\n        <input ng-if=\"conversion.config.animatedPages === 'customAnimatedPages'\" type=\"text\" ng-model=\"conversion.config.customAniPages\" id=\"customAniPages{{conversion.id}}\" placeholder=\"Custom animated pages\" />\r\n        <div class=\"checkbox-container\" ng-if=\"conversion.config.animatedPages !== 'staticForm'\">\r\n            <input type=\"checkbox\" name=\"externalCSS{{conversion.id}}\" ng-model=\"conversion.config.externalCSS\" id=\"externalCSS{{conversion.id}}\">\r\n            <label for=\"externalCSS{{conversion.id}}\">External CSS</label>\r\n        </div>\r\n        <input ng-if=\"conversion.config.animatedPages !== 'staticForm' && conversion.config.externalCSS\" type=\"text\" ng-model=\"conversion.config.cssPath\" id=\"cssPath{{conversion.id}}\" />\r\n    </fieldset>\r\n    <div>\r\n        <div class=\"button-group\">\r\n            <input type=\"submit\" value=\"Convert this form!\" class=\"button primary\" />\r\n            <input type=\"button\" value=\"Delete\" class=\"button danger\" ng-click=\"removeConversion()\" />\r\n        </div>\r\n    </div>\r\n</form>\r\n";
 
 /***/ },
 /* 68 */
@@ -47896,7 +47922,7 @@
 /* 76 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"sidebar\">\r\n  <h1><a ui-sref=\"converter.new\" ui-sref-active=\"active\" title=\"Upload Conversions\">The<br>Auto<br>Converter</a></h1>\r\n    <ul>\r\n        <li><a ui-sref=\"converter.new\" ui-sref-active=\"active\" title=\"Upload Conversions\">Upload Conversions</a></li>\r\n        <li><a ui-sref=\"converter.config\" ui-sref-active=\"active\" title=\"Configure Conversions\">Configure Conversions <span ng-if=\"sidebar.configConversions > 0\">({{sidebar.configConversions}})</span></a></li>\r\n        <li><a ui-sref=\"converter.queue\" ui-sref-active=\"active\" title=\"Queue\">Queue</a></li>\r\n        <li><a ui-sref=\"converter.done\" ui-sref-active=\"active\" title=\"Completed Conversions\">Completed Conversions</a></li>\r\n    </ul>\r\n</nav>\r\n\r\n<main class=\"next-to-sidebar\">\r\n    <ui-view></ui-view>\r\n</main>\r\n";
+	module.exports = "<nav class=\"sidebar\">\r\n  <h1><a ui-sref=\"converter.new\" ui-sref-active=\"active\" title=\"Upload Conversions\">The<br>Auto<br>Converter</a></h1>\r\n    <ul>\r\n        <li><a ui-sref=\"converter.new\" ui-sref-active=\"active\" title=\"Upload Conversions\">Upload Conversions</a></li>\r\n        <li><a ui-sref=\"converter.config\" ui-sref-active=\"active\" title=\"Configure Conversions\">Configure Conversions <span ng-if=\"sidebar.configConversions > 0\">({{sidebar.configConversions}})</span></a></li>\r\n        <li><a ui-sref=\"converter.queue\" ui-sref-active=\"active\" title=\"Queue\">Queue <span ng-if=\"sidebar.queuedConversions > 0\">({{sidebar.queuedConversions}})</span></a></li>\r\n        <li><a ui-sref=\"converter.done\" ui-sref-active=\"active\" title=\"Completed Conversions\">Completed Conversions</a></li>\r\n    </ul>\r\n</nav>\r\n\r\n<main class=\"next-to-sidebar\">\r\n    <ui-view></ui-view>\r\n</main>\r\n";
 
 /***/ },
 /* 77 */
@@ -47914,7 +47940,7 @@
 /* 79 */
 /***/ function(module, exports) {
 
-	module.exports = "<h3>Conversions Queue</h3>\r\n";
+	module.exports = "<section class=\"feature\">\r\n    <h1>Queue</h1>\r\n\r\n</section>\r\n";
 
 /***/ },
 /* 80 */

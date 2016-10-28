@@ -66,30 +66,38 @@ converter.new = (conversion, config) => {
 					config: config
 				})
 				.then(updatedConversion => {
-					converter.queue(updatedConversion);
-					return resolve(updatedConversion);
+					converter.queue(updatedConversion)
+						.then(queuedConversion => resolve(queuedConversion))
+						.catch(err => err);
 				})
 				.catch(err => reject(err));
 	});
 };
 
 converter.queue = conversion => {
+	console.log('in queue');
 	let uploadsPath = path.join(basePath, conversion.path);
 	let queuePath = path.join(basePath, 'files', 'queue', String(conversion.id), conversion.name);
 	let iniPath = path.join(basePath, 'files', 'queue', String(conversion.id), 'config.ini');
-	mv(uploadsPath, queuePath, {mkdirp:true}, err => {
-		if (err) {
-			return console.error(err);
-		}
-		let iniString = ini.stringify(conversion.get());
-		fs.writeFile(iniPath, iniString, err => {
+	return new Promise((resolve, reject) => {
+		mv(uploadsPath, queuePath, {mkdirp:true}, err => {
 			if (err) {
-				return console.error(err);
+				return reject(err);
 			}
-			conversion.update({status: 'Queued', path: uploadsPath})
-				.catch(err => console.error(err));
+			let conversionData = conversion.get();
+			conversionData.path = queuePath;
+			let iniString = ini.stringify(conversionData);
+			fs.writeFile(iniPath, iniString, err => {
+				if (err) {
+					return reject(err);
+				}
+				conversion.update({status: 'Queued', path: queuePath})
+					.then(queuedConversion => resolve(queuedConversion))
+					.catch(err => reject(err));
+			});
 		});
 	});
+
 };
 
 

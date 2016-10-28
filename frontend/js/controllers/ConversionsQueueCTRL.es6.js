@@ -9,7 +9,7 @@ class ConversionsQueueController {
 
       this.conversionsPageLimit = 20;
 
-      this.ConversionsService.get({status: 'Uploaded', limit: this.conversionsPageLimit})
+      this.ConversionsService.get({status: 'Queued', limit: this.conversionsPageLimit})
         .then(response => this.conversions = response.data)
         .catch(this.handleError.bind(this));
 
