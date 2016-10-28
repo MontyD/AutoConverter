@@ -1,22 +1,29 @@
 'use strict';
 
 const fs = require('fs'),
-	path = require('path');
-
+	path = require('path'),
+	mv = require('mv'),
+	ncp = require('ncp').ncp,
+	ini = require('ini'),
+	models = require(path.resolve(__dirname, '..', 'models')),
+	basePath = path.resolve(__dirname, '..');
 
 const converter = {};
 
+converter.converting = false;
 
 converter.tests = {
 
 	openConverter: converterPath => {
 
-			return new Promise((resolve, reject) => {
+		return new Promise((resolve, reject) => {
 			let testPath;
 			try {
 				testPath = path.resolve(converterPath);
 			} catch(err) {
-				reject({message: `${converterPath} cannot be resolved to a valid path`});
+				reject({
+					message: `${converterPath} cannot be resolved to a valid path`
+				});
 			}
 			fs.access(testPath, err => {
 				if(!err && converterPath.indexOf('.exe') > -1) {
@@ -51,7 +58,62 @@ converter.tests = {
 			});
 		});
 	}
+};
 
+converter.new = (conversion, config) => {
+	return new Promise((resolve, reject) => {
+			conversion.update({
+					config: config
+				})
+				.then(updatedConversion => {
+					converter.queue(updatedConversion);
+					return resolve(updatedConversion);
+				})
+				.catch(err => reject(err));
+	});
+};
+
+converter.queue = conversion => {
+	let uploadsPath = path.join(basePath, conversion.path);
+	let queuePath = path.join(basePath, 'files', 'queue', String(conversion.id), conversion.name);
+	let iniPath = path.join(basePath, 'files', 'queue', String(conversion.id), 'config.ini');
+	mv(uploadsPath, queuePath, {mkdirp:true}, err => {
+		if (err) {
+			return console.error(err);
+		}
+		let iniString = ini.stringify(conversion.get());
+		fs.writeFile(iniPath, iniString, err => {
+			if (err) {
+				return console.error(err);
+			}
+			conversion.update({status: 'Queued', path: uploadsPath})
+				.catch(err => console.error(err));
+		});
+	});
+};
+
+
+converter.convert = conversion => {
+	let currentDir = path.join(basePath, conversion.path.replace(conversion.name, ''));
+	let conversionDir = path.join(basePath, 'files', 'converting');
+	ncp(currentDir, conversionDir, {clobber: true}, err => {
+		if (err) {
+			return console.error(err);
+		}
+	});
+};
+
+
+converter.isConverting = () => {
+	return new Promise((resolve, reject) => {
+		models.currentConversions.findOne({
+				where: {
+					status: 'Converting'
+				}
+			})
+			.then(doc => resolve(!!doc))
+			.catch(err => reject(err));
+	});
 };
 
 

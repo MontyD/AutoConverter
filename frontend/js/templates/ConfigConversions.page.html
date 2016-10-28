@@ -4,7 +4,7 @@
       <h3 class="empty-notification">You ain't got no forms to convert</h3>
     </article>
     <article dir-paginate="conversion in config.conversions | itemsPerPage: config.conversionsPerPage" total-items="config.totalConversions" current-page="config.currentPage">
-      <conversion-form conversion="conversion" converters="config.converters" remove-conversion="config.deleteConversion(conversion.id)"></conversion-form>
+      <conversion-form conversion="conversion" converters="config.converters" remove-conversion="config.deleteConversion(conversion.id)" convert-form="config.convertForm(conversion.id, conversion.config)"></conversion-form>
     </article>
     <div class="paginination-container">
         <dir-pagination-controls on-page-change="config.changePage(newPageNumber)"></dir-pagination-controls>

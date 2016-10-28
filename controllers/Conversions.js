@@ -66,6 +66,27 @@ router.post('/', upload.single('file'), (req, res, next) => {
     }
 });
 
+router.post('/convert/:id', (req, res, next) => {
+
+  models.currentConversions.findById(req.params.id)
+    .then(conversion => {
+      if (conversion.userId !== req.user.id && !req.user.isAdmin) {
+          let error = new Error('You cannot convert this form!');
+          error.status = 403;
+          return next(error);
+      }
+      converter.new(conversion, req.body)
+        .then(updatedConversion => {
+          res.io.emit('newCurrentConversion', updatedConversion);
+          return res.json(updatedConversion);
+        })
+        .catch(err => handleError(err, next));
+    })
+    .catch(err => handleError(err, next));
+
+});
+
+
 router.delete('/:id', (req, res, next) => {
 
     models.currentConversions.findById(req.params.id)

@@ -8,7 +8,8 @@ function ConversionForm() {
 		scope: {
 			conversion: '=',
 			converters: '=',
-			removeConversion: '&'
+			removeConversion: '&',
+			convertForm: '&',
 		},
 		link: (scope, element, attrs) => {
 			scope.conversion.config = {

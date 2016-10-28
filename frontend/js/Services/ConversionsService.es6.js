@@ -7,7 +7,7 @@ class ConversionsService {
     this.urlBase = '/Conversions/';
   }
 
-  generateQueryString(query) {
+  _generateQueryString(query) {
     let queryString = '?';
     for (let key in query) {
       if (query.hasOwnProperty(key)) {
@@ -18,12 +18,12 @@ class ConversionsService {
   }
 
   get(query) {
-    let queryString = this.generateQueryString(query);
+    let queryString = this._generateQueryString(query);
     return this.$http.get(this.urlBase + queryString);
   }
 
   count(query) {
-    let queryString = this.generateQueryString(query);
+    let queryString = this._generateQueryString(query);
     return this.$http.get(this.urlBase + 'count' + queryString);
   }
 
@@ -33,6 +33,10 @@ class ConversionsService {
 
   remove(id) {
     return this.$http.delete(this.urlBase + id);
+  }
+
+  convertForm(id, config) {
+    return this.$http.post(this.urlBase + 'convert/' + id, config);
   }
 
 
