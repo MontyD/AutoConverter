@@ -1,7 +1,7 @@
 <section class="feature light">
     <h2 class="serif">Configure your forms!</h2>
     <article ng-if="config.conversions.length === 0">
-      <h3 class="empty-notification">You ain't got no forms to convert</h3>
+      <h3 class="empty-notification">You ain't got no forms to configure (try uploading some)</h3>
     </article>
     <article dir-paginate="conversion in config.conversions | itemsPerPage: config.conversionsPerPage" total-items="config.totalConversions" current-page="config.currentPage">
       <conversion-form conversion="conversion" converters="config.converters" remove-conversion="config.deleteConversion(conversion.id)" convert-form="config.convertForm(conversion.id, conversion.config)"></conversion-form>

@@ -50,6 +50,15 @@ class ConversionsQueueController {
 			.catch(this.handleError.bind(this));
 	}
 
+	editConversion(conversion) {
+		this.ConversionsService.update(conversion.id, conversion)
+			.then(response => {
+				this.Notification('Conversion moved to configure');
+				this.changePage(this.currentPage);
+			})
+			.catch(this.handleError.bind(this));
+	}
+
 
 	changePage(number) {
 		let offset = (number - 1) * this.conversionsPerPage;

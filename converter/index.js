@@ -9,6 +9,14 @@ const fs = require('fs'),
 	models = require(path.resolve(__dirname, '..', 'models')),
 	basePath = path.resolve(__dirname, '..');
 
+function makeAbsolutePath(requestedPath) {
+	if(requestedPath.substring(0, 5) === 'files') {
+		return path.resolve(basePath, requestedPath);
+	} else {
+		return path.resolve(requestedPath);
+	}
+}
+
 const converter = {};
 
 converter.converting = false;
@@ -77,7 +85,7 @@ converter.new = (conversion, config) => {
 
 converter.queue = conversion => {
 	return new Promise((resolve, reject) => {
-		const uploadsPath = path.join(basePath, conversion.path);
+		const uploadsPath = makeAbsolutePath(conversion.path);
 		const queuedPath = path.join(basePath, 'files', 'queue', String(conversion.id), conversion.name);
 		const iniPath = path.join(basePath, 'files', 'queue', String(conversion.id), 'config.ini');
 		mv(uploadsPath, queuedPath, {
@@ -131,34 +139,48 @@ converter.convert = conversion => {
 
 converter.removeFiles = conversion => {
 	return new Promise((resolve, reject) => {
-		let absolutePath;
-		if(conversion.path.substring(0, 5) === 'files') {
-			absolutePath = path.resolve(basePath, conversion.path);
-		} else {
-			absolutePath = path.resolve(conversion.path);
+		let absolutePath = makeAbsolutePath(conversion.path);
+		switch(conversion.status) {
+		case 'Uploaded':
+			fs.unlink(absolutePath, err => {
+				if(err) {
+					return reject(err);
+				}
+				return resolve();
+			});
+			break;
+		case 'Queued':
+			absolutePath = absolutePath.replace(conversion.name, '');
+			rimraf(absolutePath, {}, err => {
+				if(err) {
+					return reject(err);
+				}
+				return resolve();
+			});
+			break;
+		default:
+			reject('Unable to delete due to conversion status');
 		}
-		switch (conversion.status) {
-			case 'Uploaded':
-				fs.unlink(absolutePath, err => {
-					if(err) {
-						return reject(err);
-					}
-					return resolve();
-				});
-				break;
-			case 'Queued':
-				absolutePath = absolutePath.replace(conversion.name, '');
-				rimraf(absolutePath, {}, err => {
-					if (err) {
-						return reject(err);
-					}
-					return resolve();
-				});
-				break;
-			default:
-				reject('Unable to delete due to conversion status');
-		}
+	});
+};
 
+converter.moveFromQueueToUploads = conversion => {
+	return new Promise((resolve, reject) => {
+		let absolutePath = makeAbsolutePath(conversion.path);
+		let uploadsPath = path.join(basePath, 'files', 'uploads', String(conversion.id));
+		mv(absolutePath, uploadsPath, {
+			mkdirp: true
+		}, err => {
+			if(err) {
+				return reject(err);
+			}
+			rimraf(absolutePath.replace(conversion.name, ''), {}, err => {
+				if(err) {
+					return reject(err);
+				}
+				return resolve(uploadsPath);
+			});
+		});
 	});
 };
 

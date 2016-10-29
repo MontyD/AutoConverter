@@ -45922,6 +45922,12 @@
 				_this.scope.$apply();
 			}).bind(this));
 
+			this.SocketService.on('reconfigureConversion', (function (data) {
+				_this.configConversions++;
+				_this.queuedConversions--;
+				_this.scope.$apply();
+			}).bind(this));
+
 			document.body.classList.add('loaded');
 		}
 
@@ -46154,9 +46160,19 @@
 				})['catch'](this.handleError.bind(this));
 			}
 		}, {
+			key: 'editConversion',
+			value: function editConversion(conversion) {
+				var _this3 = this;
+
+				this.ConversionsService.update(conversion.id, conversion).then(function (response) {
+					_this3.Notification('Conversion moved to configure');
+					_this3.changePage(_this3.currentPage);
+				})['catch'](this.handleError.bind(this));
+			}
+		}, {
 			key: 'changePage',
 			value: function changePage(number) {
-				var _this3 = this;
+				var _this4 = this;
 
 				var offset = (number - 1) * this.conversionsPerPage;
 				this.ConversionsService.get({
@@ -46164,9 +46180,9 @@
 					offset: offset,
 					limit: this.conversionsPerPage
 				}).then(function (result) {
-					return _this3.conversions = result.data;
+					return _this4.conversions = result.data;
 				})['catch'](function (err) {
-					return _this3.handleError.bind(_this3);
+					return _this4.handleError.bind(_this4);
 				});
 			}
 		}, {
@@ -46451,6 +46467,11 @@
 	      return this.$http.post(this.urlBase, newConverter);
 	    }
 	  }, {
+	    key: 'update',
+	    value: function update(id, conversion) {
+	      return this.$http.put(this.urlBase + id, conversion);
+	    }
+	  }, {
 	    key: 'remove',
 	    value: function remove(id) {
 	      return this.$http['delete'](this.urlBase + id);
@@ -46597,7 +46618,11 @@
 				edit: '&'
 			},
 			link: function link(scope, element, attrs) {
-				console.log(scope.owned);
+
+				scope.sendToConfig = function () {
+					scope.conversion.status = 'Uploaded';
+					scope.edit();
+				};
 			}
 		};
 	}
@@ -46609,7 +46634,7 @@
 /* 69 */
 /***/ function(module, exports) {
 
-	module.exports = "<article class=\"queue-item\" ng-class=\"generateClass()\">\r\n    <div class=\"halves two left-aligned vertical-middle\">\r\n        <strong>{{conversion.name}}</strong> - {{conversion.username}}\r\n    </div>\r\n    <div ng-if=\"owned\" class=\"halves right-aligned vertical-middle\">\r\n        <div class=\"button-group\">\r\n            <button class=\"button secondary\">Reconfigure</button>\r\n            <button class=\"button danger\" ng-click=\"delete()\">Remove</button>\r\n        </div>\r\n    </div>\r\n</article>\r\n";
+	module.exports = "<article class=\"queue-item\" ng-class=\"generateClass()\">\r\n    <div class=\"halves two left-aligned vertical-middle\">\r\n        <strong>{{conversion.name}}</strong> - {{conversion.username}}\r\n    </div>\r\n    <div ng-if=\"owned\" class=\"halves right-aligned vertical-middle\">\r\n        <div class=\"button-group\">\r\n            <button class=\"button secondary\" ng-click=\"sendToConfig()\">Reconfigure</button>\r\n            <button class=\"button danger\" ng-click=\"delete()\">Remove</button>\r\n        </div>\r\n    </div>\r\n</article>\r\n";
 
 /***/ },
 /* 70 */
@@ -48038,13 +48063,13 @@
 /* 80 */
 /***/ function(module, exports) {
 
-	module.exports = "<section class=\"feature light\">\r\n    <h2 class=\"serif\">Configure your forms!</h2>\r\n    <article ng-if=\"config.conversions.length === 0\">\r\n      <h3 class=\"empty-notification\">You ain't got no forms to convert</h3>\r\n    </article>\r\n    <article dir-paginate=\"conversion in config.conversions | itemsPerPage: config.conversionsPerPage\" total-items=\"config.totalConversions\" current-page=\"config.currentPage\">\r\n      <conversion-form conversion=\"conversion\" converters=\"config.converters\" remove-conversion=\"config.deleteConversion(conversion.id)\" convert-form=\"config.convertForm(conversion.id, conversion.config)\"></conversion-form>\r\n    </article>\r\n    <div class=\"paginination-container\">\r\n        <dir-pagination-controls on-page-change=\"config.changePage(newPageNumber)\"></dir-pagination-controls>\r\n    </div>\r\n</section>\r\n";
+	module.exports = "<section class=\"feature light\">\r\n    <h2 class=\"serif\">Configure your forms!</h2>\r\n    <article ng-if=\"config.conversions.length === 0\">\r\n      <h3 class=\"empty-notification\">You ain't got no forms to configure (try uploading some)</h3>\r\n    </article>\r\n    <article dir-paginate=\"conversion in config.conversions | itemsPerPage: config.conversionsPerPage\" total-items=\"config.totalConversions\" current-page=\"config.currentPage\">\r\n      <conversion-form conversion=\"conversion\" converters=\"config.converters\" remove-conversion=\"config.deleteConversion(conversion.id)\" convert-form=\"config.convertForm(conversion.id, conversion.config)\"></conversion-form>\r\n    </article>\r\n    <div class=\"paginination-container\">\r\n        <dir-pagination-controls on-page-change=\"config.changePage(newPageNumber)\"></dir-pagination-controls>\r\n    </div>\r\n</section>\r\n";
 
 /***/ },
 /* 81 */
 /***/ function(module, exports) {
 
-	module.exports = "<section class=\"feature light\">\r\n    <h2 class=\"serif\">Queue</h2>\r\n    <article ng-if=\"queue.conversions.length === 0\">\r\n      <h3 class=\"empty-notification\">No forms converting</h3>\r\n    </article>\r\n    <article dir-paginate=\"conversion in queue.conversions | itemsPerPage: queue.conversionsPerPage\" total-items=\"queue.totalConversions\" current-page=\"queue.currentPage\">\r\n      <queued-conversion conversion=\"conversion\" owned=\"{{!!(conversion.userId === queue.user.id || queue.user.isAdmin)}}\" edit=\"queue.editConversion(conversion.id)\" delete=\"queue.deleteConversion(conversion.id)\"></queued-conversion>\r\n    </article>\r\n    <div class=\"paginination-container\">\r\n        <dir-pagination-controls on-page-change=\"queue.changePage(newPageNumber)\"></dir-pagination-controls>\r\n    </div>\r\n</section>\r\n";
+	module.exports = "<section class=\"feature light\">\r\n    <h2 class=\"serif\">Queue</h2>\r\n    <article ng-if=\"queue.conversions.length === 0\">\r\n      <h3 class=\"empty-notification\">No forms converting</h3>\r\n    </article>\r\n    <article dir-paginate=\"conversion in queue.conversions | itemsPerPage: queue.conversionsPerPage\" total-items=\"queue.totalConversions\" current-page=\"queue.currentPage\">\r\n      <queued-conversion conversion=\"conversion\" owned=\"{{!!(conversion.userId === queue.user.id || queue.user.isAdmin)}}\" edit=\"queue.editConversion(conversion)\" delete=\"queue.deleteConversion(conversion.id)\"></queued-conversion>\r\n    </article>\r\n    <div class=\"paginination-container\">\r\n        <dir-pagination-controls on-page-change=\"queue.changePage(newPageNumber)\"></dir-pagination-controls>\r\n    </div>\r\n</section>\r\n";
 
 /***/ },
 /* 82 */

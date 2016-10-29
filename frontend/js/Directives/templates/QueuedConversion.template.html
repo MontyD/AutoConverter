@@ -4,7 +4,7 @@
     </div>
     <div ng-if="owned" class="halves right-aligned vertical-middle">
         <div class="button-group">
-            <button class="button secondary">Reconfigure</button>
+            <button class="button secondary" ng-click="sendToConfig()">Reconfigure</button>
             <button class="button danger" ng-click="delete()">Remove</button>
         </div>
     </div>

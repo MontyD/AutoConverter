@@ -68,6 +68,12 @@ class SidebarController {
 			this.scope.$apply();
 		}.bind(this));
 
+		this.SocketService.on('reconfigureConversion', data => {
+			this.configConversions++;
+			this.queuedConversions--;
+			this.scope.$apply();
+		}.bind(this));
+
 		document.body.classList.add('loaded');
 	}
 

@@ -12,7 +12,12 @@ function ConversionForm() {
 			edit: '&',
 		},
 		link: (scope, element, attrs) => {
-			console.log(scope.owned);
+
+			scope.sendToConfig = () => {
+				scope.conversion.status = 'Uploaded';
+				scope.edit();
+			};
+
 		}
 	};
 }

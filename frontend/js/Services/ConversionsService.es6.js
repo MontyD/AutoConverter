@@ -31,6 +31,10 @@ class ConversionsService {
     return this.$http.post(this.urlBase, newConverter);
   }
 
+  update(id, conversion) {
+    return this.$http.put(this.urlBase + id, conversion);
+  }
+
   remove(id) {
     return this.$http.delete(this.urlBase + id);
   }

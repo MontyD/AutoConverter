@@ -78,6 +78,37 @@ router.post('/', upload.single('file'), (req, res, next) => {
 	}
 });
 
+router.put('/:id', (req, res, next) => {
+
+	models.currentConversions.findById(req.params.id)
+		.then(conversion => {
+			if(conversion.userId !== req.user.id && !req.user.isAdmin) {
+				let error = new Error('You cannot update this form!');
+				error.status = 403;
+				return next(error);
+			}
+			if(conversion.status === 'Queued' && req.body.status === 'Uploaded') {
+				converter.moveFromQueueToUploads(conversion)
+					.then(newPath => {
+						let updatedData = req.body;
+						updatedData.path = newPath;
+						conversion.update(updatedData)
+							.then(updatedConversion => {
+								res.io.emit('reconfigureConversion', updatedConversion);
+								res.json(updatedConversion);
+							})
+							.catch(err => handleError(err, next));
+					})
+					.catch(err => handleError(err, next));
+			} else {
+				conversion.update(req.body)
+					.then(updatedConversion => res.json(updatedConversion))
+					.catch(err => handleError(err, next));
+			}
+		})
+		.catch(err => handleError(err, next));
+});
+
 router.post('/convert/:id', (req, res, next) => {
 
 	models.currentConversions.findById(req.params.id)
@@ -89,7 +120,6 @@ router.post('/convert/:id', (req, res, next) => {
 			}
 			converter.new(conversion, req.body)
 				.then(updatedConversion => {
-					console.log('in resolve');
 					res.io.emit('newQueuedConversion', updatedConversion);
 					return res.json(updatedConversion);
 				})
