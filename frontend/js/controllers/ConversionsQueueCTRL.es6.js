@@ -2,10 +2,10 @@
 
 class ConversionsQueueController {
 
-	constructor(ConversionsService, Notification) {
+	constructor(ConversionsService, UsersService, Notification) {
 		this.ConversionsService = ConversionsService;
     this.Notification = Notification;
-
+		this.UsersService = UsersService;
 
 		this.conversions = [];
 
@@ -14,6 +14,17 @@ class ConversionsQueueController {
 		this.totalConversions = 0;
 
 		this.currentPage = 1;
+
+		this.user = {};
+
+		this.UsersService.getInfo()
+			.then(response => {
+				this.user = {
+					id: response.data.userId,
+					isAdmin: response.data.isAdmin,
+				};
+			})
+			.catch(err => this.handleError.bind(this));
 
 		this.ConversionsService.get({
 				status: 'allQueued',
@@ -27,6 +38,15 @@ class ConversionsQueueController {
 				limit: this.conversionsPerPage
 			})
 			.then(response => this.totalConversions = response.data)
+			.catch(this.handleError.bind(this));
+	}
+
+	deleteConversion(id) {
+		this.ConversionsService.remove(id)
+			.then(response => {
+				this.Notification('Conversion removed');
+				this.changePage(this.currentPage);
+			})
 			.catch(this.handleError.bind(this));
 	}
 
@@ -56,6 +76,6 @@ class ConversionsQueueController {
 
 }
 
-ConversionsQueueController.$inject = ['ConversionsService', 'Notification'];
+ConversionsQueueController.$inject = ['ConversionsService', 'UsersService', 'Notification'];
 
 export default ConversionsQueueController;

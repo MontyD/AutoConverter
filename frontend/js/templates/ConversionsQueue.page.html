@@ -1,7 +1,10 @@
 <section class="feature light">
     <h2 class="serif">Queue</h2>
+    <article ng-if="queue.conversions.length === 0">
+      <h3 class="empty-notification">No forms converting</h3>
+    </article>
     <article dir-paginate="conversion in queue.conversions | itemsPerPage: queue.conversionsPerPage" total-items="queue.totalConversions" current-page="queue.currentPage">
-      <queued-conversion conversion="conversion" owned="{{conversion.id === queue.userId}}" edit="queue.editConversion(conversion.id)" delete="queue.deleteConversion(conversion.id)"></queued-conversion>
+      <queued-conversion conversion="conversion" owned="{{!!(conversion.userId === queue.user.id || queue.user.isAdmin)}}" edit="queue.editConversion(conversion.id)" delete="queue.deleteConversion(conversion.id)"></queued-conversion>
     </article>
     <div class="paginination-container">
         <dir-pagination-controls on-page-change="queue.changePage(newPageNumber)"></dir-pagination-controls>

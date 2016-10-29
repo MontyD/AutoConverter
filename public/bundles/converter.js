@@ -45911,6 +45911,11 @@
 				_this.scope.$apply();
 			}).bind(this));
 
+			this.SocketService.on('deletedQueued', (function (data) {
+				_this.queuedConversions--;
+				_this.scope.$apply();
+			}).bind(this));
+
 			this.SocketService.on('newQueuedConversion', (function (data) {
 				_this.configConversions--;
 				_this.queuedConversions++;
@@ -46095,13 +46100,14 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var ConversionsQueueController = (function () {
-		function ConversionsQueueController(ConversionsService, Notification) {
+		function ConversionsQueueController(ConversionsService, UsersService, Notification) {
 			var _this = this;
 
 			_classCallCheck(this, ConversionsQueueController);
 
 			this.ConversionsService = ConversionsService;
 			this.Notification = Notification;
+			this.UsersService = UsersService;
 
 			this.conversions = [];
 
@@ -46110,6 +46116,17 @@
 			this.totalConversions = 0;
 
 			this.currentPage = 1;
+
+			this.user = {};
+
+			this.UsersService.getInfo().then(function (response) {
+				_this.user = {
+					id: response.data.userId,
+					isAdmin: response.data.isAdmin
+				};
+			})['catch'](function (err) {
+				return _this.handleError.bind(_this);
+			});
 
 			this.ConversionsService.get({
 				status: 'allQueued',
@@ -46127,9 +46144,19 @@
 		}
 
 		_createClass(ConversionsQueueController, [{
+			key: 'deleteConversion',
+			value: function deleteConversion(id) {
+				var _this2 = this;
+
+				this.ConversionsService.remove(id).then(function (response) {
+					_this2.Notification('Conversion removed');
+					_this2.changePage(_this2.currentPage);
+				})['catch'](this.handleError.bind(this));
+			}
+		}, {
 			key: 'changePage',
 			value: function changePage(number) {
-				var _this2 = this;
+				var _this3 = this;
 
 				var offset = (number - 1) * this.conversionsPerPage;
 				this.ConversionsService.get({
@@ -46137,9 +46164,9 @@
 					offset: offset,
 					limit: this.conversionsPerPage
 				}).then(function (result) {
-					return _this2.conversions = result.data;
+					return _this3.conversions = result.data;
 				})['catch'](function (err) {
-					return _this2.handleError.bind(_this2);
+					return _this3.handleError.bind(_this3);
 				});
 			}
 		}, {
@@ -46156,7 +46183,7 @@
 		return ConversionsQueueController;
 	})();
 
-	ConversionsQueueController.$inject = ['ConversionsService', 'Notification'];
+	ConversionsQueueController.$inject = ['ConversionsService', 'UsersService', 'Notification'];
 
 	exports['default'] = ConversionsQueueController;
 	module.exports = exports['default'];
@@ -46582,7 +46609,7 @@
 /* 69 */
 /***/ function(module, exports) {
 
-	module.exports = "<article class=\"queue-item\" ng-class=\"generateClass()\">\r\n    <div class=\"halves two left-aligned vertical-middle\">\r\n        <strong>{{conversion.name}}</strong> - {{conversion.username}}\r\n    </div>\r\n    <div class=\"halves right-aligned vertical-middle\">\r\n        <div class=\"button-group\">\r\n            <button class=\"button secondary\">Reconfigure</button>\r\n            <button class=\"button danger\">Remove</button>\r\n        </div>\r\n    </div>\r\n</article>\r\n";
+	module.exports = "<article class=\"queue-item\" ng-class=\"generateClass()\">\r\n    <div class=\"halves two left-aligned vertical-middle\">\r\n        <strong>{{conversion.name}}</strong> - {{conversion.username}}\r\n    </div>\r\n    <div ng-if=\"owned\" class=\"halves right-aligned vertical-middle\">\r\n        <div class=\"button-group\">\r\n            <button class=\"button secondary\">Reconfigure</button>\r\n            <button class=\"button danger\" ng-click=\"delete()\">Remove</button>\r\n        </div>\r\n    </div>\r\n</article>\r\n";
 
 /***/ },
 /* 70 */
@@ -48017,7 +48044,7 @@
 /* 81 */
 /***/ function(module, exports) {
 
-	module.exports = "<section class=\"feature light\">\r\n    <h2 class=\"serif\">Queue</h2>\r\n    <article dir-paginate=\"conversion in queue.conversions | itemsPerPage: queue.conversionsPerPage\" total-items=\"queue.totalConversions\" current-page=\"queue.currentPage\">\r\n      <queued-conversion conversion=\"conversion\" owned=\"{{conversion.id === queue.userId}}\" edit=\"queue.editConversion(conversion.id)\" delete=\"queue.deleteConversion(conversion.id)\"></queued-conversion>\r\n    </article>\r\n    <div class=\"paginination-container\">\r\n        <dir-pagination-controls on-page-change=\"queue.changePage(newPageNumber)\"></dir-pagination-controls>\r\n    </div>\r\n</section>\r\n";
+	module.exports = "<section class=\"feature light\">\r\n    <h2 class=\"serif\">Queue</h2>\r\n    <article ng-if=\"queue.conversions.length === 0\">\r\n      <h3 class=\"empty-notification\">No forms converting</h3>\r\n    </article>\r\n    <article dir-paginate=\"conversion in queue.conversions | itemsPerPage: queue.conversionsPerPage\" total-items=\"queue.totalConversions\" current-page=\"queue.currentPage\">\r\n      <queued-conversion conversion=\"conversion\" owned=\"{{!!(conversion.userId === queue.user.id || queue.user.isAdmin)}}\" edit=\"queue.editConversion(conversion.id)\" delete=\"queue.deleteConversion(conversion.id)\"></queued-conversion>\r\n    </article>\r\n    <div class=\"paginination-container\">\r\n        <dir-pagination-controls on-page-change=\"queue.changePage(newPageNumber)\"></dir-pagination-controls>\r\n    </div>\r\n</section>\r\n";
 
 /***/ },
 /* 82 */

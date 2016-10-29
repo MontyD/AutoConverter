@@ -11,30 +11,34 @@ const express = require('express'),
 		dest: 'files/uploads/'
 	});
 
-  function constructQueryFromRequest(query, userId, count) {
-    let returnValue = {};
-    returnValue.limit = count ? undefined : query.limit;
-    returnValue.offset = count ? undefined : query.offset;
-    returnValue.where = query;
-    returnValue.where.userId = userId;
-    returnValue.order = ['createdAt'];
-    delete query.limit;
-    delete query.offset;
-    if(query.status === 'allQueued') {
-      returnValue.where = {
-        $or: [
-          {status: 'Queued'},
-          {status: 'Converting'}
+function constructQueryFromRequest(query, userId, count) {
+	let returnValue = {};
+	returnValue.limit = count ? undefined : query.limit;
+	returnValue.offset = count ? undefined : query.offset;
+	returnValue.where = query;
+	returnValue.where.userId = userId;
+	returnValue.order = ['createdAt'];
+	delete query.limit;
+	delete query.offset;
+	if(query.status === 'allQueued') {
+		returnValue.where = {
+			$or: [
+				{
+					status: 'Queued'
+				},
+				{
+					status: 'Converting'
+				}
         ]
-      };
-    }
-    return returnValue;
-  }
+		};
+	}
+	return returnValue;
+}
 
 
 // Get all conversions by query
 router.get('/', (req, res, next) => {
-let query = constructQueryFromRequest(req.query, req.user.id);
+	let query = constructQueryFromRequest(req.query, req.user.id);
 	models.currentConversions.findAll(query)
 		.then(conversions => res.json(conversions))
 		.catch(err => handleError(err, next));
@@ -42,7 +46,7 @@ let query = constructQueryFromRequest(req.query, req.user.id);
 
 // Get count by query
 router.get('/count', (req, res, next) => {
-let query = constructQueryFromRequest(req.query, req.user.id, true);
+	let query = constructQueryFromRequest(req.query, req.user.id, true);
 	models.currentConversions.count(query)
 		.then(count => res.json(count))
 		.catch(err => handleError(err, next));
@@ -64,7 +68,7 @@ router.post('/', upload.single('file'), (req, res, next) => {
 				path: req.file.path,
 				status: 'Uploaded',
 				userId: req.user.id,
-        username: req.user.name
+				username: req.user.name
 			})
 			.then(conversion => {
 				res.io.emit('newUploaded', conversion);
@@ -85,7 +89,7 @@ router.post('/convert/:id', (req, res, next) => {
 			}
 			converter.new(conversion, req.body)
 				.then(updatedConversion => {
-          console.log('in resolve');
+					console.log('in resolve');
 					res.io.emit('newQueuedConversion', updatedConversion);
 					return res.json(updatedConversion);
 				})
@@ -107,18 +111,19 @@ router.delete('/:id', (req, res, next) => {
 			}
 			conversion.destroy()
 				.then(() => {
-					fs.unlink(path.resolve(__dirname, '..', conversion.path), err => {
-						if(err) {
-							return handleError(err, next);
-						}
-						res.io.emit('deletedUploaded', conversion);
-						res.sendStatus(200);
-					});
+					converter.removeFiles(conversion)
+						.then(() => {
+							res.io.emit('deleted' + conversion.status, conversion);
+							return res.sendStatus(200);
+						})
+						.catch(err => handleError(err, next));
 				})
 				.catch(err => handleError(err, next));
 		})
 		.catch(err => handleError(err, next));
+
 });
+
 
 
 

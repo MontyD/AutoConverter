@@ -57,6 +57,11 @@ class SidebarController {
 			this.scope.$apply();
 		}.bind(this));
 
+		this.SocketService.on('deletedQueued', data => {
+			this.queuedConversions--;
+			this.scope.$apply();
+		}.bind(this));
+
 		this.SocketService.on('newQueuedConversion', data => {
 			this.configConversions--;
 			this.queuedConversions++;

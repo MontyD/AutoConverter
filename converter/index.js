@@ -4,6 +4,7 @@ const fs = require('fs'),
 	path = require('path'),
 	mv = require('mv'),
 	ncp = require('ncp').ncp,
+	rimraf = require('rimraf'),
 	ini = require('ini'),
 	models = require(path.resolve(__dirname, '..', 'models')),
 	basePath = path.resolve(__dirname, '..');
@@ -127,6 +128,40 @@ converter.convert = conversion => {
 		}
 	});
 };
+
+converter.removeFiles = conversion => {
+	return new Promise((resolve, reject) => {
+		let absolutePath;
+		if(conversion.path.substring(0, 5) === 'files') {
+			absolutePath = path.resolve(basePath, conversion.path);
+		} else {
+			absolutePath = path.resolve(conversion.path);
+		}
+		switch (conversion.status) {
+			case 'Uploaded':
+				fs.unlink(absolutePath, err => {
+					if(err) {
+						return reject(err);
+					}
+					return resolve();
+				});
+				break;
+			case 'Queued':
+				absolutePath = absolutePath.replace(conversion.name, '');
+				rimraf(absolutePath, {}, err => {
+					if (err) {
+						return reject(err);
+					}
+					return resolve();
+				});
+				break;
+			default:
+				reject('Unable to delete due to conversion status');
+		}
+
+	});
+};
+
 
 
 converter.isConverting = () => {

@@ -2,10 +2,10 @@
     <div class="halves two left-aligned vertical-middle">
         <strong>{{conversion.name}}</strong> - {{conversion.username}}
     </div>
-    <div class="halves right-aligned vertical-middle">
+    <div ng-if="owned" class="halves right-aligned vertical-middle">
         <div class="button-group">
             <button class="button secondary">Reconfigure</button>
-            <button class="button danger">Remove</button>
+            <button class="button danger" ng-click="delete()">Remove</button>
         </div>
     </div>
 </article>
